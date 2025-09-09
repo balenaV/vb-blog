@@ -1,0 +1,26 @@
+{
+  "name": "victor/blog",
+  "description": "Blog da Infinit Soluções",
+  "type": "project",
+  "autoload": {
+    "psr-4": {
+      "infinit\\": "infinit/"
+    },
+    "files": [
+      "infinit\\configuracao.php",
+      "infinit\\Nucleo\\Helpers.php"
+    ]
+  },
+  "authors": [
+    {
+      "name": "Victor Balena",
+      "email": "victorbalenaes@gmail.com"
+    }
+  ],
+  "minimum-stability": "dev",
+  "require": {
+    "php": ">=8.0",
+    "pecee/simple-router": "dev-master",
+    "jenssegers/blade": "^1.4"
+  }
+}
