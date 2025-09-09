@@ -1,0 +1,15 @@
+# Arquivos temporários e cache do sistema
+/vendor/
+/node_modules/
+/bootstrap/cache/
+/storage/
+/.env
+*.log
+
+# IDE
+.vscode/
+.idea/
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
