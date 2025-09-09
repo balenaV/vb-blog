@@ -1,15 +1,13 @@
-# Arquivos temporários e cache do sistema
+# Pastas que não precisam ser versionadas
 /vendor/
-/node_modules/
-/bootstrap/cache/
-/storage/
-/.env
+cache/
+node_modules/
+
+# Arquivos de configuração sensíveis
+.env
 *.log
+composer.lock
 
-# IDE
-.vscode/
-.idea/
-
-# Sistema operacional
+# Arquivos do sistema
 .DS_Store
 Thumbs.db
