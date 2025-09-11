@@ -16,10 +16,11 @@
                     class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
                     <use xlink:href="#bootstrap"></use>
                 </svg> </a>
-            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                {{-- <li>
-                    <img class="img-fluid w-25" src="layouts\site\assets\img\logo-blog-vb.png" alt="Logo">
-                </li> --}}
+            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 gap-2">
+                <li>
+                    <img class="img-fluid  img-logo"
+                        src="{{ app\Core\Helpers::url('/layouts/site/assets/img/logo-blog-vb.png') }}" alt="Logo">
+                </li>
                 <li><a href="{{ app\Core\Helpers::url('') }}"
                         class="nav-link px-2 text-light text-decoration-underline-hover">Home</a>
                 </li>

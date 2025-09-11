@@ -2,8 +2,9 @@
 <div class="sidebar">
     <div class="sidebarLogo">
         <a href="{{ app\Core\Helpers::url('admin/dashboard') }}" data-bs-toggle="tooltip" title="Página Inicial">
-            <div class="logo">
-                <img src="../../assets/img/logo-blog-vb.png" alt=" {{ constant('SITE_NOME') }}" />
+            <div class=" img-fluid  img-logo">
+                <img src="{{ app\Core\Helpers::url('/layouts/admin/assets/img/logo-blog-vb.png') }}"
+                    alt=" {{ constant('SITE_NOME') }}" />
             </div>
         </a>
     </div>
