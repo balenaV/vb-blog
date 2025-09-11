@@ -28,7 +28,7 @@
                                             {{ app\Core\Helpers::resumirTexto($post->texto, 150) }}
                                         </p>
                                         <div class="d-flex justify-content-end">
-                                            <a class="badge text-info text-decoration-none"
+                                            <a class="badge text-info text-decoration-none text-danger"
                                                 href="{{ app\Core\Helpers::url('post/' . $post->id) }}">
                                                 Ver post ->
                                             </a>
