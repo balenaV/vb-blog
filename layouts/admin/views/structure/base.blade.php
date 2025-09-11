@@ -10,21 +10,17 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ app\Core\Helpers::url('/layouts/assets/css/style.css') }}">
-    <link rel="stylesheet" href="{{ app\Core\Helpers::url('/layouts/site/assets/css/site.css') }}">
+    <link rel="stylesheet" href="{{ app\Core\Helpers::url('/layouts/admin/assets/css/admin.css') }}">
+    <link rel="shortcut icon" href="../templates/admin/assets/img/favicon.ico" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.2.0/css/all.css">
 
-
-
-    <title> @yield('title', 'Meu Site') </title>
+    <title> @yield('title', 'Painel Administrativo') </title>
 </head>
 
 <body>
-    @include('structure.topo')
 
-    <main class="container mt-4">
-        @yield('content')
-    </main>
 
-    @include('structure.rodape')
+    <div class="container-fluid">@yield('body')</div>
 
     {{-- JQuery --}}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -34,7 +30,7 @@
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
     </script>
     <script src="{{ app\Core\Helpers::url('/layouts/assets/js/scripts.js') }}"></script>
-    <script src="{{ app\Core\Helpers::url('/layouts/site/assets/js/site.js') }}"></script>
+    <script src="{{ app\Core\Helpers::url('/layouts/site/assets/js/admin.js') }}"></script>
 
 
 </body>

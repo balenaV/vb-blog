@@ -1,14 +1,14 @@
 {
   "name": "victor/blog",
-  "description": "Blog da Infinit Soluções",
+  "description": "Blog de Valorant Brasileiro",
   "type": "project",
   "autoload": {
     "psr-4": {
-      "infinit\\": "infinit/"
+      "app\\": "app/"
     },
     "files": [
-      "infinit\\configuracao.php",
-      "infinit\\Nucleo\\Helpers.php"
+      "app\\configuracao.php",
+      "app\\Core\\Helpers.php"
     ]
   },
   "authors": [

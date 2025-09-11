@@ -16,7 +16,7 @@
 <ul class="list-group list-group-flush">
 
     @foreach ($categorias as $categoria)
-        <a href="{{ infinit\Nucleo\Helpers::url('categoria/' . $categoria->id) }}"
+        <a href="{{ app\Core\Helpers::url('categoria/' . $categoria->id) }}"
             class="list-group-item list-group-item-flush">{{ $categoria->titulo }}</a>
     @endforeach
 

@@ -1,6 +1,5 @@
 <?php
-
-namespace infinit\Nucleo;
+namespace app\Core;
 
 class Helpers
 {
@@ -89,7 +88,7 @@ class Helpers
     public static function validaUrl(string $url): bool
     {
         return strlen($url) >= 10
-            && str_contains($url, '.')
+        && str_contains($url, '.')
             && (str_starts_with($url, 'http://') || str_starts_with($url, 'https://'));
     }
 

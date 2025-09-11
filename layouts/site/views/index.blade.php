@@ -21,11 +21,11 @@
                                 <div class="card-body">
                                     <h5 class="card-title mb-2">{{ $post->titulo }}</h5>
                                     <p class="card-text mb-3">
-                                        {{ infinit\Nucleo\Helpers::resumirTexto($post->texto, 150) }}
+                                        {{ app\Core\Helpers::resumirTexto($post->texto, 150) }}
                                     </p>
                                     <div class="d-flex justify-content-end">
                                         <a class="badge link-danger link-hover-warning text-decoration-none"
-                                            href="{{ infinit\Nucleo\Helpers::url('post/' . $post->id) }}">
+                                            href="{{ app\Core\Helpers::url('post/' . $post->id) }}">
                                             Ver post ->
                                         </a>
                                     </div>

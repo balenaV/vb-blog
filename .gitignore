@@ -6,7 +6,6 @@ node_modules/
 # Arquivos de configuração sensíveis
 .env
 *.log
-composer.lock
 
 # Arquivos do sistema
 .DS_Store

@@ -1,6 +1,5 @@
 <?php
-
-namespace infinit\Suporte;
+namespace app\Support;
 
 use Jenssegers\Blade\Blade;
 
@@ -11,7 +10,7 @@ class Template
 
     public function __construct(string $diretorioViews, string $diretorioCache)
     {
-        require_once 'infinit\Nucleo\Helpers.php';
+        require_once 'app\Core\Helpers.php';
         // Limpa o cache antes de cada renderização (não recomendado em produção)
         array_map('unlink', glob($diretorioCache . '/*'));
 
