@@ -1,14 +1,19 @@
 @extends('structure.base')
 
-
 @section('body')
-    <div class="row">
-        <div class="col-lg-3">
-            @include('structure.menu')
-
-        </div>
-        <div class="col-lg-9">
-            <h1>BEM-VINDO AO DASHBOARD</h1>
-        </div>
+    @include('structure.menu')
+    <div class="conteudo">
+        @include('structure.topo')
+        <main>
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-white border-0">
+                    <h5 class="card-title">Dashboard</h5>
+                </div>
+                <div class="card-body">
+                    Conteúdo em desenvolvimento
+                </div>
+            </div>
+        </main>
+        @include('structure.rodape')
     </div>
 @endsection
