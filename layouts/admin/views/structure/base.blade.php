@@ -18,13 +18,11 @@
 </head>
 
 <body>
-    @include('structure.topo')
 
     <main class="container mt-4">
         @yield('content')
     </main>
 
-    @include('structure.rodape')
 
     {{-- JQuery --}}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>

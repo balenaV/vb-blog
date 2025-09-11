@@ -2,6 +2,7 @@
 
 use app\Core\Helpers;
 use Pecee\SimpleRouter\SimpleRouter;
+
 try {
     SimpleRouter::setDefaultNamespace("app\Controller");
 
@@ -15,6 +16,8 @@ try {
 
     SimpleRouter::get(URL_BASE . "/404", "SiteController@erro404");
 
+    SimpleRouter::group(['namespace' => 'Admin'], function () {});
+
     SimpleRouter::start();
 } catch (Pecee\SimpleRouter\Exceptions\NotFoundHttpException $ex) {
 
@@ -23,5 +26,4 @@ try {
     } else {
         Helpers::redirecionar('404');
     }
-
 }
