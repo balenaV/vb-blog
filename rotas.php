@@ -16,7 +16,9 @@ try {
 
     SimpleRouter::get(URL_BASE . "/404", "SiteController@erro404");
 
-    SimpleRouter::group(['namespace' => 'Admin'], function () {});
+    SimpleRouter::group(['namespace' => 'Admin'], function () {
+        SimpleRouter::get(URL_ADMIN . '/dashboard', 'AdminDashboardController@dashboard');
+    });
 
     SimpleRouter::start();
 } catch (Pecee\SimpleRouter\Exceptions\NotFoundHttpException $ex) {

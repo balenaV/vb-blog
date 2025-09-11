@@ -19,3 +19,4 @@ define('URL_PRODUCAO', 'http://valorantbrasilblog.com.br');
 define('URL_DESENVOLVIMENTO', 'http://127.0.0.1');
 
 define('URL_BASE', '/blog');
+define('URL_ADMIN', '/blog/admin');

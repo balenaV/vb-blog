@@ -19,9 +19,7 @@
 
 <body>
 
-    <main class="container mt-4">
-        @yield('content')
-    </main>
+    <div class="container-fluid">@yield('body')</div>
 
 
     {{-- JQuery --}}
