@@ -1,26 +1,27 @@
 <?php
 
-use infinit\Nucleo\Helpers;
+use app\Core\Helpers;
 use Pecee\SimpleRouter\SimpleRouter;
-
 try {
-    SimpleRouter::setDefaultNamespace("infinit\Controlador");
+    SimpleRouter::setDefaultNamespace("app\Controller");
 
-    SimpleRouter::get(URL_BASE, "SiteControlador@index");
+    SimpleRouter::get(URL_BASE, "SiteController@index");
 
-    SimpleRouter::get(URL_BASE . "/sobre-nos", "SiteControlador@sobre");
-    SimpleRouter::get(URL_BASE . "/post/{id}", "SiteControlador@post");
-    SimpleRouter::get(URL_BASE . "/categoria/{id}", "SiteControlador@categoria");
-    SimpleRouter::post(URL_BASE . "/buscar", "SiteControlador@buscar");
-    SimpleRouter::post(URL_BASE . "/busca", "SiteControlador@busca");
+    SimpleRouter::get(URL_BASE . "/sobre-nos", "SiteController@sobre");
+    SimpleRouter::get(URL_BASE . "/post/{id}", "SiteController@post");
+    SimpleRouter::get(URL_BASE . "/categoria/{id}", "SiteController@categoria");
+    SimpleRouter::post(URL_BASE . "/buscar", "SiteController@buscar");
+    SimpleRouter::post(URL_BASE . "/busca", "SiteController@busca");
 
-    SimpleRouter::get(URL_BASE . "/404", "SiteControlador@erro404");
+    SimpleRouter::get(URL_BASE . "/404", "SiteController@erro404");
 
     SimpleRouter::start();
 } catch (Pecee\SimpleRouter\Exceptions\NotFoundHttpException $ex) {
 
     if (Helpers::localhost()) {
-        echo  'Página não encontrada <br>' . $ex;
-    } else
+        echo 'Página não encontrada <br>' . $ex;
+    } else {
         Helpers::redirecionar('404');
+    }
+
 }

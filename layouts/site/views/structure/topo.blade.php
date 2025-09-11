@@ -20,7 +20,7 @@
                 <li>
                     <img class="img-fluid img-logo" src="layouts\site\assets\img\logo-blog-vb.png" alt="Logo">
                 </li>
-                <li><a href="{{ infinit\Nucleo\Helpers::url('') }}"
+                <li><a href="{{ app\Core\Helpers::url('') }}"
                         class="nav-link px-2 text-light text-decoration-underline-hover">Home</a>
                 </li>
                 <li>
@@ -32,19 +32,19 @@
                         <ul class="dropdown-menu">
 
                             @foreach ($categorias as $categoria)
-                                <a href="{{ infinit\Nucleo\Helpers::url('categoria/' . $categoria->id) }}"
+                                <a href="{{ app\Core\Helpers::url('categoria/' . $categoria->id) }}"
                                     class="dropdown-item">{{ $categoria->titulo }}</a>
                             @endforeach
                         </ul>
                     </div>
                 </li>
 
-                <li><a href="{{ infinit\Nucleo\Helpers::url('sobre-nos') }}" class="nav-link px-2 text-white">Sobre</a>
+                <li><a href="{{ app\Core\Helpers::url('sobre-nos') }}" class="nav-link px-2 text-white">Sobre</a>
                 </li>
             </ul>
 
-            <form id="formBusca" method="POST" data-url-busca="{{ infinit\Nucleo\Helpers::url('buscar') }}"
-                action="{{ infinit\Nucleo\Helpers::url('busca') }}"
+            <form id="formBusca" method="POST" data-url-busca="{{ app\Core\Helpers::url('buscar') }}"
+                action="{{ app\Core\Helpers::url('busca') }}"
                 class="d-flex gap-2 col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
 
                 <input type="search" class="form-control form-control-dark text-bg-light  " name="busca"

@@ -11,7 +11,7 @@
                 <h5 class="card-title">{{ $post->titulo }}</h5>
                 <p class="card-text">{{ $post->texto }}</p>
                 <div class="d-flex justify-content-start">
-                    <a class="badge text-danger text-decoration-none" href="{{ infinit\Nucleo\Helpers::url('') }}">
+                    <a class="badge text-danger text-decoration-none" href="{{ app\Core\Helpers::url('') }}">
                         <- Voltar </a>
                 </div>
             </div>

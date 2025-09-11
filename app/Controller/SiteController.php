@@ -1,13 +1,12 @@
 <?php
+namespace app\Controller;
 
-namespace infinit\Controlador;
+use app\Core\Controller;
+use app\Core\Helpers;
+use app\Model\CategoriaModel;
+use app\Model\PostModel;
 
-use infinit\Modelo\CategoriaModelo;
-use infinit\Nucleo\Controlador;
-use infinit\Modelo\PostModelo;
-use infinit\Nucleo\Helpers;
-
-class SiteControlador extends Controlador
+class SiteController extends Controller
 {
     public function __construct()
     {
@@ -16,41 +15,42 @@ class SiteControlador extends Controlador
 
     public function index(): void
     {
-        $posts = (new PostModelo())->getAll();
-        $categorias = (new CategoriaModelo())->getAll();
+        $posts      = (new PostModel())->getAll();
+        $categorias = (new CategoriaModel())->getAll();
 
         echo $this->template->renderizar('index', [
-            'posts' => $posts,
-            'categorias' => $categorias
+            'posts'      => $posts,
+            'categorias' => $categorias,
         ]);
     }
 
-
     public function post(int $id): void
     {
-        $post = (new PostModelo())->getById($id);
+        $post = (new PostModel())->getById($id);
 
-        if (!$post)
+        if (! $post) {
             Helpers::redirecionar('404');
+        }
 
         echo $this->template->renderizar('post', [
-            'post' => $post,
-            'categorias' => (new CategoriaModelo())->getAll()
+            'post'       => $post,
+            'categorias' => (new CategoriaModel())->getAll(),
 
         ]);
     }
 
     public function categoria(int $id): void
     {
-        $categoria = (new CategoriaModelo())->getById($id);
+        $categoria = (new CategoriaModel())->getById($id);
 
-        if (!$categoria)
+        if (! $categoria) {
             Helpers::redirecionar('404');
+        }
 
         echo $this->template->renderizar('categoria', [
-            'posts' => (new CategoriaModelo())->getPostByCategoriaId($id),
-            'categoria' => $categoria,
-            'categorias' => (new CategoriaModelo())->getAll(),
+            'posts'      => (new CategoriaModel())->getPostByCategoriaId($id),
+            'categoria'  => $categoria,
+            'categorias' => (new CategoriaModel())->getAll(),
         ]);
     }
     public function sobre(): void
@@ -65,9 +65,9 @@ class SiteControlador extends Controlador
         $busca = filter_input(INPUT_POST, 'busca', FILTER_DEFAULT);
 
         if (isset($busca)) {
-            $posts = (new PostModelo())->pesquisa($busca);
+            $posts = (new PostModel())->pesquisa($busca);
 
-            if (!empty($posts)) {
+            if (! empty($posts)) {
                 foreach ($posts as $post) {
                     echo "<div class='p-2 border-bottom'>
                         <a href= 'post/{$post->id}'>{$post->titulo}</a>
@@ -86,12 +86,12 @@ class SiteControlador extends Controlador
     {
         $busca = filter_input_array(INPUT_POST, FILTER_DEFAULT);
         if (isset($busca)) {
-            $posts = (new PostModelo())->pesquisa($busca['busca']);
+            $posts = (new PostModel())->pesquisa($busca['busca']);
 
             echo $this->template->renderizar('busca', [
-                'posts' => $posts,
-                'categorias' => (new CategoriaModelo())->getAll(),
-                'pesquisa' => $busca['busca']
+                'posts'      => $posts,
+                'categorias' => (new CategoriaModel())->getAll(),
+                'pesquisa'   => $busca['busca'],
             ]);
         }
     }

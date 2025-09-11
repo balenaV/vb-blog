@@ -1,12 +1,10 @@
 <?php
-
-namespace infinit\Nucleo;
+namespace app\Core;
 
 class Mensagem
 {
     private string $texto;
     private string $css;
-
 
     public function __toString()
     {
@@ -15,7 +13,7 @@ class Mensagem
 
     public function succeso(string $mensagem): Mensagem
     {
-        $this->css = 'alert alert-success';
+        $this->css   = 'alert alert-success';
         $this->texto = $this->filtrar($mensagem);
 
         return $this;
@@ -23,7 +21,7 @@ class Mensagem
 
     public function erro(string $mensagem): Mensagem
     {
-        $this->css = 'alert alert-danger';
+        $this->css   = 'alert alert-danger';
         $this->texto = $this->filtrar($mensagem);
 
         return $this;
@@ -31,7 +29,7 @@ class Mensagem
 
     public function alerta(string $mensagem): Mensagem
     {
-        $this->css = 'alert alert-warning';
+        $this->css   = 'alert alert-warning';
         $this->texto = $this->filtrar($mensagem);
 
         return $this;
