@@ -22,7 +22,7 @@
                 </a>
             </li>
             <li>
-                <a href="{{ app\Core\Helpers::url('admin/categorias/listar') }}" tooltip="tooltip"
+                <a href="{{ app\Core\Helpers::url('admin/categorias/indexCategoria') }}" tooltip="tooltip"
                     title="Administração de Categorias">
                     <i class="fa-solid fa-list"></i>
                     <span>Categorias</span>
