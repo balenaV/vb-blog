@@ -15,7 +15,7 @@
                 Administração
             </li>
             <li>
-                <a href="{{ app\Core\Helpers::url('admin/posts/listar') }}" tooltip="tooltip"
+                <a href="{{ app\Core\Helpers::url('admin/posts/index') }}" tooltip="tooltip"
                     title="Administração de Posts">
                     <i class="fa-solid fa-file-pen"></i>
                     <span>Posts</span>

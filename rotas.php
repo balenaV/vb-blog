@@ -18,6 +18,9 @@ try {
 
     SimpleRouter::group(['namespace' => 'Admin'], function () {
         SimpleRouter::get(URL_ADMIN . '/dashboard', 'AdminDashboardController@dashboard');
+
+        // ADMIN POSTS
+        SimpleRouter::get(URL_ADMIN . '/posts/index', 'AdminPostsController@index');
     });
 
     SimpleRouter::start();

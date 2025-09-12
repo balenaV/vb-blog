@@ -1,4 +1,5 @@
 <?php
+
 namespace app\Model;
 
 use app\Core\Conexao;
@@ -21,6 +22,15 @@ class PostModel
         $query     = "SELECT * FROM posts WHERE id = $id;";
         $stmt      = Conexao::getInstancia()->query($query);
         $resultado = $stmt->fetch();
+
+        return $resultado;
+    }
+
+    public function getByUser(int $id): array
+    {
+        $query     = "SELECT * FROM posts WHERE userId = $id;";
+        $stmt      = Conexao::getInstancia()->query($query);
+        $resultado = $stmt->fetchAll();
 
         return $resultado;
     }
