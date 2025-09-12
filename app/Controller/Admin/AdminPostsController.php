@@ -7,13 +7,15 @@ use app\Model\PostModel;
 class AdminPostsController extends AdminController
 {
 
-    public function index($id): void
+    public function index(): void
     {
-        $posts = (new PostModel())->getByUser($id);
+        $posts = (new PostModel())->getAllWithInactive();
 
         echo $this->template->renderizar(
             'posts/index',
-            []
+            [
+                'posts' => $posts
+            ]
         );
     }
 }

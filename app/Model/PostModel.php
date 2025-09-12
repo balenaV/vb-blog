@@ -17,6 +17,16 @@ class PostModel
         return $resultado;
     }
 
+    public function getAllWithInactive(): array
+    {
+        $query = "SELECT * FROM  posts  ORDER BY id ASC";
+        $stmt  = Conexao::getInstancia()->query($query);
+
+        $resultado = $stmt->fetchAll();
+
+        return $resultado;
+    }
+
     public function getById(int $id): bool | object
     {
         $query     = "SELECT * FROM posts WHERE id = $id;";
@@ -28,7 +38,7 @@ class PostModel
 
     public function getByUser(int $id): array
     {
-        $query     = "SELECT * FROM posts WHERE userId = $id;";
+        $query     = "SELECT * FROM posts WHERE usuarioId = $id;";
         $stmt      = Conexao::getInstancia()->query($query);
         $resultado = $stmt->fetchAll();
 
