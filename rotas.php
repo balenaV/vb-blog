@@ -21,6 +21,9 @@ try {
 
         // ADMIN POSTS
         SimpleRouter::get(URL_ADMIN . '/posts/index', 'AdminPostsController@index');
+
+        // ADMIN CATEGORIAS
+        SimpleRouter::get(URL_ADMIN . '/categorias/indexCategoria', 'AdminPostsController@indexCategoria');
     });
 
     SimpleRouter::start();
