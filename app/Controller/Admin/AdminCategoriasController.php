@@ -12,10 +12,20 @@ class AdminCategoriasController extends AdminController
         $categorias = (new CategoriaModel())->getAllWithInactive();
 
         echo $this->template->renderizar(
-            'categorias/indexCategoria',
+            'categorias/index',
             [
                 'categorias' => $categorias
             ]
+        );
+    }
+
+    public function create(): void
+    {
+        $categorias = (new CategoriaModel())->getAllWithInactive();
+
+        echo $this->template->renderizar(
+            'categorias/create',
+            []
         );
     }
 }
