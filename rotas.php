@@ -23,7 +23,7 @@ try {
         SimpleRouter::get(URL_ADMIN . '/posts/index', 'AdminPostsController@index');
 
         // ADMIN CATEGORIAS
-        SimpleRouter::get(URL_ADMIN . '/categorias/indexCategoria', 'AdminPostsController@indexCategoria');
+        SimpleRouter::get(URL_ADMIN . '/categorias/index', 'AdminPostsController@index');
     });
 
     SimpleRouter::start();
