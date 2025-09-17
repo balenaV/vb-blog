@@ -23,6 +23,8 @@ try {
         SimpleRouter::get(URL_ADMIN . '/posts/index', 'AdminPostsController@index');
         SimpleRouter::match(['get', 'post'], URL_ADMIN . '/posts/create', 'AdminPostsController@create');
         SimpleRouter::match(['get', 'post'], URL_ADMIN . '/posts/edit/{id}', 'AdminPostsController@edit');
+        SimpleRouter::match(['get', 'post'], URL_ADMIN . '/posts/delete/{id}', 'AdminPostsController@delete');
+
 
         // ADMIN CATEGORIAS
         SimpleRouter::get(URL_ADMIN . '/categorias/index', 'AdminCategoriasController@index');
