@@ -42,6 +42,7 @@ class AdminCategoriasController extends AdminController
         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 
         if (isset($dados)) {
+            (new CategoriaModel())->edit($dados, $id);
             Helpers::redirecionar('/admin/categorias/index');
         }
 

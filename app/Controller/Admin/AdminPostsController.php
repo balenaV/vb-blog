@@ -43,6 +43,7 @@ class AdminPostsController extends AdminController
         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 
         if (isset($dados)) {
+            (new PostModel())->edit($dados, $id);
             Helpers::redirecionar('/admin/posts/index');
         }
 

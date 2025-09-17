@@ -5,7 +5,7 @@
     Editar Categoria
 @endsection
 @section('content')
-    <form action="{{ app\Core\Helpers::url('admin/categorias/edit/' . $categoria->$id) }}" method="POST">
+    <form action="{{ app\Core\Helpers::url('admin/categorias/edit/' . $categoria->id) }}" method="POST">
         <div class="form-group mb-3">
             <label for="titulo">Título</label>
             <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Título exemplo"

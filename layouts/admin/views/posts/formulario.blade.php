@@ -16,7 +16,7 @@
         </div>
 
         <div class="d-flex gap-2">
-            <select class="form-select mb-3" name="categoria">
+            <select class="form-select mb-3" name="categoriaId">
                 @foreach ($categorias as $categoria)
                     <option value="{{ $categoria->id }}">{{ $categoria->titulo }}</option>
                 @endforeach
