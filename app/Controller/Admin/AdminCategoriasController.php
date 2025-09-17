@@ -21,10 +21,13 @@ class AdminCategoriasController extends AdminController
 
     public function create(): void
     {
-        $categorias = (new CategoriaModel())->getAllWithInactive();
+        $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
+
+        if (isset($dados)) {
+        }
 
         echo $this->template->renderizar(
-            'categorias/create',
+            'categorias/formulario',
             []
         );
     }

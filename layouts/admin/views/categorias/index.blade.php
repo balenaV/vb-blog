@@ -10,7 +10,7 @@
         </div>
     @else
         <div class="card-header bg-white border-0">
-            <a href="{{ app\Core\Helpers::url('admin/categorias/formulario') }}" class="btn btn-primary">Cadastrar</a>
+            <a href="{{ app\Core\Helpers::url('admin/categorias/create') }}" class="btn btn-primary">Cadastrar</a>
         </div>
         <div class="table-responsive">
             <table class="table">

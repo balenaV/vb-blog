@@ -2,10 +2,10 @@
 
 
 @section('titulo')
-    Cadastrar Categoria
+    Cadastrar Post
 @endsection
 @section('content')
-    <form action="{{ app\Core\Helpers::url('admin/categorias/create') }}" method="POST">
+    <form action="{{ app\Core\Helpers::url('admin/posts/create') }}" method="POST">
         <div class="form-group mb-3">
             <label for="titulo">Título</label>
             <input type="email" class="form-control" id="titulo" name="titulo" placeholder="Título exemplo">
