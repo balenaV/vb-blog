@@ -8,18 +8,28 @@
     <form action="{{ app\Core\Helpers::url('admin/posts/create') }}" method="POST">
         <div class="form-group mb-3">
             <label for="titulo">Título</label>
-            <input type="email" class="form-control" id="titulo" name="titulo" placeholder="Título exemplo">
+            <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Título exemplo">
         </div>
         <div class="form-group mb-3">
             <label for="texto">Texto</label>
             <textarea class="form-control" id="texto" name="texto" rows="3"></textarea>
         </div>
 
-        <select class="form-select mb-3" name="status">
-            <option value="1">Ativo</option>
-            <option value="0">Inativo</option>
-        </select>
+        <div class="d-flex gap-2">
+            <select class="form-select mb-3" name="categoria">
+                @foreach ($categorias as $categoria)
+                    <option value="{{ $categoria->id }}">{{ $categoria->titulo }}</option>
+                @endforeach
+            </select>
+            <select class="form-select mb-3" name="status">
+                <option value="1">Ativo</option>
+                <option value="0">Inativo</option>
+            </select>
+        </div>
 
-        <input type="submit" value="Cadstrar" class="btn btn-primary">
+        <div class="d-flex justify-content-between">
+            <input type="submit" value="Cadstrar" class="btn btn-primary">
+            <button href="{{ app\Core\Helpers::url('admin/posts/index') }}" class="btn btn-danger">Voltar</button>
+        </div>
     </form>
 @endsection

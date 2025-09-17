@@ -2,6 +2,7 @@
 
 namespace app\Controller\Admin;
 
+use app\Core\Helpers;
 use app\Model\CategoriaModel;
 use app\Model\PostModel;
 
@@ -24,6 +25,8 @@ class AdminCategoriasController extends AdminController
         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 
         if (isset($dados)) {
+            (new CategoriaModel())->create($dados);
+            Helpers::redirecionar('/admin/categorias/index');
         }
 
         echo $this->template->renderizar(

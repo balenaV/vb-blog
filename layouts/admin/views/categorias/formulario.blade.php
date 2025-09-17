@@ -8,7 +8,7 @@
     <form action="{{ app\Core\Helpers::url('admin/categorias/create') }}" method="POST">
         <div class="form-group mb-3">
             <label for="titulo">Título</label>
-            <input type="email" class="form-control" id="titulo" name="titulo" placeholder="Título exemplo">
+            <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Título exemplo">
         </div>
         <div class="form-group mb-3">
             <label for="texto">Texto</label>
@@ -20,6 +20,9 @@
             <option value="0">Inativo</option>
         </select>
 
-        <input type="submit" value="Cadstrar" class="btn btn-primary">
+        <div class="d-flex justify-content-between">
+            <input type="submit" value="Cadstrar" class="btn btn-primary">
+            <button href="{{ app\Core\Helpers::url('admin/categorias/index') }}" class="btn btn-danger">Voltar</button>
+        </div>
     </form>
 @endsection

@@ -54,11 +54,12 @@ class PostModel
         return $resultado;
     }
 
-    public function createPost($titulo, $texto, $status)
+    public function create(array $dados): void
     {
         try {
-            $query = "INSERT INTO `posts` (`id`, `titulo`, `texto`, `status`) VALUES (NULL, '$titulo', '$texto', '$status');";
-            $stmt  = Conexao::getInstancia()->query($query);
+            $query = "INSERT INTO `posts` (`titulo`, `texto`, `status`,`categoriaId`) VALUES (?,?,?,?);";
+            $stmt  = Conexao::getInstancia()->prepare($query);
+            $stmt->execute([$dados['titulo'], $dados['texto'], $dados['status'], $dados['categoria']]);
         } catch (PDOException $ex) {
             echo "NÃO FOI POSSIVEL CRIAR O <strong>POST</strong> <br>" . $ex->getMessage();
         }

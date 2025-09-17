@@ -2,6 +2,8 @@
 
 namespace app\Controller\Admin;
 
+use app\Core\Helpers;
+use app\Model\CategoriaModel;
 use app\Model\PostModel;
 
 class AdminPostsController extends AdminController
@@ -24,11 +26,13 @@ class AdminPostsController extends AdminController
         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 
         if (isset($dados)) {
+            (new PostModel())->create($dados);
+            Helpers::redirecionar('/admin/posts/index');
         }
 
         echo $this->template->renderizar(
             'posts/formulario',
-            []
+            ['categorias' => (new CategoriaModel())->getAll()]
         );
     }
 }
