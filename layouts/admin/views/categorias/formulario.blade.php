@@ -2,7 +2,7 @@
 
 
 @section('titulo')
-    Cadastrar Categoria
+    Categoria
 @endsection
 @section('content')
     <form action="{{ app\Core\Helpers::url('admin/categorias/create') }}" method="POST">
@@ -21,7 +21,7 @@
         </select>
 
         <div class="d-flex justify-content-between">
-            <input type="submit" value="Cadstrar" class="btn btn-primary">
+            <input type="submit" value="Enviar" class="btn btn-primary">
             <button href="{{ app\Core\Helpers::url('admin/categorias/index') }}" class="btn btn-danger">Voltar</button>
         </div>
     </form>

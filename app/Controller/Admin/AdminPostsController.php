@@ -35,4 +35,23 @@ class AdminPostsController extends AdminController
             ['categorias' => (new CategoriaModel())->getAll()]
         );
     }
+
+    public function edit(int $id): void
+    {
+        $post = (new PostModel())->getById($id);
+
+        $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
+
+        if (isset($dados)) {
+            Helpers::redirecionar('/admin/posts/index');
+        }
+
+        echo $this->template->renderizar(
+            'posts/edit',
+            [
+                'post' => $post,
+                'categorias' => (new CategoriaModel())->getAll()
+            ]
+        );
+    }
 }

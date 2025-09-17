@@ -34,4 +34,22 @@ class AdminCategoriasController extends AdminController
             []
         );
     }
+
+    public function edit(int $id): void
+    {
+        $categoria = (new CategoriaModel())->getById($id);
+
+        $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
+
+        if (isset($dados)) {
+            Helpers::redirecionar('/admin/categorias/index');
+        }
+
+        echo $this->template->renderizar(
+            'categorias/edit',
+            [
+                'categoria' => $categoria
+            ]
+        );
+    }
 }

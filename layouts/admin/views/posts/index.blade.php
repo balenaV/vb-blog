@@ -20,6 +20,7 @@
                         <th scope="col">Título</th>
                         <th scope="col">Texto</th>
                         <th scope="col">Status</th>
+                        <th scope="col">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -31,6 +32,13 @@
                             <td>
                                 <i
                                     class="{{ $post->status == 1 ? 'fa-solid fa-check text-primary' : 'fa-solid fa-close text-danger ' }}"></i>
+                            </td>
+
+                            <td class="text-center">
+                                <abbr title="Editar">
+                                    <a href="{{ app\Core\Helpers::url('admin/posts/edit/' . $post->id) }}"><i
+                                            class="fa-solid fa-pencil text-warning"></i></a>
+                                </abbr>
                             </td>
 
                         </tr>

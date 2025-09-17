@@ -28,8 +28,8 @@
         </div>
 
         <div class="d-flex justify-content-between">
-            <input type="submit" value="Cadstrar" class="btn btn-primary">
-            <button href="{{ app\Core\Helpers::url('admin/posts/index') }}" class="btn btn-danger">Voltar</button>
+            <input type="submit" value="Cadastrar" class="btn btn-primary">
+            <a href="{{ app\Core\Helpers::url('admin/posts/index') }}" class="btn btn-danger">Voltar</a>
         </div>
     </form>
 @endsection
