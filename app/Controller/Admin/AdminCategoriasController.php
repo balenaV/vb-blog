@@ -2,6 +2,7 @@
 
 namespace app\Controller\Admin;
 
+use app\Core\Helpers;
 use app\Model\CategoriaModel;
 use app\Model\PostModel;
 
@@ -21,11 +22,35 @@ class AdminCategoriasController extends AdminController
 
     public function create(): void
     {
-        $categorias = (new CategoriaModel())->getAllWithInactive();
+        $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
+
+        if (isset($dados)) {
+            (new CategoriaModel())->create($dados);
+            Helpers::redirecionar('/admin/categorias/index');
+        }
 
         echo $this->template->renderizar(
-            'categorias/create',
+            'categorias/formulario',
             []
+        );
+    }
+
+    public function edit(int $id): void
+    {
+        $categoria = (new CategoriaModel())->getById($id);
+
+        $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
+
+        if (isset($dados)) {
+            (new CategoriaModel())->edit($dados, $id);
+            Helpers::redirecionar('/admin/categorias/index');
+        }
+
+        echo $this->template->renderizar(
+            'categorias/edit',
+            [
+                'categoria' => $categoria
+            ]
         );
     }
 }

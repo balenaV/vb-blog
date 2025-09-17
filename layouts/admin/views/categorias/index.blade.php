@@ -10,7 +10,7 @@
         </div>
     @else
         <div class="card-header bg-white border-0">
-            <a href="{{ app\Core\Helpers::url('admin/categorias/formulario') }}" class="btn btn-primary">Cadastrar</a>
+            <a href="{{ app\Core\Helpers::url('admin/categorias/create') }}" class="btn btn-primary">Cadastrar</a>
         </div>
         <div class="table-responsive">
             <table class="table">
@@ -31,6 +31,13 @@
                             <td>
                                 <i
                                     class="{{ $categoria->status == 1 ? 'fa-solid fa-check text-primary' : 'fa-solid fa-close text-danger ' }}"></i>
+                            </td>
+
+                            <td class="text-center">
+                                <abbr title="Editar">
+                                    <a href="{{ app\Core\Helpers::url('admin/categorias/edit/' . $categoria->id) }}"><i
+                                            class="fa-solid fa-pencil text-warning"></i></a>
+                                </abbr>
                             </td>
 
                         </tr>
