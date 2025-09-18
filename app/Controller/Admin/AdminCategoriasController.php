@@ -6,17 +6,16 @@ use app\Core\Helpers;
 use app\Model\CategoriaModel;
 use app\Model\PostModel;
 
-class AdminPostsController extends AdminController
+class AdminCategoriasController extends AdminController
 {
-
     public function index(): void
     {
-        $posts = (new PostModel())->getAllWithInactive();
+        $categorias = (new CategoriaModel())->getAllWithInactive();
 
         echo $this->template->renderizar(
-            'posts/index',
+            'categorias/index',
             [
-                'posts' => $posts,
+                'categorias' => $categorias
             ]
         );
     }
@@ -26,32 +25,31 @@ class AdminPostsController extends AdminController
         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 
         if (isset($dados)) {
-            (new PostModel())->create($dados);
-            Helpers::redirecionar('/admin/posts/index');
+            (new CategoriaModel())->create($dados);
+            Helpers::redirecionar('/admin/categorias/index');
         }
 
         echo $this->template->renderizar(
-            'posts/formulario',
-            ['categorias' => (new CategoriaModel())->getAll()]
+            'categorias/formulario',
+            []
         );
     }
 
     public function edit(int $id): void
     {
-        $post = (new PostModel())->getById($id);
+        $categoria = (new CategoriaModel())->getById($id);
 
         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 
         if (isset($dados)) {
-            (new PostModel())->edit($dados, $id);
-            Helpers::redirecionar('/admin/posts/index');
+            (new CategoriaModel())->edit($dados, $id);
+            Helpers::redirecionar('/admin/categorias/index');
         }
 
         echo $this->template->renderizar(
-            'posts/edit',
+            'categorias/edit',
             [
-                'post' => $post,
-                'categorias' => (new CategoriaModel())->getAll()
+                'categoria' => $categoria
             ]
         );
     }

@@ -54,13 +54,41 @@ class PostModel
         return $resultado;
     }
 
-    public function createPost($titulo, $texto, $status)
+    public function create(array $dados): void
     {
         try {
-            $query = "INSERT INTO `posts` (`id`, `titulo`, `texto`, `status`) VALUES (NULL, '$titulo', '$texto', '$status');";
-            $stmt  = Conexao::getInstancia()->query($query);
+            $query = "INSERT INTO posts (`titulo`, `texto`, `status`,categoriaId) VALUES ( :titulo, :texto, :status,:categoriaId);";
+            $stmt  = Conexao::getInstancia()->prepare($query);
+            $stmt->execute($dados);
         } catch (PDOException $ex) {
             echo "NÃO FOI POSSIVEL CRIAR O <strong>POST</strong> <br>" . $ex->getMessage();
+        }
+    }
+
+    public function edit(array $dados, int $id): void
+    {
+        try {
+            $query = "UPDATE posts SET 
+            titulo = :titulo,
+            texto = :texto,
+            status = :status,
+            categoriaId = :categoriaId
+            WHERE id = $id;";
+            $stmt  = Conexao::getInstancia()->prepare($query);
+            $stmt->execute($dados);
+        } catch (PDOException $ex) {
+            echo "NÃO FOI POSSIVEL ATUALIZAR O <strong>POST</strong> <br>" . $ex->getMessage();
+        }
+    }
+
+    public function delete(int $id): void
+    {
+        try {
+            $query = "DELETE FROM  posts WHERE id = $id;";
+            $stmt  = Conexao::getInstancia()->prepare($query);
+            $stmt->execute($dados);
+        } catch (PDOException $ex) {
+            echo "NÃO FOI POSSIVEL DELETAR O <strong>POST</strong> <br>" . $ex->getMessage();
         }
     }
 }

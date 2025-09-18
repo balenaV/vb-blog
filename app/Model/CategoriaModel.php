@@ -48,13 +48,29 @@ class CategoriaModel
         return $resultado;
     }
 
-    public function createCategoria($titulo, $texto, $status)
+    public function create(array $dados): void
     {
         try {
-            $query = "INSERT INTO `categorias` (`id`, `titulo`, `texto`, `status`) VALUES (NULL, '$titulo', '$texto', '$status');";
-            $stmt  = Conexao::getInstancia()->query($query);
+            $query = "INSERT INTO categorias (`titulo`, `texto`, `status`) VALUES (:titulo, :texto, :status);";
+            $stmt  = Conexao::getInstancia()->prepare($query);
+            $stmt->execute($dados);
         } catch (PDOException $ex) {
             echo "NÃO FOI POSSIVEL CRIAR A <strong>CATEGORIA</strong> <br>" . $ex->getMessage();
+        }
+    }
+
+    public function edit(array $dados, int $id): void
+    {
+        try {
+            $query = "UPDATE categorias SET 
+            titulo = :titulo,
+            texto = :texto,
+            status = :status
+            WHERE id = $id;";
+            $stmt  = Conexao::getInstancia()->prepare($query);
+            $stmt->execute($dados);
+        } catch (PDOException $ex) {
+            echo "NÃO FOI POSSIVEL ATUALIZAR A <strong>CATEGORIA</strong> <br>" . $ex->getMessage();
         }
     }
 }
