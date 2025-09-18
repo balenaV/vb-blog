@@ -20,6 +20,7 @@
                         <th scope="col">Título</th>
                         <th scope="col">Texto</th>
                         <th scope="col">Status</th>
+                        <th scope="col" class="text-center">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -36,7 +37,11 @@
                             <td class="text-center">
                                 <abbr title="Editar">
                                     <a href="{{ app\Core\Helpers::url('admin/categorias/edit/' . $categoria->id) }}"><i
-                                            class="fa-solid fa-pencil text-warning"></i></a>
+                                            class="fa-solid fa-pencil text-warning mr-2"></i></a>
+                                </abbr>
+                                <abbr title="Excluir">
+                                    <a href="{{ app\Core\Helpers::url('admin/categorias/delete/' . $categoria->id) }}"><i
+                                            class="fa-solid fa-trash text-danger"></i></a>
                                 </abbr>
                             </td>
 

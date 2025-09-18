@@ -12,19 +12,20 @@
                     <path
                         d="M5 19h14a2 2 0 0 0 1.84 -2.75l-7.1 -12.25a2 2 0 0 0 -3.5 0l-7.1 12.25a2 2 0 0 0 1.75 2.75" />
                 </svg>
-                <h3>Are you sure?</h3>
+                <h3>Confirmar Exclusão?</h3>
                 <div class="text-secondary">
-                    Do you really want to remove 84 files? What you've done cannot be undone.
+                    Você tem certeza que deseja deletar este item? Esta ação não pode ser desfeita.
                 </div>
             </div>
             <div class="modal-footer">
                 <div class="w-100">
                     <div class="row">
                         <div class="col">
-                            <a href="#" class="btn w-100" data-bs-dismiss="modal"> Cancel </a>
+                            <a href="#" class="btn w-100" data-bs-dismiss="modal"> Cancelar </a>
                         </div>
                         <div class="col">
-                            <a href="#" class="btn btn-danger w-100" data-bs-dismiss="modal"> Delete 84 items </a>
+                            <a href="" class="btn btn-danger w-100" data-bs-dismiss="modal"
+                                id="btnConfirmarDelete"> Sim, Deletar </a>
                         </div>
                     </div>
                 </div>

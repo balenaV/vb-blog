@@ -1,10 +1,8 @@
 <?php
-
 namespace app\Controller\Admin;
 
 use app\Core\Helpers;
 use app\Model\CategoriaModel;
-use app\Model\PostModel;
 
 class AdminCategoriasController extends AdminController
 {
@@ -15,7 +13,7 @@ class AdminCategoriasController extends AdminController
         echo $this->template->renderizar(
             'categorias/index',
             [
-                'categorias' => $categorias
+                'categorias' => $categorias,
             ]
         );
     }
@@ -49,7 +47,22 @@ class AdminCategoriasController extends AdminController
         echo $this->template->renderizar(
             'categorias/edit',
             [
-                'categoria' => $categoria
+                'categoria' => $categoria,
+            ]
+        );
+    }
+
+    public function delete(int $id): void
+    {
+        $categoria = (new CategoriaModel())->getById($id);
+
+        (new CategoriaModel())->delete($id);
+        Helpers::redirecionar('/admin/categorias/index');
+
+        echo $this->template->renderizar(
+            'categorias/delete',
+            [
+                'categoria' => $categoria,
             ]
         );
     }

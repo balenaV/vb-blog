@@ -23,13 +23,13 @@ try {
         SimpleRouter::get(URL_ADMIN . '/posts/index', 'AdminPostsController@index');
         SimpleRouter::match(['get', 'post'], URL_ADMIN . '/posts/create', 'AdminPostsController@create');
         SimpleRouter::match(['get', 'post'], URL_ADMIN . '/posts/edit/{id}', 'AdminPostsController@edit');
-        SimpleRouter::match(['get', 'post'], URL_ADMIN . '/posts/delete/{id}', 'AdminPostsController@delete');
-
+        SimpleRouter::get(URL_ADMIN . '/posts/delete/{id}', 'AdminPostsController@delete');
 
         // ADMIN CATEGORIAS
         SimpleRouter::get(URL_ADMIN . '/categorias/index', 'AdminCategoriasController@index');
         SimpleRouter::match(['get', 'post'], URL_ADMIN . '/categorias/create', 'AdminCategoriasController@create');
         SimpleRouter::match(['get', 'post'], URL_ADMIN . '/categorias/edit/{id}', 'AdminCategoriasController@edit');
+        SimpleRouter::get(URL_ADMIN . '/categorias/delete/{id}', 'AdminCategoriasController@delete');
     });
 
     SimpleRouter::start();
@@ -40,4 +40,4 @@ try {
     } else {
         Helpers::redirecionar('404');
     }
-}
+};

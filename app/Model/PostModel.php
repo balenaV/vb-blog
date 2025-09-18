@@ -1,5 +1,4 @@
 <?php
-
 namespace app\Model;
 
 use app\Core\Conexao;
@@ -68,13 +67,13 @@ class PostModel
     public function edit(array $dados, int $id): void
     {
         try {
-            $query = "UPDATE posts SET 
+            $query = "UPDATE posts SET
             titulo = :titulo,
             texto = :texto,
             status = :status,
             categoriaId = :categoriaId
             WHERE id = $id;";
-            $stmt  = Conexao::getInstancia()->prepare($query);
+            $stmt = Conexao::getInstancia()->prepare($query);
             $stmt->execute($dados);
         } catch (PDOException $ex) {
             echo "NÃO FOI POSSIVEL ATUALIZAR O <strong>POST</strong> <br>" . $ex->getMessage();

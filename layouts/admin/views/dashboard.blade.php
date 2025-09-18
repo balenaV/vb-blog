@@ -18,4 +18,5 @@
         </main>
         @include('structure.rodape')
     </div>
+    @include('structure.delete')
 @endsection

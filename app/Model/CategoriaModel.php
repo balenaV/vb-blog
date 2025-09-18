@@ -1,5 +1,4 @@
 <?php
-
 namespace app\Model;
 
 use app\Core\Conexao;
@@ -62,15 +61,26 @@ class CategoriaModel
     public function edit(array $dados, int $id): void
     {
         try {
-            $query = "UPDATE categorias SET 
+            $query = "UPDATE categorias SET
             titulo = :titulo,
             texto = :texto,
             status = :status
             WHERE id = $id;";
-            $stmt  = Conexao::getInstancia()->prepare($query);
+            $stmt = Conexao::getInstancia()->prepare($query);
             $stmt->execute($dados);
         } catch (PDOException $ex) {
             echo "NÃO FOI POSSIVEL ATUALIZAR A <strong>CATEGORIA</strong> <br>" . $ex->getMessage();
+        }
+    }
+
+    public function delete(int $id): void
+    {
+        try {
+            $query = "DELETE FROM  categorias WHERE id = $id;";
+            $stmt  = Conexao::getInstancia()->prepare($query);
+            $stmt->execute();
+        } catch (PDOException $ex) {
+            echo "NÃO FOI POSSIVEL DELETAR A <strong>CATEGORIA</strong> <br>" . $ex->getMessage();
         }
     }
 }
