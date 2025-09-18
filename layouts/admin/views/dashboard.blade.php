@@ -18,4 +18,6 @@
         </main>
         @include('structure.rodape')
     </div>
+    @include('categorias.delete')
+    @yield('scripts')
 @endsection

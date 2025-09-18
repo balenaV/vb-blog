@@ -19,7 +19,8 @@
                         <th scope="col">#</th>
                         <th scope="col">Título</th>
                         <th scope="col">Texto</th>
-                        <th scope="col">Status</th>
+                        <th scope="col" class="text-start">Status</th>
+                        <th scope="col" class="text-center">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -28,15 +29,21 @@
                             <th scope="row">{{ $categoria->id }}</th>
                             <td>{{ $categoria->titulo }}</td>
                             <td class="">{{ $categoria->texto }}</td>
-                            <td>
+                            <td class="text-center">
                                 <i
-                                    class="{{ $categoria->status == 1 ? 'fa-solid fa-check text-primary' : 'fa-solid fa-close text-danger ' }}"></i>
+                                    class="{{ $categoria->status == 1 ? 'fa-solid fa-check text-primary' : 'fa-solid fa-close text-danger ' }}  "></i>
                             </td>
 
-                            <td class="text-center">
+                            <td class="d-inline-flex gap-2">
                                 <abbr title="Editar">
                                     <a href="{{ app\Core\Helpers::url('admin/categorias/edit/' . $categoria->id) }}"><i
-                                            class="fa-solid fa-pencil text-warning"></i></a>
+                                            class=" fa-solid fa-pencil text-warning"></i></a>
+                                </abbr>
+                                <abbr title="Excluir">
+                                    <button type="button" class="btn btn-link p-0 delete-btn" data-toggle="modal"
+                                        data-target="#confirmDeleteModal" data-id="{{ $categoria->id }}">
+                                        <i class=" fa-solid fa-trash-can text-danger"></i>
+                                    </button>
                                 </abbr>
                             </td>
 
@@ -47,4 +54,18 @@
         </div>
         <hr>
     @endif
+@endsection
+
+@section('scripts')
+    <script>
+        $(document).ready(function() {
+            $('#confirmDeleteModal').on('show.bs.modal', function(event) {
+                var button = $(event.relatedTarget);
+                var postId = button.data('id');
+                var form = $(this).find('#deleteForm'); // Encontra o formulário dentro do modal
+                var newAction = '{{ app\Core\Helpers::url('admin/posts/delete/') }}/' + postId;
+                form.attr('action', newAction);
+            });
+        });
+    </script>
 @endsection
