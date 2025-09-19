@@ -19,8 +19,8 @@
                         <th scope="col">#</th>
                         <th scope="col">Título</th>
                         <th scope="col">Texto</th>
-                        <th scope="col" class="text-start">Status</th>
-                        <th scope="col" class="text-center">Ações</th>
+                        <th scope="col" class="text-center">Status</th>
+                        <th scope="col" class="text-start">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -34,17 +34,25 @@
                                     class="{{ $categoria->status == 1 ? 'fa-solid fa-check text-primary' : 'fa-solid fa-close text-danger ' }}  "></i>
                             </td>
 
-                            <td class="d-inline-flex gap-2">
-                                <abbr title="Editar">
-                                    <a href="{{ app\Core\Helpers::url('admin/categorias/edit/' . $categoria->id) }}"><i
-                                            class=" fa-solid fa-pencil text-warning"></i></a>
-                                </abbr>
-                                <abbr title="Excluir">
-                                    <button type="button" class="btn btn-link p-0 delete-btn" data-bs-toggle="modal"
-                                        data-bs-target="#confirmDeleteModal" data-id="{{ $categoria->id }}">
-                                        <i class="fa-solid fa-trash-can text-danger"></i>
-                                    </button>
-                                </abbr>
+                            <td>
+                                <div class="d-flex">
+                                    <div class="me-3">
+                                        <abbr title="Editar">
+                                            <a
+                                                href="{{ app\Core\Helpers::url('admin/categorias/edit/' . $categoria->id) }}"><i
+                                                    class=" fa-solid fa-pencil text-warning"></i></a>
+                                        </abbr>
+                                    </div>
+                                    <div class="me-3">
+                                        <abbr title="Excluir">
+                                            <button type="button" class="btn btn-link p-0 delete-btn"
+                                                data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"
+                                                data-id="{{ $categoria->id }}">
+                                                <i class="fa-solid fa-trash-can text-danger"></i>
+                                            </button>
+                                        </abbr>
+                                    </div>
+                                </div>
                             </td>
 
                         </tr>

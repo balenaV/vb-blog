@@ -55,4 +55,14 @@ class AdminPostsController extends AdminController
             ]
         );
     }
+
+    public function delete(int $id): void
+    {
+        $post = (new PostModel())->getById($id);
+
+        if ($post) {
+            (new PostModel())->delete($id);
+            Helpers::redirecionar('/admin/posts/index');
+        }
+    }
 }
