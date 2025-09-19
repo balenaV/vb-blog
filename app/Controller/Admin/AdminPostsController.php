@@ -11,12 +11,17 @@ class AdminPostsController extends AdminController
 
     public function index(): void
     {
-        $posts = (new PostModel())->getAllWithInactive();
+        $posts = (new PostModel());
 
         echo $this->template->renderizar(
             'posts/index',
             [
-                'posts' => $posts,
+                'posts' => $posts->getAllWithInactive(),
+                'total' => [
+                    'todos' => $posts->count(),
+                    'ativo' => $posts->count('status = 1'),
+                    'inativo' => $posts->count('status = 0')
+                ]
             ]
         );
     }
@@ -54,5 +59,15 @@ class AdminPostsController extends AdminController
                 'categorias' => (new CategoriaModel())->getAll()
             ]
         );
+    }
+
+    public function delete(int $id): void
+    {
+        $post = (new PostModel())->getById($id);
+
+        if ($post) {
+            (new PostModel())->delete($id);
+            Helpers::redirecionar('/admin/posts/index');
+        }
     }
 }

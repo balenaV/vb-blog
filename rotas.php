@@ -23,13 +23,25 @@ try {
         SimpleRouter::get(URL_ADMIN . '/posts/index', 'AdminPostsController@index');
         SimpleRouter::match(['get', 'post'], URL_ADMIN . '/posts/create', 'AdminPostsController@create');
         SimpleRouter::match(['get', 'post'], URL_ADMIN . '/posts/edit/{id}', 'AdminPostsController@edit');
+<<<<<<< HEAD
         SimpleRouter::get(URL_ADMIN . '/posts/delete/{id}', 'AdminPostsController@delete');
+=======
+        SimpleRouter::post(URL_ADMIN . '/posts/delete/{id}', 'AdminPostsController@delete');
+        SimpleRouter::get(URL_ADMIN . '/posts/index', 'AdminPostsController@count');
+
+
+>>>>>>> feature/painel-de-controle
 
         // ADMIN CATEGORIAS
         SimpleRouter::get(URL_ADMIN . '/categorias/index', 'AdminCategoriasController@index');
         SimpleRouter::match(['get', 'post'], URL_ADMIN . '/categorias/create', 'AdminCategoriasController@create');
         SimpleRouter::match(['get', 'post'], URL_ADMIN . '/categorias/edit/{id}', 'AdminCategoriasController@edit');
+<<<<<<< HEAD
         SimpleRouter::get(URL_ADMIN . '/categorias/delete/{id}', 'AdminCategoriasController@delete');
+=======
+        SimpleRouter::post(URL_ADMIN . '/categorias/delete/{id}', 'AdminCategoriasController@delete');
+        SimpleRouter::get(URL_ADMIN . '/categorias/index', 'AdminCategoriasController@count');
+>>>>>>> feature/painel-de-controle
     });
 
     SimpleRouter::start();
