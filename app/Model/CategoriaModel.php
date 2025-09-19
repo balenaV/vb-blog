@@ -84,4 +84,14 @@ class CategoriaModel
             echo "NÃO FOI POSSIVEL DELETAR A <strong>Categorias</strong> <br>" . $ex->getMessage();
         }
     }
+
+    public function count(): int
+    {
+        $query = "SELECT * FROM categorias";
+        $stmt = Conexao::getInstancia()->prepare($query);
+        $stmt->execute();
+
+
+        return $stmt->rowCount();
+    }
 }

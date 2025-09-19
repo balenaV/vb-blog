@@ -59,6 +59,7 @@
                     @endforeach
                 </tbody>
             </table>
+            <div class="d-flex justify-content-end text-secondary fs-6">Total de registros: {{ $total }}</div>
         </div>
         <hr>
     @endif

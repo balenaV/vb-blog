@@ -11,12 +11,13 @@ class AdminPostsController extends AdminController
 
     public function index(): void
     {
-        $posts = (new PostModel())->getAllWithInactive();
+        $posts = (new PostModel());
 
         echo $this->template->renderizar(
             'posts/index',
             [
-                'posts' => $posts,
+                'posts' => $posts->getAllWithInactive(),
+                'total' => $posts->count(),
             ]
         );
     }

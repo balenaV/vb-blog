@@ -91,4 +91,14 @@ class PostModel
             echo "NÃO FOI POSSIVEL DELETAR O <strong>POST</strong> <br>" . $ex->getMessage();
         }
     }
+
+    public function count(): int
+    {
+        $query = "SELECT * FROM posts";
+        $stmt = Conexao::getInstancia()->prepare($query);
+        $stmt->execute();
+
+
+        return $stmt->rowCount();
+    }
 }
