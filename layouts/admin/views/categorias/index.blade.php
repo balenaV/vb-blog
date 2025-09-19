@@ -2,16 +2,28 @@
 
 
 @section('titulo')
-    Categorias
+    <h1 class="fw-bold fs-1">Categorias</h1>
 @endsection
 @section('content')
     @if (!$categorias)
         <div class="alert alert-warning" role="alert">Nenhuma Categoria foi criado.</strong>
         </div>
     @else
-        <div class="card-header bg-white border-0">
-            <a href="{{ app\Core\Helpers::url('admin/categorias/create') }}" class="btn btn-primary">Cadastrar</a>
+        <div class="d-flex justify-content-between text-secondary align-items-center  fs-6 ">
+            <div>
+                Total: <span class="fw-bolder ms-1 me-1">{{ $total['todos'] }}</span> -
+                <span class="text-white bg-success  fw-bold p-1 rounded-2  me-1 ms-1">{{ $total['ativo'] }} Ativos</span>
+
+
+                <span class=" text-white bg-danger  fw-bold p-1 rounded-2  me-1 ms-1">
+                    {{ $total['inativo'] }} Inativos
+                </span>
+            </div>
+            <div class="card-header bg-white border-0 ">
+                <a href="{{ app\Core\Helpers::url('admin/categorias/create') }}" class="btn btn-primary">Cadastrar</a>
+            </div>
         </div>
+
         <div class="table-responsive">
             <table class="table">
                 <thead>
@@ -59,14 +71,7 @@
                     @endforeach
                 </tbody>
             </table>
-            <div class="d-flex justify-content-end text-secondary fs-6 ">Total de registros: <span
-                    class="fw-bold ms-1 me-1">{{ $total['todos'] }}</span> -
-                ativos:
-                <span class="text-primary fw-bold me-1 ms-1">{{ $total['ativo'] }}</span> inativos: <span
-                    class=" me-1 text-danger fw-bold ms-1">
-                    {{ $total['inativo'] }}
-                </span>
-            </div>
+
         </div>
         <hr>
     @endif
@@ -83,7 +88,7 @@
 
                 if (categoriaId) {
                     var newAction = '{{ app\Core\Helpers::url('admin/categorias/delete/') }}' +
-                    categoriaId;
+                        categoriaId;
                     console.log("URL de exclusão gerada: " + newAction);
                     form.attr('action', newAction);
                 } else {
