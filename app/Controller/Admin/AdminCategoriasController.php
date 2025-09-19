@@ -2,20 +2,25 @@
 
 namespace app\Controller\Admin;
 
+use app\Core\Conexao;
 use app\Core\Helpers;
 use app\Model\CategoriaModel;
-use app\Model\PostModel;
 
 class AdminCategoriasController extends AdminController
 {
     public function index(): void
     {
-        $categorias = (new CategoriaModel())->getAllWithInactive();
 
+        $categoria = new CategoriaModel();
         echo $this->template->renderizar(
             'categorias/index',
             [
-                'categorias' => $categorias
+                'categorias' => $categoria->getAllWithInactive(),
+                'total' => [
+                    'todos' => $categoria->count(),
+                    'ativo' => $categoria->count('status = 1'),
+                    'inativo' => $categoria->count('status = 0')
+                ]
             ]
         );
     }
@@ -52,5 +57,15 @@ class AdminCategoriasController extends AdminController
                 'categoria' => $categoria
             ]
         );
+    }
+
+    public function delete(int $id): void
+    {
+        $categoria = (new CategoriaModel())->getById($id);
+
+        if ($categoria) {
+            (new CategoriaModel())->delete($id);
+            Helpers::redirecionar('/admin/categorias/index');
+        }
     }
 }
