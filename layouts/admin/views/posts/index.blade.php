@@ -49,3 +49,17 @@
         <hr>
     @endif
 @endsection
+
+@section('scripts')
+    <script>
+        $(document).ready(function() {
+            $('#confirmDeleteModal').on('show.bs.modal', function(event) {
+                var button = $(event.relatedTarget);
+                var postId = button.data('id');
+                var form = $(this).find('#deleteForm'); // Encontra o formulário dentro do modal
+                var newAction = '{{ app\Core\Helpers::url('admin/posts/delete/') }}/' + postId;
+                form.attr('action', newAction);
+            });
+        });
+    </script>
+@endsection

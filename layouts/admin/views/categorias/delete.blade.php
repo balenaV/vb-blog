@@ -1,4 +1,4 @@
-<div class="modal" id="exampleModal" tabindex="-1">
+<div class="modal" id="confirmDeleteModal" tabindex="-1">
     <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -14,7 +14,8 @@
                 </svg>
                 <h3>Confirmar Exclusão?</h3>
                 <div class="text-secondary">
-                    Você tem certeza que deseja deletar este item? Esta ação não pode ser desfeita.
+                    Você tem certeza que deseja remover esta Categoria? Essa ação não poderá ser desfeita.
+
                 </div>
             </div>
             <div class="modal-footer">
@@ -24,8 +25,12 @@
                             <a href="#" class="btn w-100" data-bs-dismiss="modal"> Cancelar </a>
                         </div>
                         <div class="col">
-                            <a href="" class="btn btn-danger w-100" data-bs-dismiss="modal"
+                            <<<<<<< HEAD <a href="" class="btn btn-danger w-100" data-bs-dismiss="modal"
                                 id="btnConfirmarDelete"> Sim, Deletar </a>
+                                =======
+                                <a href="#" class="btn btn-danger w-100" data-bs-dismiss="modal"> Sim,
+                                    Deletar </a>
+                                >>>>>>> feature/painel-de-controle
                         </div>
                     </div>
                 </div>
