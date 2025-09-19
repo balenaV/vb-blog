@@ -17,7 +17,11 @@ class AdminPostsController extends AdminController
             'posts/index',
             [
                 'posts' => $posts->getAllWithInactive(),
-                'total' => $posts->count(),
+                'total' => [
+                    'todos' => $posts->count(),
+                    'ativo' => $posts->count('status = 1'),
+                    'inativo' => $posts->count('status = 0')
+                ]
             ]
         );
     }

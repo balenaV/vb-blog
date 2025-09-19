@@ -11,18 +11,22 @@ use app\Core\Conexao;
 class CategoriaModel
 {
 
-    public function getAll(): array
+    public function getAll(?string $termo = null): array
     {
-        $query     = "SELECT * FROM categorias WHERE status = 1 ";
+        $termo = ($termo ? " {$termo} AND " : '');
+
+        $query     = "SELECT * FROM categorias WHERE $termo status = 1 ";
         $stmt      = Conexao::getInstancia()->query($query);
         $resultado = $stmt->fetchAll();
 
         return $resultado;
     }
 
-    public function getAllWithInactive(): array
+    public function getAllWithInactive(?string $termo = null): array
     {
-        $query = "SELECT * FROM  categorias  ORDER BY id ASC";
+        $termo = ($termo ? "WHERE  {$termo} " : '');
+
+        $query = "SELECT * FROM  categorias $termo ORDER BY id ASC";
         $stmt  = Conexao::getInstancia()->query($query);
 
         $resultado = $stmt->fetchAll();
@@ -85,9 +89,12 @@ class CategoriaModel
         }
     }
 
-    public function count(): int
+    public function count(?string $termo = null): int
     {
-        $query = "SELECT * FROM categorias";
+
+        $termo = ($termo ? "WHERE {$termo}" : '');
+
+        $query = "SELECT * FROM categorias $termo";
         $stmt = Conexao::getInstancia()->prepare($query);
         $stmt->execute();
 

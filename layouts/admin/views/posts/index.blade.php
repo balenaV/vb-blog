@@ -59,7 +59,14 @@
                     @endforeach
                 </tbody>
             </table>
-            <div class="d-flex justify-content-end text-secondary fs-6">Total de registros: {{ $total }}</div>
+            <div class="d-flex justify-content-end text-secondary fs-6 ">Total de registros: <span
+                    class="fw-bold ms-1 me-1">{{ $total['todos'] }}</span> -
+                ativos:
+                <span class="text-primary fw-bold me-1 ms-1">{{ $total['ativo'] }}</span> inativos: <span
+                    class=" me-1 text-danger fw-bold ms-1">
+                    {{ $total['inativo'] }}
+                </span>
+            </div>
         </div>
         <hr>
     @endif

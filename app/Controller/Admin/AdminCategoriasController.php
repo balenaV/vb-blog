@@ -17,7 +17,11 @@ class AdminCategoriasController extends AdminController
             'categorias/index',
             [
                 'categorias' => $categoria->getAllWithInactive(),
-                'total' => $categoria->count(),
+                'total' => [
+                    'todos' => $categoria->count(),
+                    'ativo' => $categoria->count('status = 1'),
+                    'inativo' => $categoria->count('status = 0')
+                ]
             ]
         );
     }
