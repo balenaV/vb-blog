@@ -73,4 +73,15 @@ class CategoriaModel
             echo "NÃO FOI POSSIVEL ATUALIZAR A <strong>CATEGORIA</strong> <br>" . $ex->getMessage();
         }
     }
+
+    public function delete(int $id): void
+    {
+        try {
+            $query = "DELETE FROM  categorias WHERE id = $id;";
+            $stmt  = Conexao::getInstancia()->prepare($query);
+            $stmt->execute();
+        } catch (PDOException $ex) {
+            echo "NÃO FOI POSSIVEL DELETAR A <strong>Categorias</strong> <br>" . $ex->getMessage();
+        }
+    }
 }

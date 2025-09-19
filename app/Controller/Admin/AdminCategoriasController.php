@@ -53,4 +53,14 @@ class AdminCategoriasController extends AdminController
             ]
         );
     }
+
+    public function delete(int $id): void
+    {
+        $categoria = (new CategoriaModel())->getById($id);
+
+        if ($categoria) {
+            (new CategoriaModel())->delete($id);
+            Helpers::redirecionar('/admin/categorias/index');
+        }
+    }
 }

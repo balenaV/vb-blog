@@ -40,9 +40,9 @@
                                             class=" fa-solid fa-pencil text-warning"></i></a>
                                 </abbr>
                                 <abbr title="Excluir">
-                                    <button type="button" class="btn btn-link p-0 delete-btn" data-toggle="modal"
-                                        data-target="#confirmDeleteModal" data-id="{{ $categoria->id }}">
-                                        <i class=" fa-solid fa-trash-can text-danger"></i>
+                                    <button type="button" class="btn btn-link p-0 delete-btn" data-bs-toggle="modal"
+                                        data-bs-target="#confirmDeleteModal" data-id="{{ $categoria->id }}">
+                                        <i class="fa-solid fa-trash-can text-danger"></i>
                                     </button>
                                 </abbr>
                             </td>
@@ -57,14 +57,21 @@
 @endsection
 
 @section('scripts')
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
         $(document).ready(function() {
             $('#confirmDeleteModal').on('show.bs.modal', function(event) {
                 var button = $(event.relatedTarget);
-                var postId = button.data('id');
-                var form = $(this).find('#deleteForm'); // Encontra o formulário dentro do modal
-                var newAction = '{{ app\Core\Helpers::url('admin/posts/delete/') }}/' + postId;
-                form.attr('action', newAction);
+                var categoriaId = button.data('id');
+                var form = $(this).find('#deleteForm');
+
+                if (categoriaId) {
+                    var newAction = '{{ app\Core\Helpers::url('admin/categorias/delete/') }}' + categoriaId;
+                    console.log("URL de exclusão gerada: " + newAction);
+                    form.attr('action', newAction);
+                } else {
+                    console.error("ID da categoria não encontrado.");
+                }
             });
         });
     </script>
