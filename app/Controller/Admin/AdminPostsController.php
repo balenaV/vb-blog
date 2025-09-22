@@ -16,7 +16,7 @@ class AdminPostsController extends AdminController
         echo $this->template->renderizar(
             'posts/index',
             [
-                'posts' => $posts->getAllWithInactive(),
+                'posts' => $posts->getAll()->ordem("id ASC")->result(true),
                 'total' => [
                     'todos' => $posts->count(),
                     'ativo' => $posts->count('status = 1'),

@@ -16,7 +16,7 @@ class AdminCategoriasController extends AdminController
         echo $this->template->renderizar(
             'categorias/index',
             [
-                'categorias' => $categoria->getAllWithInactive(),
+                'categorias' => $categoria->getAll()->ordem("id ASC")->result(true),
                 'total' => [
                     'todos' => $categoria->count(),
                     'ativo' => $categoria->count('status = 1'),
