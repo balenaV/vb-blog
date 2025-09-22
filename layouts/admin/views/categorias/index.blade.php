@@ -11,6 +11,7 @@
     @else
         {{ app\Core\Helpers::flash() }}
 
+
         <div class="d-flex justify-content-between text-secondary align-items-center  fs-6 ">
             <div>
                 Total: <span class="fw-bolder ms-1 me-1">{{ $total['todos'] }}</span> -

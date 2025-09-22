@@ -14,7 +14,7 @@ class Mensagem
 
     public function sucesso(string $mensagem): Mensagem
     {
-        $this->css   = 'alert alert-success';
+        $this->css   = 'alert alert-success ';
         $this->texto = $this->filtrar($mensagem);
 
         return $this;
@@ -22,7 +22,7 @@ class Mensagem
 
     public function erro(string $mensagem): Mensagem
     {
-        $this->css   = 'alert alert-danger';
+        $this->css   = 'alert alert-danger ';
         $this->texto = $this->filtrar($mensagem);
 
         return $this;
@@ -30,7 +30,7 @@ class Mensagem
 
     public function alerta(string $mensagem): Mensagem
     {
-        $this->css   = 'alert alert-warning';
+        $this->css   = 'alert alert-warning ';
         $this->texto = $this->filtrar($mensagem);
 
         return $this;
@@ -42,7 +42,7 @@ class Mensagem
      */
     public function renderizar(): string
     {
-        return "<div class='{$this->css}'>{$this->texto}</div>";
+        return "<div class='{$this->css} alert-dismissible fade show'>{$this->texto}<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button></div>";
     }
 
     /**
