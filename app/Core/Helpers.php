@@ -1,4 +1,5 @@
 <?php
+
 namespace app\Core;
 
 class Helpers
@@ -88,7 +89,7 @@ class Helpers
     public static function validaUrl(string $url): bool
     {
         return strlen($url) >= 10
-        && str_contains($url, '.')
+            && str_contains($url, '.')
             && (str_starts_with($url, 'http://') || str_starts_with($url, 'https://'));
     }
 
@@ -134,5 +135,16 @@ class Helpers
 
         header("Location: $local");
         exit();
+    }
+
+    public static function flash(): ?string
+    {
+        $sessao = new Session();
+
+        if ($flash == $sessao->flash()) {
+            echo $flash;
+        }
+
+        return null;
     }
 }

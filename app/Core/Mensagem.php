@@ -1,4 +1,5 @@
 <?php
+
 namespace app\Core;
 
 class Mensagem
@@ -11,7 +12,7 @@ class Mensagem
         return $this->renderizar();
     }
 
-    public function succeso(string $mensagem): Mensagem
+    public function sucesso(string $mensagem): Mensagem
     {
         $this->css   = 'alert alert-success';
         $this->texto = $this->filtrar($mensagem);
@@ -51,5 +52,10 @@ class Mensagem
     private function filtrar(string $mensagem): string
     {
         return filter_var($mensagem, FILTER_DEFAULT);
+    }
+
+    public function flash(): void
+    {
+        (new Session())->create('flash', $this);
     }
 }

@@ -32,6 +32,7 @@ class AdminPostsController extends AdminController
 
         if (isset($dados)) {
             (new PostModel())->create($dados);
+            $this->mensagem->sucesso('Post cadastrado com sucesso!')->flash();
             Helpers::redirecionar('/admin/posts/index');
         }
 
