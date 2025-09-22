@@ -141,7 +141,7 @@ class Helpers
     {
         $sessao = new Session();
 
-        if ($flash == $sessao->flash()) {
+        if ($flash = $sessao->flash()) {
             echo $flash;
         }
 

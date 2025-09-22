@@ -20,7 +20,9 @@ class Session
      */
     public function create(string $chave, mixed $valor): Session
     {
-        return $_SESSION[$chave] = (is_array($valor) ? (object) $valor : $valor);
+        $_SESSION[$chave] = (is_array($valor) ? (object) $valor : $valor);
+
+        return $this;
     }
 
     /**
@@ -47,7 +49,7 @@ class Session
      * @param string $chave nome da sessão
      * @return Session
      */
-    public function clear(strig $chave): Session
+    public function clear(string $chave): Session
     {
         unset($_SESSION[$chave]);
         return $this;
@@ -74,8 +76,10 @@ class Session
 
     public function flash(): ?Mensagem
     {
-        if ($this->checar('flash')) {
+        if ($this->check('flash')) {
             $flash = $this->flash;
+            $this->clear('flash');
+            return $flash;
         }
         return null;
     }

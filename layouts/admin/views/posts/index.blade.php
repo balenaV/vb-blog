@@ -9,6 +9,7 @@
         <div class="alert alert-warning" role="alert">Você ainda não fez nenhum Post.</strong>
         </div>
     @else
+        {{ app\Core\Helpers::flash() }}
         <div class="d-flex justify-content-between text-secondary align-items-center  fs-6 ">
             <div>
                 Total: <span class="fw-bolder ms-1 me-1">{{ $total['todos'] }}</span> -

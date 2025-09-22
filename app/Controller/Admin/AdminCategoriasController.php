@@ -4,6 +4,7 @@ namespace app\Controller\Admin;
 
 use app\Core\Conexao;
 use app\Core\Helpers;
+use app\Core\Mensagem;
 use app\Model\CategoriaModel;
 
 class AdminCategoriasController extends AdminController
@@ -31,6 +32,7 @@ class AdminCategoriasController extends AdminController
 
         if (isset($dados)) {
             (new CategoriaModel())->create($dados);
+            $this->mensagem->sucesso('Categoria criada com sucesso!')->flash();
             Helpers::redirecionar('/admin/categorias/index');
         }
 
