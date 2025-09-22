@@ -50,6 +50,7 @@ class AdminPostsController extends AdminController
 
         if (isset($dados)) {
             (new PostModel())->edit($dados, $id);
+            $this->mensagem->alerta('Post editado com sucesso!')->flash();
             Helpers::redirecionar('/admin/posts/index');
         }
 
@@ -68,6 +69,7 @@ class AdminPostsController extends AdminController
 
         if ($post) {
             (new PostModel())->delete($id);
+            $this->mensagem->erro('Post excluído com sucesso!')->flash();
             Helpers::redirecionar('/admin/posts/index');
         }
     }

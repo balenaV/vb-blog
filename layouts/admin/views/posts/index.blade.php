@@ -51,7 +51,7 @@
 
                                     <div class="me-3">
                                         <abbr title="Editar" class="ms-auto">
-                                            <a href="{{ app\Core\Helpers::url('admin/categorias/edit/' . $post->id) }}"><i
+                                            <a href="{{ app\Core\Helpers::url('admin/posts/edit/' . $post->id) }}"><i
                                                     class=" fa-solid fa-pencil text-warning"></i></a>
                                         </abbr>
                                     </div>

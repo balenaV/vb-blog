@@ -50,6 +50,7 @@ class AdminCategoriasController extends AdminController
 
         if (isset($dados)) {
             (new CategoriaModel())->edit($dados, $id);
+            $this->mensagem->alerta('Categoria editada com sucesso!')->flash();
             Helpers::redirecionar('/admin/categorias/index');
         }
 
@@ -67,6 +68,7 @@ class AdminCategoriasController extends AdminController
 
         if ($categoria) {
             (new CategoriaModel())->delete($id);
+            $this->mensagem->erro('Categoria excluída com sucesso!')->flash();
             Helpers::redirecionar('/admin/categorias/index');
         }
     }
