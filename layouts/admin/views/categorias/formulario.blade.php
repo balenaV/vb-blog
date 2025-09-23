@@ -22,7 +22,7 @@
 
         <div class="d-flex justify-content-between">
             <input type="submit" value="Enviar" class="btn btn-primary">
-            <button href="{{ app\Core\Helpers::url('admin/categorias/index') }}" class="btn btn-danger">Voltar</button>
+            <a href="{{ app\Core\Helpers::url('admin/categorias/index') }}" class="btn btn-danger">Voltar</a>
         </div>
     </form>
 @endsection

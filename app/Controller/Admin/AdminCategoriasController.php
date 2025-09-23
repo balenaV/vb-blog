@@ -19,8 +19,8 @@ class AdminCategoriasController extends AdminController
                 'categorias' => $categoria->getAll()->ordem("id ASC")->result(true),
                 'total' => [
                     'todos' => $categoria->count(),
-                    'ativo' => $categoria->getAll('status = 1'),
-                    'inativo' => $categoria->getAll('status = 0')
+                    'ativo' => $categoria->getAll('status = 1')->count(),
+                    'inativo' => $categoria->getAll('status = 0')->count()
                 ]
             ]
         );

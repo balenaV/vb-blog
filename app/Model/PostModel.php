@@ -44,12 +44,4 @@ class PostModel extends Model
 
         return $resultado;
     }
-
-
-    public function count(): int
-    {
-        $stmt = Conexao::getInstancia()->prepare($this->query);
-        $stmt->execute();
-        return $stmt->rowCount();
-    }
 }

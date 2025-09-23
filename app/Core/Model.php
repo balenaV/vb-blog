@@ -70,7 +70,12 @@ class Model
         parse_str($parametros, $this->parametros);
         return $this;
     }
-
+    public function count(): int
+    {
+        $stmt = Conexao::getInstancia()->prepare($this->query);
+        $stmt->execute();
+        return $stmt->rowCount();
+    }
     public function result(bool $todos = false)
     {
         try {

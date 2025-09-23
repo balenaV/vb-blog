@@ -19,8 +19,8 @@ class AdminPostsController extends AdminController
                 'posts' => $posts->getAll()->ordem("id ASC")->result(true),
                 'total' => [
                     'todos' => $posts->count(),
-                    'ativo' => $posts->count('status = 1'),
-                    'inativo' => $posts->count('status = 0')
+                    'ativo' => $posts->getAll('status = 1')->count(),
+                    'inativo' => $posts->getAll('status = 0')->count()
                 ]
             ]
         );
