@@ -3,30 +3,35 @@
 namespace app\Model;
 
 use app\Core\Conexao;
+use app\Core\Model;
 
 /**
  * Classe CategoriaModel
  */
 
-class CategoriaModel
+class CategoriaModel extends Model
 {
 
-    public function getAll(?string $termo = null): array
+
+    public function __construct()
     {
-        $termo = ($termo ? " {$termo} AND " : '');
-
-        $query     = "SELECT * FROM categorias WHERE $termo status = 1 ";
-        $stmt      = Conexao::getInstancia()->query($query);
-        $resultado = $stmt->fetchAll();
-
-        return $resultado;
+        parent::__construct('categorias');
     }
 
+
+
+    /**
+     *  Lista todas categorias no banco incluindo as inativas
+     * @param ?string $termo filtro da busca
+     * @param ?string $ordem ordem da busca
+     * @return array
+     */
     public function getAllWithInactive(?string $termo = null): array
     {
         $termo = ($termo ? "WHERE  {$termo} " : '');
+        $ordem = ($ordem ? " ORDER BY {$ordem}" : '');
 
-        $query = "SELECT * FROM  categorias $termo ORDER BY id ASC";
+        $query = "SELECT * FROM  categorias $termo $ordem";
         $stmt  = Conexao::getInstancia()->query($query);
 
         $resultado = $stmt->fetchAll();
@@ -34,18 +39,30 @@ class CategoriaModel
         return $resultado;
     }
 
-    public function getPostByCategoriaId(int $id): array
+    /**
+     *  Lista todos os posts que pertencem à determinada categoria
+     * @param int $id ID da categoria
+     * @param ?string $ordem ordem da busca
+     */
+    public function getPostByCategoriaId(int $id, ?string $ordem = null): array
     {
-        $query     = "SELECT * FROM posts WHERE categoriaid = $id AND status = 1 ORDER BY id DESC;";
-        $stmt      = Conexao::getInstancia()->query($query);
+        $ordem = ($ordem ? " ORDER BY {$ordem}" : '');
+
+        $query     = "SELECT * FROM posts WHERE categoriaid = $id AND status = 1 $ordem";
+        $stmt = Conexao::getInstancia()->query($query);
         $resultado = $stmt->fetchAll();
 
         return $resultado;
     }
 
+    /**
+     * Busca post específico por ID
+     * @param int $id ID do produto 
+     * @return bool | object
+     */
     public function getById(int $id): bool | object
     {
-        $query     = "SELECT * FROM categorias WHERE id = $id;";
+        $query     = "SELECT * FROM categorias WHERE id = $id $ordem;";
         $stmt      = Conexao::getInstancia()->query($query);
         $resultado = $stmt->fetch();
 

@@ -1,23 +1,19 @@
 <?php
+
 namespace app\Model;
 
 use app\Core\Conexao;
+use app\Core\Model;
 use PDOException;
 
-class PostModel
+class PostModel extends Model
 {
-    public function getAll(?string $termo = null): array
+
+    public function __construct()
     {
-
-        $termo = ($termo ? " {$termo} AND " : '');
-
-        $query = "SELECT * FROM  posts WHERE $termo status = 1 ORDER BY id DESC";
-        $stmt  = Conexao::getInstancia()->query($query);
-
-        $resultado = $stmt->fetchAll();
-
-        return $resultado;
+        parent::__construct('posts');
     }
+
 
     public function getAllWithInactive(?string $termo = null): array
     {

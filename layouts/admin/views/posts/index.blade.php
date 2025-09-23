@@ -9,6 +9,7 @@
         <div class="alert alert-warning" role="alert">Você ainda não fez nenhum Post.</strong>
         </div>
     @else
+        {{ app\Core\Helpers::flash() }}
         <div class="d-flex justify-content-between text-secondary align-items-center  fs-6 ">
             <div>
                 Total: <span class="fw-bolder ms-1 me-1">{{ $total['todos'] }}</span> -
@@ -50,7 +51,7 @@
 
                                     <div class="me-3">
                                         <abbr title="Editar" class="ms-auto">
-                                            <a href="{{ app\Core\Helpers::url('admin/categorias/edit/' . $post->id) }}"><i
+                                            <a href="{{ app\Core\Helpers::url('admin/posts/edit/' . $post->id) }}"><i
                                                     class=" fa-solid fa-pencil text-warning"></i></a>
                                         </abbr>
                                     </div>

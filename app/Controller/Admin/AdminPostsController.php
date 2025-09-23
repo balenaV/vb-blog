@@ -16,7 +16,7 @@ class AdminPostsController extends AdminController
         echo $this->template->renderizar(
             'posts/index',
             [
-                'posts' => $posts->getAllWithInactive(),
+                'posts' => $posts->getAll()->ordem("id ASC")->result(true),
                 'total' => [
                     'todos' => $posts->count(),
                     'ativo' => $posts->count('status = 1'),
@@ -32,6 +32,7 @@ class AdminPostsController extends AdminController
 
         if (isset($dados)) {
             (new PostModel())->create($dados);
+            $this->mensagem->sucesso('Post cadastrado com sucesso!')->flash();
             Helpers::redirecionar('/admin/posts/index');
         }
 
@@ -49,6 +50,7 @@ class AdminPostsController extends AdminController
 
         if (isset($dados)) {
             (new PostModel())->edit($dados, $id);
+            $this->mensagem->alerta('Post editado com sucesso!')->flash();
             Helpers::redirecionar('/admin/posts/index');
         }
 
@@ -67,6 +69,7 @@ class AdminPostsController extends AdminController
 
         if ($post) {
             (new PostModel())->delete($id);
+            $this->mensagem->erro('Post excluído com sucesso!')->flash();
             Helpers::redirecionar('/admin/posts/index');
         }
     }

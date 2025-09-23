@@ -4,6 +4,7 @@ namespace app\Controller\Admin;
 
 use app\Core\Conexao;
 use app\Core\Helpers;
+use app\Core\Mensagem;
 use app\Model\CategoriaModel;
 
 class AdminCategoriasController extends AdminController
@@ -15,7 +16,7 @@ class AdminCategoriasController extends AdminController
         echo $this->template->renderizar(
             'categorias/index',
             [
-                'categorias' => $categoria->getAllWithInactive(),
+                'categorias' => $categoria->getAll()->ordem("id ASC")->result(true),
                 'total' => [
                     'todos' => $categoria->count(),
                     'ativo' => $categoria->count('status = 1'),
@@ -31,6 +32,7 @@ class AdminCategoriasController extends AdminController
 
         if (isset($dados)) {
             (new CategoriaModel())->create($dados);
+            $this->mensagem->sucesso('Categoria criada com sucesso!')->flash();
             Helpers::redirecionar('/admin/categorias/index');
         }
 
@@ -48,6 +50,7 @@ class AdminCategoriasController extends AdminController
 
         if (isset($dados)) {
             (new CategoriaModel())->edit($dados, $id);
+            $this->mensagem->alerta('Categoria editada com sucesso!')->flash();
             Helpers::redirecionar('/admin/categorias/index');
         }
 
@@ -65,6 +68,7 @@ class AdminCategoriasController extends AdminController
 
         if ($categoria) {
             (new CategoriaModel())->delete($id);
+            $this->mensagem->erro('Categoria excluída com sucesso!')->flash();
             Helpers::redirecionar('/admin/categorias/index');
         }
     }

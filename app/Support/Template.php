@@ -1,6 +1,8 @@
 <?php
+
 namespace app\Support;
 
+use app\Core\Helpers;
 use Jenssegers\Blade\Blade;
 
 class Template
@@ -20,5 +22,10 @@ class Template
     public function renderizar(string $view, array $dados): string
     {
         return $this->blade->make($view, $dados)->render();
+    }
+
+    public function flash()
+    {
+        return Helpers::flash();
     }
 }
