@@ -1,4 +1,5 @@
 <?php
+
 namespace app\Controller;
 
 use app\Core\Controller;
@@ -15,12 +16,12 @@ class SiteController extends Controller
 
     public function index(): void
     {
-        $posts      = (new PostModel())->getAll();
-        $categorias = (new CategoriaModel())->getAll();
+        $posts      = (new PostModel())->getAll(' status = 1');
+        $categorias = (new CategoriaModel())->getAll(' status = 1');
 
         echo $this->template->renderizar('index', [
-            'posts'      => $posts,
-            'categorias' => $categorias,
+            'posts'      => $posts->result(true),
+            'categorias' => $categorias->result(true),
         ]);
     }
 
@@ -34,7 +35,7 @@ class SiteController extends Controller
 
         echo $this->template->renderizar('post', [
             'post'       => $post,
-            'categorias' => (new CategoriaModel())->getAll(),
+            'categorias' => (new CategoriaModel())->getAll()->result(true),
 
         ]);
     }
@@ -48,9 +49,9 @@ class SiteController extends Controller
         }
 
         echo $this->template->renderizar('categoria', [
-            'posts'      => (new CategoriaModel())->getPostByCategoriaId($id),
+            'posts'      => (new PostModel())->getAll(" categoriaId = $id")->result(true),
             'categoria'  => $categoria,
-            'categorias' => (new CategoriaModel())->getAll(),
+            'categorias' => (new CategoriaModel())->getAll()->result(true),
         ]);
     }
     public function sobre(): void

@@ -47,61 +47,17 @@ class PostModel extends Model
 
     public function pesquisa(string $busca): array
     {
-        $query     = "SELECT * FROM posts WHERE status = 1 AND titulo LIKE '%$busca%'";
+        $query     = "SELECT * FROM " . self::TABELA . " WHERE titulo LIKE '%$busca%'";
         $stmt      = Conexao::getInstancia()->query($query);
         $resultado = $stmt->fetchAll();
 
         return $resultado;
     }
 
-    // public function create(array $dados): void
-    // {
-    //     try {
-    //         $query = "INSERT INTO posts (`titulo`, `texto`, `status`,categoriaId) VALUES ( :titulo, :texto, :status,:categoriaId);";
-    //         $stmt  = Conexao::getInstancia()->prepare($query);
-    //         $stmt->execute($dados);
-    //     } catch (PDOException $ex) {
-    //         echo "NÃO FOI POSSIVEL CRIAR O <strong>POST</strong> <br>" . $ex->getMessage();
-    //     }
-    // // }
-
-    // public function edit(array $dados, int $id): void
-    // {
-    //     try {
-    //         $query = "UPDATE posts SET
-    //         titulo = :titulo,
-    //         texto = :texto,
-    //         status = :status,
-    //         categoriaId = :categoriaId
-    //         WHERE id = $id;";
-    //         $stmt = Conexao::getInstancia()->prepare($query);
-    //         $stmt->execute($dados);
-    //     } catch (PDOException $ex) {
-    //         echo "NÃO FOI POSSIVEL ATUALIZAR O <strong>POST</strong> <br>" . $ex->getMessage();
-    //     }
-    // }
-
-    // public function delete(int $id): void
-    // {
-    //     try {
-    //         $query = "DELETE FROM  posts WHERE id = $id;";
-    //         $stmt  = Conexao::getInstancia()->prepare($query);
-    //         $stmt->execute($dados);
-    //     } catch (PDOException $ex) {
-    //         echo "NÃO FOI POSSIVEL DELETAR O <strong>POST</strong> <br>" . $ex->getMessage();
-    //     }
-    // }
-
-    public function count(?string $termo = null): int
+    public function count(): int
     {
-        $termo = ($termo ? "WHERE {$termo}" : '');
-
-        $query = "SELECT * FROM posts {$termo}";
-
-        $stmt = Conexao::getInstancia()->prepare($query);
+        $stmt = Conexao::getInstancia()->prepare($this->query);
         $stmt->execute();
-
-
         return $stmt->rowCount();
     }
 }
