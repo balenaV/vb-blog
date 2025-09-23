@@ -17,14 +17,4 @@ class CategoriaModel extends Model
     {
         parent::__construct('categorias');
     }
-
-
-
-
-    public function count(): int
-    {
-        $stmt = Conexao::getInstancia()->prepare($this->query);
-        $stmt->execute();
-        return $stmt->rowCount();
-    }
 }
