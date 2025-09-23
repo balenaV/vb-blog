@@ -31,14 +31,22 @@ class AdminPostsController extends AdminController
         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 
         if (isset($dados)) {
-            (new PostModel())->create($dados);
-            $this->mensagem->sucesso('Post cadastrado com sucesso!')->flash();
-            Helpers::redirecionar('/admin/posts/index');
+            $post = new PostModel();
+
+            $post->titulo = $dados['titulo'];
+            $post->texto = $dados['texto'];
+            $post->status = $dados['status'];
+            $post->categoriaId = $dados['categoriaId'];
+
+            if ($post->save()) {
+                $this->mensagem->sucesso('Post cadastrado com sucesso!')->flash();
+                Helpers::redirecionar('/admin/posts/index');
+            }
         }
 
         echo $this->template->renderizar(
             'posts/formulario',
-            ['categorias' => (new CategoriaModel())->getAll()]
+            ['categorias' => (new CategoriaModel())->getAll()->ordem("id ASC")->result(true)]
         );
     }
 
@@ -58,7 +66,7 @@ class AdminPostsController extends AdminController
             'posts/edit',
             [
                 'post' => $post,
-                'categorias' => (new CategoriaModel())->getAll()
+                'categorias' => (new CategoriaModel())->getAll()->ordem("id ASC")->result(true)
             ]
         );
     }

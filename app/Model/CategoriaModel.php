@@ -69,31 +69,31 @@ class CategoriaModel extends Model
         return $resultado;
     }
 
-    public function create(array $dados): void
-    {
-        try {
-            $query = "INSERT INTO categorias (`titulo`, `texto`, `status`) VALUES (:titulo, :texto, :status);";
-            $stmt  = Conexao::getInstancia()->prepare($query);
-            $stmt->execute($dados);
-        } catch (PDOException $ex) {
-            echo "NÃO FOI POSSIVEL CRIAR A <strong>CATEGORIA</strong> <br>" . $ex->getMessage();
-        }
-    }
+    // public function create(array $dados): void
+    // {
+    //     try {
+    //         $query = "INSERT INTO categorias (`titulo`, `texto`, `status`) VALUES (:titulo, :texto, :status);";
+    //         $stmt  = Conexao::getInstancia()->prepare($query);
+    //         $stmt->execute($dados);
+    //     } catch (PDOException $ex) {
+    //         echo "NÃO FOI POSSIVEL CRIAR A <strong>CATEGORIA</strong> <br>" . $ex->getMessage();
+    //     }
+    // }
 
-    public function edit(array $dados, int $id): void
-    {
-        try {
-            $query = "UPDATE categorias SET
-            titulo = :titulo,
-            texto = :texto,
-            status = :status
-            WHERE id = $id;";
-            $stmt = Conexao::getInstancia()->prepare($query);
-            $stmt->execute($dados);
-        } catch (PDOException $ex) {
-            echo "NÃO FOI POSSIVEL ATUALIZAR A <strong>CATEGORIA</strong> <br>" . $ex->getMessage();
-        }
-    }
+    // public function edit(array $dados, int $id): void
+    // {
+    //     try {
+    //         $query = "UPDATE categorias SET
+    //         titulo = :titulo,
+    //         texto = :texto,
+    //         status = :status
+    //         WHERE id = $id;";
+    //         $stmt = Conexao::getInstancia()->prepare($query);
+    //         $stmt->execute($dados);
+    //     } catch (PDOException $ex) {
+    //         echo "NÃO FOI POSSIVEL ATUALIZAR A <strong>CATEGORIA</strong> <br>" . $ex->getMessage();
+    //     }
+    // }
 
     public function delete(int $id): void
     {
