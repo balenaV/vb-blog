@@ -81,12 +81,17 @@ class AdminPostsController extends AdminController
 
     public function delete(int $id): void
     {
-        $post = (new PostModel())->getById($id);
+        if (is_int($id)) {
 
-        if ($post) {
-            (new PostModel())->delete(" id ={$id}");
-            $this->mensagem->erro('Post excluído com sucesso!')->flash();
-            Helpers::redirecionar('/admin/posts/index');
+            $post = (new PostModel())->getById($id);
+            if ($post) {
+                (new PostModel())->delete(" id ={$id}");
+                $this->mensagem->erro('Post excluído com sucesso!')->flash();
+                Helpers::redirecionar('/admin/posts/index');
+            } else {
+                $this->mensagem->alerta('O post que você está tentando deletar não existe!')->flash();
+                Helpers::redirecionar('/admin/posts/index');
+            }
         }
     }
 }

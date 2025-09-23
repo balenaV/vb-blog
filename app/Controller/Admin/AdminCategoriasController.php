@@ -78,12 +78,20 @@ class AdminCategoriasController extends AdminController
 
     public function delete(int $id): void
     {
-        $categoria = (new CategoriaModel())->getById($id);
-
-        if ($categoria) {
-            (new CategoriaModel())->delete(" id = {$id}");
-            $this->mensagem->erro('Categoria excluída com sucesso!')->flash();
-            Helpers::redirecionar('/admin/categorias/index');
+        if (is_int($id)) {
+            $categoria = (new CategoriaModel())->getById($id);
+            if ($categoria) {
+                if ((new CategoriaModel())->delete("id = {$id}")) {
+                    $this->mensagem->erro('Categoria excluída com sucesso!')->flash();
+                    Helpers::redirecionar('/admin/categorias/index');
+                } else {
+                    $this->mensagem->erro($categoria->erro())->flash();
+                    Helpers::redirecionar('/admin/categorias/index');
+                }
+            } else {
+                $this->mensagem->alerta('A categoria que você está tentando deletar não existe')->flash();
+                Helpers::redirecionar('/admin/categorias/index');
+            }
         }
     }
 }
