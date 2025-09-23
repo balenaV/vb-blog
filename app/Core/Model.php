@@ -34,6 +34,20 @@ class Model
         $this->dados->$nome = $valor;
     }
 
+    public function __isset($nome)
+    {
+        return isset($this->dados->$nome);
+    }
+
+    public function __get($nome)
+    {
+        return $this->dados->$nome ?? null;
+    }
+
+    public function dados()
+    {
+        $this->dados = new \stdClass();
+    }
     public function erro()
     {
         return $this->erro;
@@ -63,7 +77,11 @@ class Model
             $stmt = Conexao::getInstancia()->prepare($this->query . $this->ordem);
             $stmt->execute($this->parametros);
 
-            return ($todos) ? $stmt->fetchAll() : $stmt->fetchObject();
+            if (!$stmt->rowCount())
+                return null;
+
+
+            return ($todos) ? $stmt->fetchAll() : $stmt->fetchObject(static::class);
         } catch (\PDOException $ex) {
             echo $this->erro = $ex;
         }
@@ -93,7 +111,7 @@ class Model
             $set = [];
 
             foreach ($dados as $chave => $valor) {
-                $set[] = "{$chave} = :{$valor}";
+                $set[] = "{$chave} = :{$chave}";
             }
             $set = implode(', ', $set);
             $query = "UPDATE {$this->tabela} SET {$set} WHERE {$termos}";
@@ -127,16 +145,31 @@ class Model
     }
 
 
+    public function getById(int $id)
+    {
+        $get = $this->getAll("id = {$id}");
+        return $get->result();
+    }
     public function save()
     {
         if (empty($this->id)) {
-            $this->create($this->store());
+            $id = $this->create($this->store());
+            if ($this->erro) {
+                $this->mensagem()->erro('Erro no sistema ao tentar cadastrar os dados');
+                return false;
+            }
+        }
+        if (!empty($this->id)) {
+            $id = $this->id;
+            $this->update($this->store(), " id = $id");
             if ($this->erro) {
                 $this->mensagem()->erro('Erro no sistema ao tentar cadastrar os dados');
                 return false;
             }
         }
 
+
+        $this->dados = $this->getById($id)->dados();
         return true;
     }
 }

@@ -57,9 +57,17 @@ class AdminPostsController extends AdminController
         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 
         if (isset($dados)) {
-            (new PostModel())->edit($dados, $id);
-            $this->mensagem->alerta('Post editado com sucesso!')->flash();
-            Helpers::redirecionar('/admin/posts/index');
+            $post = (new PostModel())->getById($id);
+
+            $post->titulo = $dados['titulo'];
+            $post->texto = $dados['texto'];
+            $post->status = $dados['status'];
+            $post->categoriaId = $dados['categoriaId'];
+
+            if ($post->save()) {
+                $this->mensagem->alerta('Post editado com sucesso!')->flash();
+                Helpers::redirecionar('/admin/posts/index');
+            }
         }
 
         echo $this->template->renderizar(

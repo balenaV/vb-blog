@@ -60,14 +60,14 @@ class CategoriaModel extends Model
      * @param int $id ID do produto 
      * @return bool | object
      */
-    public function getById(int $id): bool | object
-    {
-        $query     = "SELECT * FROM categorias WHERE id = $id $ordem;";
-        $stmt      = Conexao::getInstancia()->query($query);
-        $resultado = $stmt->fetch();
+    // public function getById(int $id): bool | object
+    // {
+    //     $query     = "SELECT * FROM categorias WHERE id = $id $ordem;";
+    //     $stmt      = Conexao::getInstancia()->query($query);
+    //     $resultado = $stmt->fetch();
 
-        return $resultado;
-    }
+    //     return $resultado;
+    // }
 
     // public function create(array $dados): void
     // {

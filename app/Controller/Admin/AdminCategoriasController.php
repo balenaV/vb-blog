@@ -56,9 +56,16 @@ class AdminCategoriasController extends AdminController
         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 
         if (isset($dados)) {
-            (new CategoriaModel())->edit($dados, $id);
-            $this->mensagem->alerta('Categoria editada com sucesso!')->flash();
-            Helpers::redirecionar('/admin/categorias/index');
+
+            $categoria = (new CategoriaModel())->getById($id);
+
+            $categoria->titulo = $dados['titulo'];
+            $categoria->texto = $dados['texto'];
+            $categoria->status = $dados['status'];
+            if ($categoria->save()) {
+                $this->mensagem->alerta('Categoria editada com sucesso!')->flash();
+                Helpers::redirecionar('/admin/categorias/index');
+            }
         }
 
         echo $this->template->renderizar(
