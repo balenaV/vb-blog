@@ -84,7 +84,7 @@ class AdminPostsController extends AdminController
         $post = (new PostModel())->getById($id);
 
         if ($post) {
-            (new PostModel())->delete($id);
+            (new PostModel())->delete(" id ={$id}");
             $this->mensagem->erro('Post excluído com sucesso!')->flash();
             Helpers::redirecionar('/admin/posts/index');
         }

@@ -126,6 +126,22 @@ class Model
         }
     }
 
+
+    public function delete(string $termos)
+    {
+        try {
+            $query = "DELETE FROM {$this->tabela} WHERE {$termos}";
+
+            $stmt = Conexao::getInstancia()->prepare($query);
+            $stmt->execute();
+
+            return ($stmt->rowCount() ?? 1);
+        } catch (\PDOException $ex) {
+            echo $this->erro = $ex;
+            return null;
+        }
+    }
+
     private function filtro(array $dados)
     {
         $filtro = [];

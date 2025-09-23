@@ -81,16 +81,16 @@ class PostModel extends Model
     //     }
     // }
 
-    public function delete(int $id): void
-    {
-        try {
-            $query = "DELETE FROM  posts WHERE id = $id;";
-            $stmt  = Conexao::getInstancia()->prepare($query);
-            $stmt->execute($dados);
-        } catch (PDOException $ex) {
-            echo "NÃO FOI POSSIVEL DELETAR O <strong>POST</strong> <br>" . $ex->getMessage();
-        }
-    }
+    // public function delete(int $id): void
+    // {
+    //     try {
+    //         $query = "DELETE FROM  posts WHERE id = $id;";
+    //         $stmt  = Conexao::getInstancia()->prepare($query);
+    //         $stmt->execute($dados);
+    //     } catch (PDOException $ex) {
+    //         echo "NÃO FOI POSSIVEL DELETAR O <strong>POST</strong> <br>" . $ex->getMessage();
+    //     }
+    // }
 
     public function count(?string $termo = null): int
     {

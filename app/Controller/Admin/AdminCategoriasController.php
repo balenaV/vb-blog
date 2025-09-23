@@ -81,7 +81,7 @@ class AdminCategoriasController extends AdminController
         $categoria = (new CategoriaModel())->getById($id);
 
         if ($categoria) {
-            (new CategoriaModel())->delete($id);
+            (new CategoriaModel())->delete(" id = {$id}");
             $this->mensagem->erro('Categoria excluída com sucesso!')->flash();
             Helpers::redirecionar('/admin/categorias/index');
         }
