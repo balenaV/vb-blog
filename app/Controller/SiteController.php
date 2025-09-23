@@ -66,7 +66,7 @@ class SiteController extends Controller
         $busca = filter_input(INPUT_POST, 'busca', FILTER_DEFAULT);
 
         if (isset($busca)) {
-            $posts = (new PostModel())->pesquisa($busca);
+            $posts = (new PostModel())->getAll(" status = 1 AND titulo LIKE '%$busca%'")->result(true);
 
             if (! empty($posts)) {
                 foreach ($posts as $post) {
@@ -87,11 +87,11 @@ class SiteController extends Controller
     {
         $busca = filter_input_array(INPUT_POST, FILTER_DEFAULT);
         if (isset($busca)) {
-            $posts = (new PostModel())->pesquisa($busca['busca']);
+            $posts = (new PostModel())->getAll(" status = 1 AND titulo LIKE '%" . $busca['busca'] . "%'")->result(true);
 
             echo $this->template->renderizar('busca', [
                 'posts'      => $posts,
-                'categorias' => (new CategoriaModel())->getAll(),
+                'categorias' => (new CategoriaModel())->getAll()->result(true),
                 'pesquisa'   => $busca['busca'],
             ]);
         }

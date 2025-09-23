@@ -45,14 +45,6 @@ class PostModel extends Model
         return $resultado;
     }
 
-    public function pesquisa(string $busca): array
-    {
-        $query     = "SELECT * FROM " . self::TABELA . " WHERE titulo LIKE '%$busca%'";
-        $stmt      = Conexao::getInstancia()->query($query);
-        $resultado = $stmt->fetchAll();
-
-        return $resultado;
-    }
 
     public function count(): int
     {
