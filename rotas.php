@@ -17,7 +17,10 @@ try {
         SimpleRouter::get(URL_BASE . "/404", "SiteController@erro404");
 
         SimpleRouter::group(['namespace' => 'Admin'], function () {
-                SimpleRouter::get(URL_ADMIN . '/dashboard', 'AdminDashboardController@dashboard');
+
+                // LOGIN 
+                SimpleRouter::match(['get', 'post'], URL_ADMIN . '/login', 'AdminLoginController@login');
+
 
                 // ADMIN POSTS
                 SimpleRouter::get(URL_ADMIN . '/posts/index', 'AdminPostsController@index');
@@ -25,7 +28,8 @@ try {
                 SimpleRouter::match(['get', 'post'], URL_ADMIN . '/posts/edit/{id}', 'AdminPostsController@edit');
                 SimpleRouter::post(URL_ADMIN . '/posts/delete/{id}', 'AdminPostsController@delete');
 
-
+                // DASHBOARD
+                SimpleRouter::get(URL_ADMIN . '/dashboard', 'AdminDashboardController@dashboard');
 
                 // ADMIN CATEGORIAS
                 SimpleRouter::get(URL_ADMIN . '/categorias/index', 'AdminCategoriasController@index');
