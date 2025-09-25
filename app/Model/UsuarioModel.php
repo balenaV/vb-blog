@@ -3,6 +3,7 @@
 namespace app\Model;
 
 use app\Core\Model;
+use app\Core\Session;
 
 class UsuarioModel extends Model
 {
@@ -42,6 +43,9 @@ class UsuarioModel extends Model
             $this->mensagem->alerta("Usuário sem permissão")->flash();
             return false;
         }
+
+
+        (new Session())->create('usuariodId', $usuario->id);
 
         $this->mensagem->sucesso("{$usuario->nome}, seja bem vindo ao painel de controle")->flash();
         return true;

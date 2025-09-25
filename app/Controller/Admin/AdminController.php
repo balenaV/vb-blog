@@ -3,7 +3,10 @@
 namespace app\Controller\Admin;
 
 use app\Core\Controller;
+use app\Controller\UsuarioController;
 use app\Core\Helpers;
+use app\Core\Session;
+use app\Model\UsuarioModel;
 
 class AdminController extends Controller
 {
@@ -13,11 +16,13 @@ class AdminController extends Controller
     {
         parent::__construct(__DIR__ . '/../../../layouts/admin/views');
 
+        $this->usuario = UsuarioController::usuario();
 
-        $usuario = false;
-
-        if (!$usuario) {
+        if (!$this->usuario || $this->usuario->level < 3) {
             $this->mensagem->erro('Faça login para acessar o painel de controle!')->flash();
+
+            $sessao = new Session();
+            $sessao->clear('usuarioId');
 
             Helpers::redirecionar('admin/login');
         }
