@@ -1,4 +1,7 @@
-@extends('structure.base')
+@php
+    use app\Core\Helpers;
+@endphp
+
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -11,14 +14,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css">
 
     <!--=============== CSS ===============-->
-    <link rel="stylesheet" href="{{ app\Core\Helpers::url('layouts/admin/assets/css/login.css') }}">
+    <link rel="stylesheet" href="{{ Helpers::url('layouts/admin/assets/css/login.css') }}">
 
-
-    <title>Responsive Login Form</title>
+    <!--=============== BOOTSTRAP ===============-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <title>Login</title>
 </head>
 
 <body>
-
     <!--=============== LOGIN IMAGE ===============-->
     <svg class="login__blob" viewBox="0 0 566 840" xmlns="http://www.w3.org/2000/svg">
         <mask id="mask0" mask-type="alpha">
@@ -44,24 +48,28 @@
         <!-- === ACESSO  LOGIN === -->
         <div class="login__access">
             <h1 class="login__title">Entrar na sua conta.</h1>
+            {{ Helpers::flash() }}
 
             <div class="login__area">
-                <form action="" class="login__form">
+                <form action="{{ app\Core\Helpers::url('admin/login') }}" class="login__form" method="POST">
                     <div class="login__content grid">
                         <div class="login__box">
-                            <input type="email" id="email" required placeholder="" class="login__input">
+                            <input type="email" id="email" required placeholder="" name="email"
+                                class="login__input">
                             <label for="email" class="login__label">Email</label>
                             <i class="ri-mail-fill login__icon"></i>
                         </div>
 
                         <div class="login__box">
-                            <input type="password" id="password" required placeholder="" class="login__input">
+                            <input type="password" name="senha" id="password" required placeholder=""
+                                class="login__input">
                             <label for="password" class="login__label">Senha</label>
                             <i class="ri-eye-off-fill login__icon login__password" id="loginPassword"></i>
                         </div>
                     </div>
 
-                    <a href="#" class="login__forgot">Esqueci a senha</a>
+                    <a href="{{ app\Core\Helpers::url('admin/categorias/index') }}" class="login__forgot">Esqueci a
+                        senha</a>
 
                     <button type="submit" class="login__button">Entrar</button>
                 </form>
@@ -94,7 +102,7 @@
 
             <div class="login__area">
 
-                <form action="" class="login__form">
+                <form action="{{ app\Core\Helpers::url('admin/login') }}" class="login__form">
                     <div class="login__content grid">
                         <div class="login__group grid">
 

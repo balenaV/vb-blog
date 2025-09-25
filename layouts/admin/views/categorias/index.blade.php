@@ -6,7 +6,7 @@
 @endsection
 @section('content')
     @if (!$categorias)
-        <div class="alert alert-warning" role="alert">Nenhuma Categoria foi criado.</strong>
+        <div class="alert alert-warning" role="alert">Nenhuma Categoria foi criada.</strong>
         </div>
     @else
         {{ app\Core\Helpers::flash() }}

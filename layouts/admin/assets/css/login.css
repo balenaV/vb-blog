@@ -85,6 +85,8 @@ img {
 
 /* CLASSES REUTILIZAVEIS NO CSS  */
 
+
+
 .container {
     max-width: 1120px;
     margin-inline: 1.5rem;
@@ -310,6 +312,9 @@ img {
     pointer-events: initial;
 }
 
+.w-fit {
+    width: fit-content !important;
+}
 
 /* === MEDIA QUERIES === */
 /* Para aparelhos pequenos */

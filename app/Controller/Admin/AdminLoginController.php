@@ -4,6 +4,7 @@ namespace app\Controller\Admin;
 
 use app\Core\Controller;
 use app\Core\Helpers;
+use app\Model\UsuarioModel;
 
 class AdminLoginController extends Controller
 {
@@ -16,6 +17,14 @@ class AdminLoginController extends Controller
 
     public function login(): void
     {
+        $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
+
+        if (isset($dados)) {
+            $usuario = (new UsuarioModel())->login($dados, 3);
+
+            if ($usuario)
+                Helpers::redirecionar('/admin/login');
+        }
         echo $this->template->renderizar('login', []);
     }
 }

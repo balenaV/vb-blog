@@ -30,7 +30,7 @@
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
     </script>
     <script src="{{ app\Core\Helpers::url('/layouts/assets/js/scripts.js') }}"></script>
-    <script src="{{ app\Core\Helpers::url('/layouts/site/assets/js/admin.js') }}"></script>
+    <script src="{{ app\Core\Helpers::url('/layouts/admin/assets/js/admin.js') }}"></script>
 
 
 </body>
