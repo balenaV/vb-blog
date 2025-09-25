@@ -19,12 +19,27 @@ class UsuarioModel extends Model
         return $busca->result();
     }
 
+
+
     public function login(array $dados, int $level = 1)
     {
         $usuario = (new UsuarioModel())->getByEmail($dados['email']);
 
         if (!$usuario) {
             $this->mensagem->alerta("Usuário e/ou senha incorreto(os)")->flash();
+            return false;
+        }
+        if ($dados['senha'] != $usuario->senha) {
+            $this->mensagem->alerta("Senha incorreta")->flash();
+            return false;
+        }
+        if ($usuario->status != 1) {
+            $this->mensagem->alerta("Sua conta está desativada")->flash();
+            return false;
+        }
+
+        if ($usuario->level < $level) {
+            $this->mensagem->alerta("Usuário sem permissão")->flash();
             return false;
         }
 
