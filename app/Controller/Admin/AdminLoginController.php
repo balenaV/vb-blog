@@ -4,6 +4,7 @@ namespace app\Controller\Admin;
 
 use app\Core\Controller;
 use app\Core\Helpers;
+use app\Core\Session;
 use app\Model\UsuarioModel;
 
 class AdminLoginController extends Controller
@@ -19,11 +20,38 @@ class AdminLoginController extends Controller
     {
         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 
-        if (isset($dados)) {
-            $usuario = (new UsuarioModel())->login($dados, 3);
+        if (isset($dados['email']) && isset($dados['senha'])) {
 
-            if ($usuario)
-                Helpers::redirecionar('/admin/dashboard');
+            $usuario = (new UsuarioModel())->getByEmail($dados['email']);
+
+            if (!$usuario) {
+                $this->mensagem->alerta("Usuário e/ou senha incorreto(os)")->flash();
+                Helpers::redirecionar('/admin/login');
+                return;
+            }
+
+            if ($dados['senha'] != $usuario->senha) {
+                $this->mensagem->alerta("Usuário e/ou senha incorreto(os)")->flash();
+                Helpers::redirecionar('/admin/login');
+                return;
+            }
+
+            if ($usuario->status != 1) {
+                $this->mensagem->alerta("Sua conta está desativada")->flash();
+                Helpers::redirecionar('/admin/login');
+                return;
+            }
+
+            if ($usuario->level < 3) {
+                $this->mensagem->alerta("Usuário sem permissão para acessar o painel")->flash();
+                Helpers::redirecionar('/admin/login');
+                return;
+            }
+
+            (new Session())->create('usuarioId', $usuario->id);
+            $this->mensagem->sucesso("{$usuario->nome}, seja bem vindo!")->flash();
+            Helpers::redirecionar('/admin/dashboard');
+            return;
         }
         echo $this->template->renderizar('login', []);
     }
