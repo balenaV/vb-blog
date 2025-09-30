@@ -42,7 +42,7 @@ class Mensagem
      */
     public function renderizar(): string
     {
-        return "<div class='{$this->css} alert-dismissible fade show'>{$this->texto}<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button></div>";
+        return "<div class='{$this->css} w-fit mx-auto alert-dismissible fade show'>{$this->texto}<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button></div>";
     }
 
     /**

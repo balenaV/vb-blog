@@ -190,7 +190,6 @@ class Model
         }
 
 
-        $this->dados = $this->getById($id)->dados();
         return true;
     }
 }
