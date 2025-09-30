@@ -48,6 +48,9 @@ class AdminLoginController extends Controller
                 return;
             }
 
+            $usuario->ultimoLogin = date("Y-m-d h:i:s");
+            $usuario->save();
+
             (new Session())->create('usuarioId', $usuario->id);
             $this->mensagem->sucesso("{$usuario->nome}, seja bem vindo!")->flash();
             Helpers::redirecionar('/admin/dashboard');
