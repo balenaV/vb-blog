@@ -30,6 +30,7 @@ try {
 
                 // DASHBOARD
                 SimpleRouter::get(URL_ADMIN . '/dashboard', 'AdminDashboardController@dashboard');
+                SimpleRouter::get(URL_ADMIN . '/sair', 'AdminDashboardController@sair');
 
                 // ADMIN CATEGORIAS
                 SimpleRouter::get(URL_ADMIN . '/categorias/index', 'AdminCategoriasController@index');

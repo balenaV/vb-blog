@@ -15,7 +15,7 @@ class UsuarioController extends Controller
     }
 
 
-    public static function usuario()
+    public static function usuario(): ?UsuarioModel
     {
         $sessao = new Session();
 

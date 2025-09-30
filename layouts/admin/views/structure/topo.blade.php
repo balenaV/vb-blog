@@ -17,7 +17,8 @@
                 </a>
             </li>
             <li>
-                <a class="dropdown-item text-danger" href="#" tooltip="tooltip" title="Sair do Sistema">
+                <a class="dropdown-item text-danger" href="{{ app\Core\Helpers::url('/admin/sair') }}" tooltip="tooltip"
+                    title="Sair do Sistema">
                     Sair
                 </a>
             </li>
