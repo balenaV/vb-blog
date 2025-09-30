@@ -15,7 +15,7 @@ class AdminLoginController extends Controller
         parent::__construct(__DIR__ . '/../../../layouts/admin/views');
     }
 
-    public function login(): void
+    public function login()
     {
         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 
@@ -23,7 +23,7 @@ class AdminLoginController extends Controller
             $usuario = (new UsuarioModel())->login($dados, 3);
 
             if ($usuario)
-                Helpers::redirecionar('/admin/login');
+                Helpers::redirecionar('/admin/dashboard');
         }
         echo $this->template->renderizar('login', []);
     }

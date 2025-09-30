@@ -44,8 +44,7 @@ class UsuarioModel extends Model
             return false;
         }
 
-
-        (new Session())->create('usuariodId', $usuario->id);
+        (new Session())->create('usuarioId', $usuario->id);
 
         $this->mensagem->sucesso("{$usuario->nome}, seja bem vindo ao painel de controle")->flash();
         return true;
