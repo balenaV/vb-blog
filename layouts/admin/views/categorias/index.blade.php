@@ -1,4 +1,4 @@
-@extends('dashboard')
+@extends('dashboard-base')
 
 
 @section('titulo')
