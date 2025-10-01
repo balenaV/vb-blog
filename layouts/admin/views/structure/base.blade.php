@@ -32,7 +32,48 @@
     <script src="{{ app\Core\Helpers::url('/layouts/assets/js/scripts.js') }}"></script>
     <script src="{{ app\Core\Helpers::url('/layouts/admin/assets/js/admin.js') }}"></script>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#confirmDeleteModal').on('show.bs.modal', function(event) {
+                var button = $(event.relatedTarget);
+                var modal = $(this); // É uma boa prática referenciar o modal assim
+                var form = modal.find('#deleteForm');
 
+                var tituloPagina = $('#tituloPagina').text().trim();
+
+                var urlSegmento = '';
+
+                switch (tituloPagina) {
+                    case "Usuários":
+                        urlSegmento = "usuarios";
+                        break;
+                    case "Posts":
+                        urlSegmento = "posts";
+                        break;
+                    case "Categorias":
+                        urlSegmento = "categorias";
+                        break;
+                    default:
+                        console.error("Título de página não reconhecido:", tituloPagina);
+                        return;
+                }
+
+                var id = button.data('id');
+
+                if (id && urlSegmento) {
+                    var baseUrl = form.data('base-url');
+
+                    var newAction = "http://127.0.0.1/blog/admin/" + urlSegmento + "/delete/" + id;
+
+                    console.log("URL de exclusão gerada: " + newAction);
+                    form.attr('action', newAction);
+                } else {
+                    console.error("ID ou Segmento da URL não encontrado.");
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

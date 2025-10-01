@@ -12,7 +12,8 @@
         </button>
         <ul class="dropdown-menu dropdown-menu-lg-end">
             <li>
-                <a class="dropdown-item" href="#" tooltip="tooltip" title="Perfil">
+                <a class="dropdown-item" href="{{ app\Core\Helpers::url('/admin/dashboard') }}" tooltip="tooltip"
+                    title="Perfil">
                     Perfil
                 </a>
             </li>

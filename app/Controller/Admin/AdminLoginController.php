@@ -21,29 +21,9 @@ class AdminLoginController extends Controller
         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 
         if (isset($dados['email']) && isset($dados['senha'])) {
-
             $usuario = (new UsuarioModel())->getByEmail($dados['email']);
 
-            if (!$usuario) {
-                $this->mensagem->alerta("Usuário e/ou senha incorreto(os)")->flash();
-                Helpers::redirecionar('/admin/login');
-                return;
-            }
-
-            if ($dados['senha'] != $usuario->senha) {
-                $this->mensagem->alerta("Usuário e/ou senha incorreto(os)")->flash();
-                Helpers::redirecionar('/admin/login');
-                return;
-            }
-
-            if ($usuario->status != 1) {
-                $this->mensagem->alerta("Sua conta está desativada")->flash();
-                Helpers::redirecionar('/admin/login');
-                return;
-            }
-
-            if ($usuario->level < 3) {
-                $this->mensagem->alerta("Usuário sem permissão para acessar o painel")->flash();
+            if (!$this->validarUsuario($usuario, $dados)) {
                 Helpers::redirecionar('/admin/login');
                 return;
             }
@@ -57,5 +37,35 @@ class AdminLoginController extends Controller
             return;
         }
         echo $this->template->renderizar('login', []);
+    }
+
+
+    public function validarUsuario(?UsuarioModel $usuario = null, mixed $dados): bool
+    {
+        if (!$usuario) {
+            $this->mensagem->alerta("E-mail e/ou senha incorreto(os)")->flash();
+            return false;
+        }
+        if (!Helpers::validarEmail($dados['email'])) {
+            $this->mensagem->alerta("Insira um e-mail válido!")->flash();
+            return false;
+        }
+
+        if ($dados['senha'] != $usuario->senha) {
+            $this->mensagem->alerta("Usuário e/ou senha incorreto(os)")->flash();
+            return false;
+        }
+
+        if ($usuario->status != 1) {
+            $this->mensagem->alerta("Sua conta está desativada")->flash();
+            return false;
+        }
+
+        if ($usuario->level < 3) {
+            $this->mensagem->alerta("Usuário sem permissão para acessar o painel")->flash();
+            return false;
+        }
+
+        return true;
     }
 }
