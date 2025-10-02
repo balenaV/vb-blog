@@ -1,15 +1,12 @@
 <?php
-
 namespace app\Controller\Admin;
 
 use app\Controller\Admin\AdminController;
 use app\Core\Helpers;
-use app\Core\Session;
 use app\Model\UsuarioModel;
 
 class AdminUsuariosController extends AdminController
 {
-
 
     public function create(): void
     {
@@ -17,10 +14,10 @@ class AdminUsuariosController extends AdminController
         if (isset($dados) && $this->validarDados($dados)) {
             $usuario = new UsuarioModel();
 
-            $usuario->nome = $dados['nome'];
-            $usuario->email = $dados['email'];
-            $usuario->senha = $dados['senha'];
-            $usuario->level = $dados['level'];
+            $usuario->nome   = $dados['nome'];
+            $usuario->email  = $dados['email'];
+            $usuario->senha  = $dados['senha'];
+            $usuario->level  = $dados['level'];
             $usuario->status = $dados['status'];
 
             if ($usuario->save()) {
@@ -34,19 +31,19 @@ class AdminUsuariosController extends AdminController
 
     public function edit(int $id): void
     {
-        $usuario = (new UsuarioModel())->getById($id);
+        $usuario      = (new UsuarioModel())->getById($id);
         $nomeCompleto = explode(' ', $usuario->nome);
-        $nome = $nomeCompleto[0];
-        $sobrenome = $nomeCompleto[1];
+        $nome         = $nomeCompleto[0];
+        $sobrenome    = $nomeCompleto[1];
 
         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
         if (isset($dados) && $this->validarDados($dados)) {
             $usuario = (new UsuarioModel())->getById($id);
 
-            $usuario->nome = $dados['nome'];
-            $usuario->email = $dados['email'];
-            $usuario->senha = (!empty($dados['senha'])) ? $dados['senha'] : $usuario->senha;
-            $usuario->level = $dados['level'];
+            $usuario->nome   = $dados['nome'];
+            $usuario->email  = $dados['email'];
+            $usuario->senha  = (! empty($dados['senha'])) ? $dados['senha'] : $usuario->senha;
+            $usuario->level  = $dados['level'];
             $usuario->status = $dados['status'];
 
             if ($usuario->save()) {
@@ -56,12 +53,11 @@ class AdminUsuariosController extends AdminController
         }
 
         echo $this->template->renderizar('usuarios/edit', [
-            'usuario' =>  $usuario,
-            'nome' => $nome,
-            'sobrenome' => $sobrenome
+            'usuario'   => $usuario,
+            'nome'      => $nome,
+            'sobrenome' => $sobrenome,
         ]);
     }
-
 
     public function delete(int $id): void
     {
@@ -89,11 +85,21 @@ class AdminUsuariosController extends AdminController
             'usuarios/index',
             [
                 'usuarios' => $usuarios->getAll()->ordem("id ASC")->result(true),
-                'total' => [
-                    'todos' => $usuarios->count(),
-                    'ativo' => $usuarios->getAll('status = 1')->count(),
-                    'inativo' => $usuarios->getAll('status = 0')->count()
-                ]
+                'total'    => [
+                    'todos'         => $usuarios->count(),
+                    'usuario'       => [
+                        'ativo'   => $usuarios->getAll('status = 1 and level = 1')->count(),
+                        'inativo' => $usuarios->getAll('status = 0 and level = 1')->count(),
+                    ],
+                    'criador'       => [
+                        'ativo'   => $usuarios->getAll('status = 1 and level = 2')->count(),
+                        'inativo' => $usuarios->getAll('status = 0 and level = 2')->count(),
+                    ],
+                    'administrador' => [
+                        'ativo'   => $usuarios->getAll('status = 1 and level = 3')->count(),
+                        'inativo' => $usuarios->getAll('status = 0 and level = 3')->count(),
+                    ],
+                ],
             ]
         );
     }
@@ -101,11 +107,10 @@ class AdminUsuariosController extends AdminController
     public function validarDados(mixed $dados): bool
     {
 
-        if (!Helpers::validarEmail($dados['email'])) {
+        if (! Helpers::validarEmail($dados['email'])) {
             $this->mensagem->alerta("Insira um e-mail válido!")->flash();
             return false;
         }
-
 
         if (empty($dados['senha'])) {
             $this->mensagem->alerta("Informe uma senha para o usuário")->flash();
