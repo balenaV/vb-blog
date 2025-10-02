@@ -16,36 +16,13 @@ class UsuarioModel extends Model
 
     public function save(): bool
     {
-        // CADASTRAR
-        if (empty($this->id)) {
 
-            if ($this->getByEmail($this->email)) {
-                $this->mensagem->erro('O E-mail inserido já foi registrado!')->flash();
-                Helpers::redirecionar('/admin/login');
-                return false;
-            }
-            $id = $this->create($this->store());
-            if ($this->erro) {
-                $this->mensagem()->erro('Erro no sistema ao tentar cadastrar os dados');
-                return false;
-            }
+        if ($this->getAll("email = :e AND id != :id", "e={$this->email}&id={$this->id}")->result()) {
+            $this->mensagem->erro('O E-mail inserido já foi registrado!')->flash();
+            return false;
         }
 
-        // ATUALIZAR
-        if (!empty($this->id)) {
-            $id = $this->id;
-            if ($this->getAll("email = :e AND id != :id", "e={$this->email}&id={$this->id}")->result()) {
-                $this->mensagem->erro('O E-mail inserido já foi registrado!')->flash();
-                return false;
-            }
-            if ($this->erro) {
-                $this->mensagem()->erro('Erro no sistema ao tentar cadastrar os dados');
-                return false;
-            }
-            $this->update($this->store(), " id = $id");
-        }
-
-
+        parent::save();
         return true;
     }
 

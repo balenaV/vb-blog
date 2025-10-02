@@ -45,13 +45,13 @@ class AdminLoginController extends Controller
     public function register(): void
     {
         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
-        if (isset($dados) && $this->validarDados($dados)) {
+        if (isset($dados) && (new AdminUsuariosController())->validarDados($dados)) {
             $usuario = new UsuarioModel();
 
 
             $usuario->nome   = $dados['nome'] . ' ' .  $dados['sobrenome'];
             $usuario->email  = $dados['email'];
-            $usuario->senha  = $dados['senha'];
+            $usuario->senha  = Helpers::gerarSenha($dados['senha']);
             $usuario->level  = $dados['level'] ?? 1;
             $usuario->status = $dados['status'] ?? 1;
 
@@ -63,22 +63,7 @@ class AdminLoginController extends Controller
         }
     }
 
-    public function validarDados(mixed $dados): bool
-    {
 
-
-        if (! Helpers::validarEmail($dados['email'])) {
-            $this->mensagem->alerta("Insira um e-mail válido!")->flash();
-            return false;
-        }
-
-        if (empty($dados['senha'])) {
-            $this->mensagem->alerta("Informe uma senha para o usuário")->flash();
-            return false;
-        }
-
-        return true;
-    }
     public function validarUsuario(?UsuarioModel $usuario = null, mixed $dados): bool
     {
         if (!$usuario) {
@@ -90,7 +75,7 @@ class AdminLoginController extends Controller
             return false;
         }
 
-        if ($dados['senha'] != $usuario->senha) {
+        if (Helpers::validarSenha($dados['senha']) != $usuario->senha) {
             $this->mensagem->alerta("Usuário e/ou senha incorreto(os)")->flash();
             return false;
         }

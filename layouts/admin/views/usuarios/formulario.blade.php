@@ -5,6 +5,7 @@
     Novo Usuário
 @endsection
 @section('content')
+    {{ app\Core\Helpers::flash() }}
     <form action="{{ app\Core\Helpers::url('admin/usuarios/create') }}" method="POST">
         <div class="d-flex  gap-2">
 

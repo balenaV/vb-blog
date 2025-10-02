@@ -28,7 +28,7 @@
 
         <div class="form-group mb-4">
             <label for="email">E-mail</label>
-            <input type="text" class="form-control" id="sobrenome" name="email" placeholder="E-mail"
+            <input type="email" class="form-control" id="sobrenome" name="email" placeholder="E-mail"
                 value="{{ $usuario->email }}">
         </div>
 

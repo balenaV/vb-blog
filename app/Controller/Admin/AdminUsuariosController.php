@@ -19,7 +19,7 @@ class AdminUsuariosController extends AdminController
 
             $usuario->nome   = $dados['nome'] . ' ' .  $dados['sobrenome'];
             $usuario->email  = $dados['email'];
-            $usuario->senha  = $dados['senha'];
+            $usuario->senha  = Helpers::gerarSenha($dados['senha']);
             $usuario->level  = $dados['level'];
             $usuario->status = $dados['status'];
 
@@ -44,15 +44,17 @@ class AdminUsuariosController extends AdminController
         if (isset($dados)) {
             $usuario = (new UsuarioModel())->getById($id);
 
-            $usuario->nome   = $dados['nome']  . ' ' .  $dados['sobrenome'];
-            $usuario->email  = $dados['email'];
-            $usuario->senha  =  !(empty($dados['senha'])) ? $dados['senha'] :   $usuario->senha;
-            $usuario->level  = $dados['level'];
-            $usuario->status = $dados['status'];
+            if ($this->validarDados($dados)) {
+                $usuario->nome   = $dados['nome']  . ' ' .  $dados['sobrenome'];
+                $usuario->email  = $dados['email'];
+                $usuario->senha  =  !(empty($dados['senha'])) ? Helpers::gerarSenha($dados['senha']) :   $usuario->senha;
+                $usuario->level  = $dados['level'];
+                $usuario->status = $dados['status'];
 
-            if ($usuario->save()) {
-                $this->mensagem->sucesso('Usuário editado com sucesso')->flash();
-                Helpers::redirecionar('/admin/usuarios/index');
+                if ($usuario->save()) {
+                    $this->mensagem->sucesso('Usuário editado com sucesso')->flash();
+                    Helpers::redirecionar('/admin/usuarios/index');
+                }
             }
         }
 
@@ -115,9 +117,11 @@ class AdminUsuariosController extends AdminController
             return false;
         }
 
-        if (empty($dados['senha'])) {
-            $this->mensagem->alerta("Informe uma senha para o usuário")->flash();
-            return false;
+        if (!empty($dados['senha'])) {
+            if (!Helpers::validarSenha($dados['senha'])) {
+                $this->mensagem->alerta("A senha deve ter entre 6 e 50 caracteres!")->flash();
+                return false;
+            }
         }
 
         return true;
