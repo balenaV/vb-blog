@@ -5,6 +5,8 @@
     Editar Usuário
 @endsection
 @section('content')
+    {{ app\Core\Helpers::flash() }}
+
     <form action="{{ app\Core\Helpers::url('admin/usuarios/edit/' . $usuario->id) }}" method="POST">
         <div class="d-flex  gap-2">
             <div class="form-group mb-3">
