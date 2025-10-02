@@ -33,13 +33,52 @@ class AdminLoginController extends Controller
 
             (new Session())->create('usuarioId', $usuario->id);
             $this->mensagem->sucesso("{$usuario->nome}, seja bem vindo!")->flash();
+            if ($usuario->level < 3)
+                Helpers::redirecionar('/../../../blog');
+
             Helpers::redirecionar('/admin/dashboard');
             return;
         }
         echo $this->template->renderizar('login', []);
     }
 
+    public function register(): void
+    {
+        $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
+        if (isset($dados) && $this->validarDados($dados)) {
+            $usuario = new UsuarioModel();
 
+
+            $usuario->nome   = $dados['nome'] . ' ' .  $dados['sobrenome'];
+            $usuario->email  = $dados['email'];
+            $usuario->senha  = $dados['senha'];
+            $usuario->level  = $dados['level'] ?? 1;
+            $usuario->status = $dados['status'] ?? 1;
+
+
+            if ($usuario->save()) {
+                $this->mensagem->sucesso('Usuário cadastrado com sucesso')->flash();
+                Helpers::redirecionar('/admin/login');
+            }
+        }
+    }
+
+    public function validarDados(mixed $dados): bool
+    {
+
+
+        if (! Helpers::validarEmail($dados['email'])) {
+            $this->mensagem->alerta("Insira um e-mail válido!")->flash();
+            return false;
+        }
+
+        if (empty($dados['senha'])) {
+            $this->mensagem->alerta("Informe uma senha para o usuário")->flash();
+            return false;
+        }
+
+        return true;
+    }
     public function validarUsuario(?UsuarioModel $usuario = null, mixed $dados): bool
     {
         if (!$usuario) {
@@ -61,10 +100,7 @@ class AdminLoginController extends Controller
             return false;
         }
 
-        if ($usuario->level < 3) {
-            $this->mensagem->alerta("Usuário sem permissão para acessar o painel")->flash();
-            return false;
-        }
+
 
         return true;
     }

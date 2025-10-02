@@ -21,7 +21,7 @@
 
             <div class="justify-items-end form-group mb-3">
                 <label for="senha" class="login__label">Senha</label>
-                <input type="password" name="senha" id="senha" required placeholder="" class="form-control">
+                <input type="password" name="senha" id="senha" placeholder="" class="form-control">
             </div>
         </div>
 

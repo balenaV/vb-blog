@@ -20,6 +20,8 @@ try {
 
                 // LOGIN 
                 SimpleRouter::match(['get', 'post'], URL_ADMIN . '/login', 'AdminLoginController@login');
+                SimpleRouter::match(['get', 'post'], URL_ADMIN . '/register', 'AdminLoginController@register');
+
 
 
                 // ADMIN POSTS

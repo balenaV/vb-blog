@@ -1,4 +1,5 @@
 <?php
+
 namespace app\Controller\Admin;
 
 use app\Controller\Admin\AdminController;
@@ -8,20 +9,23 @@ use app\Model\UsuarioModel;
 class AdminUsuariosController extends AdminController
 {
 
+
+
     public function create(): void
     {
         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
         if (isset($dados) && $this->validarDados($dados)) {
             $usuario = new UsuarioModel();
 
-            $usuario->nome   = $dados['nome'];
+            $usuario->nome   = $dados['nome'] . ' ' .  $dados['sobrenome'];
             $usuario->email  = $dados['email'];
             $usuario->senha  = $dados['senha'];
             $usuario->level  = $dados['level'];
             $usuario->status = $dados['status'];
 
+
             if ($usuario->save()) {
-                $this->mensagem()->sucesso('Usuário cadastrado com sucesso')->flash();
+                $this->mensagem->sucesso('Usuário cadastrado com sucesso')->flash();
                 Helpers::redirecionar('/admin/usuarios/index');
             }
         }
@@ -40,7 +44,7 @@ class AdminUsuariosController extends AdminController
         if (isset($dados) && $this->validarDados($dados)) {
             $usuario = (new UsuarioModel())->getById($id);
 
-            $usuario->nome   = $dados['nome'];
+            $usuario->nome   = $dados['nome']  . ' ' .  $dados['sobrenome'];
             $usuario->email  = $dados['email'];
             $usuario->senha  = (! empty($dados['senha'])) ? $dados['senha'] : $usuario->senha;
             $usuario->level  = $dados['level'];
@@ -106,6 +110,8 @@ class AdminUsuariosController extends AdminController
 
     public function validarDados(mixed $dados): bool
     {
+        if ((new UsuarioModel())->getById($dados['id'])) {
+        }
 
         if (! Helpers::validarEmail($dados['email'])) {
             $this->mensagem->alerta("Insira um e-mail válido!")->flash();

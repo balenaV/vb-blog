@@ -13,42 +13,42 @@
 
         <div class="d-flex justify-content-between text-secondary align-items-center  fs-6 ">
             <div class="d-flex justify-content-around gap-2">
-                <div class="bg-secondary p-1 rounded-1 fs-6">
-                    <span
-                        class="text-dark fw-bolder ms-1 me-1">{{ $total['usuario']['ativo'] + $total['usuario']['inativo'] }}
-                        usuario(s)</span>
+                <div class="bg-light p-1 rounded-1 fs-6">
+                    <span class="text-dark fw-bolder ms-1 ">usuarios:
+                        {{ $total['usuario']['ativo'] + $total['usuario']['inativo'] }} -
+                    </span>
 
                     <span
-                        class="text-white bg-primary  fw-bold  rounded-3  me-1 ms-1 p-1 fs-6">{{ $total['usuario']['ativo'] }}</span>
-                    <span class=" text-white bg-danger  fw-bold p-1 rounded-3  me-1 ms-1 ">
+                        class="text-white bg-primary  fw-bold  rounded-3   ms-1 p-1 fs-6">{{ $total['usuario']['ativo'] }}</span>
+                    <span class=" text-white bg-danger  fw-bold p-1 rounded-3  me-1  ">
                         {{ $total['usuario']['inativo'] }}
                     </span>
                 </div>
-                <div class="bg-secondary p-1 rounded-1">
-                    <span
-                        class="text-dark fw-bolder ms-1 me-1">{{ $total['criador']['ativo'] + $total['criador']['inativo'] }}
-                        criador(es)</span>
+                <div class="bg-light p-1 rounded-1 fs-6">
+                    <span class="text-dark fw-bolder ms-1 ">criadores:
+                        {{ $total['criador']['ativo'] + $total['criador']['inativo'] }} -
+                    </span>
 
                     <span
-                        class="text-white bg-primary  fw-bold  rounded-3  me-1 ms-1 p-1 ">{{ $total['criador']['ativo'] }}</span>
-                    <span class=" text-white bg-danger  fw-bold p-1 rounded-3  me-1 ms-1 ">
+                        class="text-white bg-primary  fw-bold  rounded-3   ms-1 p-1 fs-6">{{ $total['criador']['ativo'] }}</span>
+                    <span class=" text-white bg-danger  fw-bold p-1 rounded-3  me-1  ">
                         {{ $total['criador']['inativo'] }}
                     </span>
                 </div>
-                <div class="bg-secondary p-1 rounded-1">
-                    <span
-                        class="text-dark fw-bolder ms-1 me-1">{{ $total['administrador']['ativo'] + $total['administrador']['inativo'] }}
-                        administrador(es)</span>
+                <div class="bg-light p-1 rounded-1 fs-6">
+                    <span class="text-dark fw-bolder ms-1 ">administradores:
+                        {{ $total['administrador']['ativo'] + $total['administrador']['inativo'] }} -
+                    </span>
 
                     <span
-                        class="text-white bg-primary  fw-bold  rounded-3  me-1 ms-1 p-1 fs-6">{{ $total['administrador']['ativo'] }}</span>
-                    <span class=" text-white bg-danger  fw-bold p-1 rounded-3  me-1 ms-1 ">
+                        class="text-white bg-primary  fw-bold  rounded-3   ms-1 p-1 fs-6">{{ $total['administrador']['ativo'] }}</span>
+                    <span class=" text-white bg-danger  fw-bold p-1 rounded-3  me-1  ">
                         {{ $total['administrador']['inativo'] }}
                     </span>
                 </div>
             </div>
             <div class="card-header bg-white border-0 ">
-                <a href="{{ app\Core\Helpers::url('admin/categorias/create') }}" class="btn btn-primary">Cadastrar</a>
+                <a href="{{ app\Core\Helpers::url('admin/usuarios/create') }}" class="btn btn-primary">Cadastrar</a>
             </div>
         </div>
 

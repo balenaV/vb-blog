@@ -173,6 +173,7 @@ class Model
     }
     public function save()
     {
+        // CADASTRAR
         if (empty($this->id)) {
             $id = $this->create($this->store());
             if ($this->erro) {
@@ -180,6 +181,8 @@ class Model
                 return false;
             }
         }
+
+        // ATUALIZAR
         if (!empty($this->id)) {
             $id = $this->id;
             $this->update($this->store(), " id = $id");
