@@ -7,7 +7,6 @@
 @section('content')
     <form action="{{ app\Core\Helpers::url('admin/usuarios/edit/' . $usuario->id) }}" method="POST">
         <div class="d-flex  gap-2">
-
             <div class="form-group mb-3">
                 <label for="nome">Nome</label>
                 <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome"

@@ -41,12 +41,12 @@ class AdminUsuariosController extends AdminController
         $sobrenome    = $nomeCompleto[1];
 
         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
-        if (isset($dados) && $this->validarDados($dados)) {
+        if (isset($dados)) {
             $usuario = (new UsuarioModel())->getById($id);
 
             $usuario->nome   = $dados['nome']  . ' ' .  $dados['sobrenome'];
             $usuario->email  = $dados['email'];
-            $usuario->senha  = (! empty($dados['senha'])) ? $dados['senha'] : $usuario->senha;
+            $usuario->senha  =  !(empty($dados['senha'])) ? $dados['senha'] :   $usuario->senha;
             $usuario->level  = $dados['level'];
             $usuario->status = $dados['status'];
 
@@ -110,9 +110,6 @@ class AdminUsuariosController extends AdminController
 
     public function validarDados(mixed $dados): bool
     {
-        if ((new UsuarioModel())->getById($dados['id'])) {
-        }
-
         if (! Helpers::validarEmail($dados['email'])) {
             $this->mensagem->alerta("Insira um e-mail válido!")->flash();
             return false;
