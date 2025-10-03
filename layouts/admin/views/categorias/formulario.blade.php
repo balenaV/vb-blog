@@ -2,7 +2,7 @@
 
 
 @section('titulo')
-    Categoria
+    Nova Categoria
 @endsection
 @section('content')
     <form action="{{ app\Core\Helpers::url('admin/categorias/create') }}" method="POST">
@@ -22,7 +22,7 @@
 
         <div class="d-flex justify-content-between">
             <input type="submit" value="Enviar" class="btn btn-primary">
-            <a href="{{ app\Core\Helpers::url('admin/categorias/index') }}" class="btn btn-danger">Voltar</a>
+            <a href="#" onclick="history.back()" class="btn btn-danger">Voltar</a>
         </div>
     </form>
 @endsection

@@ -6,6 +6,28 @@ class Helpers
 {
 
     /**
+     * Válida uma senha criptografada
+     * @param string $senha
+     * @return bool
+     */
+    public static function validarSenha(string $senha): bool
+    {
+        if (!(mb_strlen($senha) >= 6 && mb_strlen($senha) <= 50))
+            return false;
+        return true;
+    }
+
+
+    /**
+     * @param string $senha senha a passar pelo hashing
+     * @return $string
+     */
+    public static function gerarSenha(string $senha): string
+    {
+        return password_hash($senha, PASSWORD_ARGON2ID);
+    }
+
+    /**
      * Valida um número de CPF
      * @param string $cpf
      * @return bool

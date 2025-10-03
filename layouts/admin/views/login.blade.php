@@ -68,7 +68,7 @@
                         </div>
                     </div>
 
-                    <a href="{{ app\Core\Helpers::url('admin/categorias/index') }}" class="login__forgot">Esqueci a
+                    <a href="{{ app\Core\Helpers::url('admin/login') }}" class="login__forgot">Esqueci a
                         senha</a>
 
                     <button type="submit" class="login__button">Entrar</button>
@@ -102,13 +102,13 @@
 
             <div class="login__area">
 
-                <form action="{{ app\Core\Helpers::url('admin/login') }}" class="login__form">
+                <form method="POST" action="{{ app\Core\Helpers::url('admin/register') }}" class="login__form">
                     <div class="login__content grid">
                         <div class="login__group grid">
 
                             <!-- NOME -->
                             <div class="login__box">
-                                <input type="text" required placeholder="" class="login__input">
+                                <input type="text" name="nome" required placeholder="" class="login__input">
                                 <label for="" class="login__label">
                                     Nome
                                 </label>
@@ -117,7 +117,7 @@
 
                             <!-- SOBRENOME -->
                             <div class="login__box">
-                                <input type="text" name="" required placeholder="" class="login__input">
+                                <input type="text" name="sobrenome" required placeholder="" class="login__input">
                                 <label for="" class="login__label">Sobrenome</label>
                                 <i class="ri-id-card-fill login__icon"></i>
                             </div>
@@ -125,7 +125,8 @@
 
                         <!-- EMAIL -->
                         <div class="login__box">
-                            <input type="email" id="emailCreate" required placeholder="" class="login__input">
+                            <input type="email" id="emailCreate" required placeholder="" name="email"
+                                class="login__input">
                             <label for="emailCreate" class="login__label">Email</label>
 
                             <i class="ri-mail-fill login__icon"></i>
@@ -133,7 +134,8 @@
 
                         <!-- SENHA -->
                         <div class="login__box">
-                            <input type="password" id="passwordCreate" required placeholder="" class="login__input">
+                            <input type="password" name="senha" id="passwordCreate" required placeholder=""
+                                class="login__input">
                             <label for="passwordCreate" class="login__label">Senha</label>
                             <i class="ri-eye-off-fill login__icon login__password" id="loginPasswordCreate"></i>
                         </div>

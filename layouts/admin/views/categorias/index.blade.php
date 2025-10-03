@@ -80,24 +80,6 @@
     @endif
 @endsection
 
-@section('scripts')
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('#confirmDeleteModal').on('show.bs.modal', function(event) {
-                var button = $(event.relatedTarget);
-                var categoriaId = button.data('id');
-                var form = $(this).find('#deleteForm');
-
-                if (categoriaId) {
-                    var newAction = '{{ app\Core\Helpers::url('admin/categorias/delete/') }}' +
-                        categoriaId;
-                    console.log("URL de exclusão gerada: " + newAction);
-                    form.attr('action', newAction);
-                } else {
-                    console.error("ID da categoria não encontrado.");
-                }
-            });
-        });
-    </script>
+@section('modal-delete')
+    @include('usuarios.delete')
 @endsection

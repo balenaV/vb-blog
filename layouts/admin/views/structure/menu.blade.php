@@ -29,7 +29,8 @@
                 </a>
             </li>
             <li>
-                <a href="#" tooltip="tooltip" title="Administração de Usuários">
+                <a href="{{ app\Core\Helpers::url('admin/usuarios/index') }}" tooltip="tooltip"
+                    title="Administração de Usuários">
                     <i class="fas fa-users"></i>
                     <span>Usuários</span>
                 </a>
