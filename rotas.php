@@ -28,7 +28,7 @@ try {
                 SimpleRouter::get(URL_ADMIN . '/posts/index', 'AdminPostsController@index');
                 SimpleRouter::match(['get', 'post'], URL_ADMIN . '/posts/create', 'AdminPostsController@create');
                 SimpleRouter::match(['get', 'post'], URL_ADMIN . '/posts/edit/{id}', 'AdminPostsController@edit');
-                SimpleRouter::post(URL_ADMIN . '/usuarios/delete/{id}', 'AdminUsuariosController@delete');
+                SimpleRouter::match(['get', 'post'], URL_ADMIN . '/posts/delete/{id}', 'AdminPostsController@delete');
 
                 // DASHBOARD
                 SimpleRouter::get(URL_ADMIN . '/dashboard', 'AdminDashboardController@dashboard');
@@ -38,13 +38,13 @@ try {
                 SimpleRouter::get(URL_ADMIN . '/categorias/index', 'AdminCategoriasController@index');
                 SimpleRouter::match(['get', 'post'], URL_ADMIN . '/categorias/create', 'AdminCategoriasController@create');
                 SimpleRouter::match(['get', 'post'], URL_ADMIN . '/categorias/edit/{id}', 'AdminCategoriasController@edit');
-                SimpleRouter::post(URL_ADMIN . '/categorias/delete/{id}', 'AdminCategoriasController@delete');
+                SimpleRouter::match(['get', 'post'], URL_ADMIN . '/categorias/delete/{id}', 'AdminCategoriasController@delete');
 
                 // USUARIOS
                 SimpleRouter::get(URL_ADMIN .  '/usuarios/index', 'AdminUsuariosController@index');
                 SimpleRouter::match(['get', 'post'], URL_ADMIN . '/usuarios/create', 'AdminUsuariosController@create');
                 SimpleRouter::match(['get', 'post'], URL_ADMIN . '/usuarios/edit/{id}', 'AdminUsuariosController@edit');
-                SimpleRouter::post(URL_ADMIN . '/categorias/delete/{id}', 'AdminCategoriasController@delete');
+                SimpleRouter::match(['get', 'post'], URL_ADMIN . '/usuarios/delete/{id}', 'AdminUsuariosController@delete');
         });
 
         SimpleRouter::start();

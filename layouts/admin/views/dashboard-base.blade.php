@@ -22,6 +22,6 @@
         </main>
         @include('structure.rodape')
     </div>
-    @include('categorias.delete')
+    @yield('modal-delete')
     @yield('scripts')
 @endsection

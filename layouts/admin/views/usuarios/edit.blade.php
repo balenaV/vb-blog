@@ -50,7 +50,7 @@
 
         <div class="d-flex justify-content-between">
             <input type="submit" value="Editar" class="btn btn-primary">
-            <a href="{{ app\Core\Helpers::url('admin/usuarios/index') }}" class="btn btn-danger">Cancelar</a>
+            <a href="#" onclick="history.back()" class="btn btn-danger">Cancelar</a>
         </div>
     </form>
 @endsection

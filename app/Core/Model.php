@@ -60,7 +60,13 @@ class Model
 
     public function ordem(string $ordem)
     {
-        $this->ordem = " ORDER BY {$ordem}";
+        $this->ordem = " ORDER BY {$ordem} ";
+        return $this;
+    }
+
+    public function limite(string $limite)
+    {
+        $this->limite = " LIMIT {$limite}";
         return $this;
     }
 
@@ -79,7 +85,7 @@ class Model
     public function result(bool $todos = false)
     {
         try {
-            $stmt = Conexao::getInstancia()->prepare($this->query . $this->ordem);
+            $stmt = Conexao::getInstancia()->prepare($this->query . $this->ordem . $this->limite);
             $stmt->execute($this->parametros);
 
             if (!$stmt->rowCount())

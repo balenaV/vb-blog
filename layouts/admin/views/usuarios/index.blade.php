@@ -119,3 +119,7 @@
         <hr>
     @endif
 @endsection
+
+@section('modal-delete')
+    @include('usuarios.delete')
+@endsection

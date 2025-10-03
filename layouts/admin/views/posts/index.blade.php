@@ -76,3 +76,7 @@
         <hr>
     @endif
 @endsection
+
+@section('modal-delete')
+    @include('posts.delete')
+@endsection
