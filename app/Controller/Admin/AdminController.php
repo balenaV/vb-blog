@@ -10,15 +10,15 @@ use app\Model\UsuarioModel;
 
 class AdminController extends Controller
 {
-    protected $usuario;
+    protected $usuarioSessao;
 
     public function __construct()
     {
         parent::__construct(__DIR__ . '/../../../layouts/admin/views');
 
-        $this->usuario = UsuarioController::usuario();
+        $this->usuarioSessao = UsuarioController::usuario();
 
-        if (!$this->usuario) {
+        if (!$this->usuarioSessao) {
             $this->mensagem->erro('Faça login para acessar o painel de controle!')->flash();
 
             $sessao = new Session();

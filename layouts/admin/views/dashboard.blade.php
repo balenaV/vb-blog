@@ -6,7 +6,7 @@
 @extends('dashboard-base')
 
 @section('content')
-    <h5 class="mb-3">Seja bem-vindo de volta, {{ $usuario->nome }}!</h5>
+    <h5 class="mb-3">Seja bem-vindo de volta, {{ $usuarioSessao->nome }}!</h5>
 @endsection
 
 
@@ -244,7 +244,6 @@
                                     <tr>
                                         <th scope="col">#</th>
                                         <th scope="col">Úsuario</th>
-                                        <th scope="col">Data</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -270,9 +269,13 @@
                                             <th scope="row">
                                                 <i class=" {{ $icon }} justify-content-center"></i>
                                             </th>
-                                            <td>{{ $login->nome }}</td>
-                                            <td> {{ date('d/m/Y', $timestamp) }} às
-                                                {{ date('H:i', $timestamp) }}</td>
+                                            <td><span class="fw-bold ">{{ $login->nome }}</span> <br><span
+                                                    class="fs-6 fw-light">
+                                                    {{ date('d/m/Y', $timestamp) }} às
+                                                    {{ date('H:i', $timestamp) }}
+                                                </span>
+
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>

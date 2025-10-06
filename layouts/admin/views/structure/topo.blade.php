@@ -9,7 +9,7 @@
         <button type="button" class="btn bg-white dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static"
             aria-expanded="false">
             <i class="fa-solid fa-user me-2"></i>
-            {{ $usuario->nome }}
+            {{ $usuarioSessao->nome }}
         </button>
         <ul class="dropdown-menu dropdown-menu-lg-end">
             <li>

@@ -5,13 +5,20 @@ namespace app\Controller\Admin;
 use app\Core\Helpers;
 use app\Model\CategoriaModel;
 use app\Model\PostModel;
+use app\Controller\UsuarioController;
 
 class AdminPostsController extends AdminController
 {
 
+    /**
+     * Seleciona todos posts para listagem
+     * @return void
+     */
     public function index(): void
     {
         $posts = (new PostModel());
+
+
 
         echo $this->template->renderizar(
             'posts/index',
@@ -21,16 +28,22 @@ class AdminPostsController extends AdminController
                     'todos' => $posts->count(),
                     'ativo' => $posts->getAll('status = 1')->count(),
                     'inativo' => $posts->getAll('status = 0')->count()
-                ]
+                ],
+                'usuarioSessao' => $this->usuarioSessao
             ]
+
         );
     }
 
+    /**
+     * Cria um post
+     * @return void
+     */
     public function create(): void
     {
         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 
-        if (isset($dados)) {
+        if (isset($dados) and validarDados($dados)) {
             $post = new PostModel();
 
             $post->titulo = $dados['titulo'];
@@ -50,13 +63,18 @@ class AdminPostsController extends AdminController
         );
     }
 
+    /**
+     * Edita o post selecionado
+     * @param int $id id do post a ser editado
+     * @return void
+     */
     public function edit(int $id): void
     {
         $post = (new PostModel())->getById($id);
 
         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 
-        if (isset($dados)) {
+        if (isset($dados) && validarDados($dados)) {
             $post = (new PostModel())->getById($id);
 
             $post->titulo = $dados['titulo'];
@@ -79,6 +97,11 @@ class AdminPostsController extends AdminController
         );
     }
 
+    /**
+     * Deleta o post selecionado
+     * @param int $id id do post a ser deletado
+     * @return bool
+     */
     public function delete(int $id): void
     {
         if (is_int($id)) {
@@ -93,5 +116,25 @@ class AdminPostsController extends AdminController
                 Helpers::redirecionar('/admin/posts/index');
             }
         }
+    }
+
+    /**
+     * Checa os dados do formulário
+     * @param array $dados dados a serem validados
+     * @return bool
+     */
+    public function validarDados(array $dados): bool
+    {
+        if (empty($dados['titulo'])) {
+            $this->mensagem->alerta('Escreva um título para o Post')->flash();
+            return false;
+        }
+
+        if (empty($dados['texto'])) {
+            $this->mensagem->alerta('Escreva um texto para o Post')->flash();
+            return false;
+        }
+
+        return true;
     }
 }

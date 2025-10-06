@@ -94,7 +94,8 @@
                                 <div class="d-flex">
                                     <div class="me-3">
                                         <abbr title="Editar">
-                                            <a href="{{ app\Core\Helpers::url('admin/usuarios/edit/' . $usuario->id) }}"><i
+                                            <a
+                                                href="{{ app\Core\Helpers::url('admin/usuarios/edit/' . $usuarioSessao->id) }}"><i
                                                     class=" fa-solid fa-pencil text-warning"></i></a>
                                         </abbr>
                                     </div>
@@ -102,7 +103,7 @@
                                         <abbr title="Excluir">
                                             <button type="button" class="btn btn-link p-0 delete-btn"
                                                 data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"
-                                                data-id="{{ $usuario->id }}">
+                                                data-id="{{ $usuarioSessao->id }}">
                                                 <i class="fa-solid fa-trash-can text-danger"></i>
                                             </button>
                                         </abbr>

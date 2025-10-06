@@ -5,6 +5,7 @@ namespace app\Controller\Admin;
 use app\Controller\Admin\AdminController;
 use app\Core\Helpers;
 use app\Model\UsuarioModel;
+use app\Controller\UsuarioController;
 
 class AdminUsuariosController extends AdminController
 {
@@ -105,7 +106,9 @@ class AdminUsuariosController extends AdminController
                         'ativo'   => $usuarios->getAll('status = 1 and level = 3')->count(),
                         'inativo' => $usuarios->getAll('status = 0 and level = 3')->count(),
                     ],
+
                 ],
+                'usuarioSessao' => $this->usuarioSessao
             ]
         );
     }

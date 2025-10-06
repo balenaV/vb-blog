@@ -16,7 +16,11 @@ class AdminLoginController extends Controller
         parent::__construct(__DIR__ . '/../../../layouts/admin/views');
     }
 
-    public function login()
+    /**
+     * Inicia uma nova sessão de um usuário 
+     * @return void
+     */
+    public function login(): void
     {
         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 
@@ -32,7 +36,7 @@ class AdminLoginController extends Controller
             $usuario->save();
 
             (new Session())->create('usuarioId', $usuario->id);
-            $this->mensagem->sucesso("{$usuario->nome}, seja bem vindo!")->flash();
+            $this->mensagem->sucesso("" . trim($usuario->nome) . ", seja bem vindo!")->flash();
             if ($usuario->level < 3)
                 Helpers::redirecionar('/../../../blog');
 
@@ -42,6 +46,11 @@ class AdminLoginController extends Controller
         echo $this->template->renderizar('login', []);
     }
 
+
+    /**
+     * Registra novo usuário
+     * @return void
+     */
     public function register(): void
     {
         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
@@ -64,6 +73,12 @@ class AdminLoginController extends Controller
     }
 
 
+    /**
+     * Valida dados do usuário
+     * @param ?UsuarioModel $usuario usuário a ser validado
+     * @param mixed $dados dados a serem validados
+     * @return bool
+     */
     public function validarUsuario(?UsuarioModel $usuario = null, mixed $dados): bool
     {
         if (!$usuario) {
