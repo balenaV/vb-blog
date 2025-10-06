@@ -5,6 +5,7 @@
     Novo Post
 @endsection
 @section('content')
+    {{ app\Core\Helpers::flash() }}
     <form action="{{ app\Core\Helpers::url('admin/posts/create') }}" method="POST">
         <div class="form-group mb-3">
             <label for="titulo">Título</label>

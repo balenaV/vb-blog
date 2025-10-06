@@ -81,5 +81,5 @@
 @endsection
 
 @section('modal-delete')
-    @include('usuarios.delete')
+    @include('categorias.delete')
 @endsection

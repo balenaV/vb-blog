@@ -43,26 +43,30 @@ class AdminPostsController extends AdminController
     {
         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 
-        if (isset($dados) and validarDados($dados)) {
-            $post = new PostModel();
+        if (isset($dados)) {
 
-            $post->titulo = $dados['titulo'];
-            $post->texto = $dados['texto'];
-            $post->status = $dados['status'];
-            $post->categoriaId = $dados['categoriaId'];
+            if ($this->validarDados($dados)) {
+                $post = new PostModel();
 
-            if ($post->save())
-                $this->mensagem->sucesso('Post criado com sucesso!')->flash();
-            else
-                $this->mensagem->erro('Erro ao cadastrar post')->flash();
-            Helpers::redirecionar('/admin/posts/index');
+                $post->titulo = $dados['titulo'];
+                $post->texto = $dados['texto'];
+                $post->status = $dados['status'];
+                $post->categoriaId = $dados['categoriaId'];
+
+                if ($post->save())
+                    $this->mensagem->sucesso('Post criado com sucesso!')->flash();
+                else
+                    $this->mensagem->erro('Erro ao cadastrar post')->flash();
+                Helpers::redirecionar('/admin/posts/index');
+            }
         }
 
         echo $this->template->renderizar(
             'posts/formulario',
             [
                 'usuarioSessao' => $this->usuarioSessao,
-                'categorias' => (new CategoriaModel())->getAll()->ordem("id ASC")->result(true)
+                'categorias' => (new CategoriaModel())->getAll()->ordem("id ASC")->result(true),
+                'post' => $dados
             ]
         );
     }

@@ -7,6 +7,7 @@ use app\Core\Helpers;
 use app\Core\Mensagem;
 use app\Model\CategoriaModel;
 use app\Controller\UsuarioController;
+use app\Model\PostModel;
 
 class AdminCategoriasController extends AdminController
 {
@@ -40,7 +41,7 @@ class AdminCategoriasController extends AdminController
     {
         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 
-        if (isset($dados) && validarDados($dados)) {
+        if (isset($dados) && $this->validarDados($dados)) {
             $categoria = new CategoriaModel();
 
             $categoria->titulo = $dados['titulo'];
@@ -72,7 +73,7 @@ class AdminCategoriasController extends AdminController
 
         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 
-        if (isset($dados) && validarDados($dados)) {
+        if (isset($dados) && $this->validarDados($dados)) {
 
             $categoria = (new CategoriaModel())->getById($id);
 
@@ -103,10 +104,17 @@ class AdminCategoriasController extends AdminController
      */
     public function delete(int $id): void
     {
+
         if (is_int($id)) {
             $categoria = (new CategoriaModel())->getById($id);
+
+            $posts = (new PostModel())->getAll("categoriaId = {$categoria->id}")->result(true);
             if ($categoria) {
 
+                if ($posts) {
+                    $this->mensagem->alerta("A categoria {$categoria->titulo} tem posts cadastrados delete ou altere os posts antes de deletar!")->flash();
+                    Helpers::redirecionar('admin/categorias/index');
+                }
                 try {
                     if ((new CategoriaModel())->delete("id = {$id}")) {
                         $this->mensagem->erro('Categoria excluída com sucesso!')->flash();

@@ -10,8 +10,6 @@ use app\Controller\UsuarioController;
 class AdminUsuariosController extends AdminController
 {
 
-
-
     public function create(): void
     {
         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
@@ -25,7 +23,7 @@ class AdminUsuariosController extends AdminController
             $usuario->status = $dados['status'];
 
 
-            if ($post->save())
+            if ($usuario->save())
                 $this->mensagem->sucesso('Usuário criado com sucesso!')->flash();
             else
                 $this->mensagem->erro('Erro ao cadastrar usuário')->flash();
@@ -55,7 +53,7 @@ class AdminUsuariosController extends AdminController
                 $usuario->level  = $dados['level'];
                 $usuario->status = $dados['status'];
 
-                if ($post->save())
+                if ($usuario->save())
                     $this->mensagem->sucesso('Usuário editado com sucesso!')->flash();
                 else
                     $this->mensagem->erro('Erro ao editar usuário')->flash();
@@ -100,7 +98,7 @@ class AdminUsuariosController extends AdminController
                 'usuarios' => $usuarios->getAll()->ordem("id ASC")->result(true),
                 'total'    => [
                     'todos'         => $usuarios->count(),
-                    'usuario'       => [
+                    'usuarioComum'       => [
                         'ativo'   => $usuarios->getAll('status = 1 and level = 1')->count(),
                         'inativo' => $usuarios->getAll('status = 0 and level = 1')->count(),
                     ],
