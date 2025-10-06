@@ -44,18 +44,21 @@ class AdminCategoriasController extends AdminController
             $categoria = new CategoriaModel();
 
             $categoria->titulo = $dados['titulo'];
-            $categoria->texto = $dados['titulo'];
-            $categoria->status = $dados['titulo'];
-            if ($categoria->save()) {
-
+            $categoria->texto = $dados['texto'];
+            $categoria->status = $dados['status'];
+            if ($categoria->save())
                 $this->mensagem->sucesso('Categoria criada com sucesso!')->flash();
-                Helpers::redirecionar('/admin/categorias/index');
-            }
+            else
+                $this->mensagem->erro('Erro ao cadastrar categoria')->flash();
+            Helpers::redirecionar('/admin/categorias/index');
         }
 
         echo $this->template->renderizar(
             'categorias/formulario',
-            []
+            [
+                'usuarioSessao' => $this->usuarioSessao
+
+            ]
         );
     }
     /**
@@ -76,16 +79,19 @@ class AdminCategoriasController extends AdminController
             $categoria->titulo = $dados['titulo'];
             $categoria->texto = $dados['texto'];
             $categoria->status = $dados['status'];
-            if ($categoria->save()) {
-                $this->mensagem->alerta('Categoria editada com sucesso!')->flash();
-                Helpers::redirecionar('/admin/categorias/index');
-            }
+            if ($categoria->save())
+                $this->mensagem->sucesso('Categoria editada com sucesso!')->flash();
+            else
+                $this->mensagem->erro('Erro ao editar categoria')->flash();
+            Helpers::redirecionar('/admin/categorias/index');
         }
 
         echo $this->template->renderizar(
             'categorias/edit',
             [
-                'categoria' => $categoria
+                'categoria' => $categoria,
+                'usuarioSessao' => $this->usuarioSessao
+
             ]
         );
     }

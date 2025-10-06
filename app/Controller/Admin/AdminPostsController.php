@@ -51,15 +51,19 @@ class AdminPostsController extends AdminController
             $post->status = $dados['status'];
             $post->categoriaId = $dados['categoriaId'];
 
-            if ($post->save()) {
-                $this->mensagem->sucesso('Post cadastrado com sucesso!')->flash();
-                Helpers::redirecionar('/admin/posts/index');
-            }
+            if ($post->save())
+                $this->mensagem->sucesso('Post criado com sucesso!')->flash();
+            else
+                $this->mensagem->erro('Erro ao cadastrar post')->flash();
+            Helpers::redirecionar('/admin/posts/index');
         }
 
         echo $this->template->renderizar(
             'posts/formulario',
-            ['categorias' => (new CategoriaModel())->getAll()->ordem("id ASC")->result(true)]
+            [
+                'usuarioSessao' => $this->usuarioSessao,
+                'categorias' => (new CategoriaModel())->getAll()->ordem("id ASC")->result(true)
+            ]
         );
     }
 
@@ -82,16 +86,18 @@ class AdminPostsController extends AdminController
             $post->status = $dados['status'];
             $post->categoriaId = $dados['categoriaId'];
 
-            if ($post->save()) {
-                $this->mensagem->alerta('Post editado com sucesso!')->flash();
-                Helpers::redirecionar('/admin/posts/index');
-            }
+            if ($post->save())
+                $this->mensagem->sucesso('Post editado com sucesso!')->flash();
+            else
+                $this->mensagem->erro('Erro ao editar post')->flash();
+            Helpers::redirecionar('/admin/posts/index');
         }
 
         echo $this->template->renderizar(
             'posts/edit',
             [
                 'post' => $post,
+                'usuarioSessao' => $this->usuarioSessao,
                 'categorias' => (new CategoriaModel())->getAll()->ordem("id ASC")->result(true)
             ]
         );

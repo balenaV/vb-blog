@@ -25,13 +25,16 @@ class AdminUsuariosController extends AdminController
             $usuario->status = $dados['status'];
 
 
-            if ($usuario->save()) {
-                $this->mensagem->sucesso('Usuário cadastrado com sucesso')->flash();
-                Helpers::redirecionar('/admin/usuarios/index');
-            }
+            if ($post->save())
+                $this->mensagem->sucesso('Usuário criado com sucesso!')->flash();
+            else
+                $this->mensagem->erro('Erro ao cadastrar usuário')->flash();
+            Helpers::redirecionar('/admin/usuarios/index');
         }
 
-        echo $this->template->renderizar('usuarios/formulario', []);
+        echo $this->template->renderizar('usuarios/formulario', [
+            'usuarioSessao' => $this->usuarioSessao
+        ]);
     }
 
     public function edit(int $id): void
@@ -52,10 +55,11 @@ class AdminUsuariosController extends AdminController
                 $usuario->level  = $dados['level'];
                 $usuario->status = $dados['status'];
 
-                if ($usuario->save()) {
-                    $this->mensagem->sucesso('Usuário editado com sucesso')->flash();
-                    Helpers::redirecionar('/admin/usuarios/index');
-                }
+                if ($post->save())
+                    $this->mensagem->sucesso('Usuário editado com sucesso!')->flash();
+                else
+                    $this->mensagem->erro('Erro ao editar usuário')->flash();
+                Helpers::redirecionar('/admin/usuarios/index');
             }
         }
 
@@ -63,6 +67,8 @@ class AdminUsuariosController extends AdminController
             'usuario'   => $usuario,
             'nome'      => $nome,
             'sobrenome' => $sobrenome,
+            'usuarioSessao' => $this->usuarioSessao
+
         ]);
     }
 
