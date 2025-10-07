@@ -2,7 +2,7 @@
 
 
 @section('titulo')
-    <h1 class="fw-bold fs-1">Categorias</h1>
+    <h1 id="tituloPagina" class="fw-bold fs-1">Categorias</h1>
 @endsection
 @section('content')
     @if (!$categorias)
@@ -82,4 +82,7 @@
 
 @section('modal-delete')
     @include('categorias.delete')
+@endsection
+
+@section('scripts')
 @endsection

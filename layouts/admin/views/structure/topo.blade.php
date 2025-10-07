@@ -12,9 +12,16 @@
             {{ $usuarioSessao->nome }}
         </button>
         <ul class="dropdown-menu dropdown-menu-lg-end">
+            @if ($usuarioSessao->level == 3)
+                <li>
+                    <a class="dropdown-item" href="{{ app\Core\Helpers::url('/admin/dashboard') }}" tooltip="tooltip"
+                        title="Perfil">
+                        Painel de Controle
+                    </a>
+                </li>
+            @endif
             <li>
-                <a class="dropdown-item" href="{{ app\Core\Helpers::url('/admin/dashboard') }}" tooltip="tooltip"
-                    title="Perfil">
+                <a class="dropdown-item" href="" tooltip="tooltip" title="Perfil">
                     Perfil
                 </a>
             </li>

@@ -2,7 +2,7 @@
 
 
 @section('titulo')
-    <h1 class="fw-bold fs-1">Posts</h1>
+    <h1 id="tituloPagina" class="fw-bold fs-1">Posts</h1>
 @endsection
 @section('content')
     @if (!$posts)
