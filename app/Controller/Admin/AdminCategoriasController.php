@@ -1,13 +1,9 @@
 <?php
-
 namespace app\Controller\Admin;
 
-use app\Core\Conexao;
 use app\Core\Helpers;
 use app\Core\Mensagem;
 use app\Model\CategoriaModel;
-use app\Controller\UsuarioController;
-use app\Model\PostModel;
 
 class AdminCategoriasController extends AdminController
 {
@@ -23,13 +19,13 @@ class AdminCategoriasController extends AdminController
         echo $this->template->renderizar(
             'categorias/index',
             [
-                'categorias' => $categoria->getAll()->ordem("id ASC")->result(true),
-                'total' => [
-                    'todos' => $categoria->count(),
-                    'ativo' => $categoria->getAll('status = 1')->count(),
-                    'inativo' => $categoria->getAll('status = 0')->count()
+                'categorias'    => $categoria->getAll()->ordem("id ASC")->result(true),
+                'total'         => [
+                    'todos'   => $categoria->count(),
+                    'ativo'   => $categoria->getAll('status = 1')->count(),
+                    'inativo' => $categoria->getAll('status = 0')->count(),
                 ],
-                'usuarioSessao' => $this->usuarioSessao
+                'usuarioSessao' => $this->usuarioSessao,
             ]
         );
     }
@@ -45,19 +41,21 @@ class AdminCategoriasController extends AdminController
             $categoria = new CategoriaModel();
 
             $categoria->titulo = $dados['titulo'];
-            $categoria->texto = $dados['texto'];
+            $categoria->texto  = $dados['texto'];
             $categoria->status = $dados['status'];
-            if ($categoria->save())
+            if ($categoria->save()) {
                 $this->mensagem->sucesso('Categoria criada com sucesso!')->flash();
-            else
+            } else {
                 $this->mensagem->erro('Erro ao cadastrar categoria')->flash();
+            }
+
             Helpers::redirecionar('/admin/categorias/index');
         }
 
         echo $this->template->renderizar(
             'categorias/formulario',
             [
-                'usuarioSessao' => $this->usuarioSessao
+                'usuarioSessao' => $this->usuarioSessao,
 
             ]
         );
@@ -78,20 +76,22 @@ class AdminCategoriasController extends AdminController
             $categoria = (new CategoriaModel())->getById($id);
 
             $categoria->titulo = $dados['titulo'];
-            $categoria->texto = $dados['texto'];
+            $categoria->texto  = $dados['texto'];
             $categoria->status = $dados['status'];
-            if ($categoria->save())
+            if ($categoria->save()) {
                 $this->mensagem->sucesso('Categoria editada com sucesso!')->flash();
-            else
+            } else {
                 $this->mensagem->erro('Erro ao editar categoria')->flash();
+            }
+
             Helpers::redirecionar('/admin/categorias/index');
         }
 
         echo $this->template->renderizar(
             'categorias/edit',
             [
-                'categoria' => $categoria,
-                'usuarioSessao' => $this->usuarioSessao
+                'categoria'     => $categoria,
+                'usuarioSessao' => $this->usuarioSessao,
 
             ]
         );
@@ -99,7 +99,7 @@ class AdminCategoriasController extends AdminController
 
     /**
      * Delete a categoria selecionada
-     * @param int $id id da categoria 
+     * @param int $id id da categoria
      * @return void
      */
     public function delete(int $id): void
@@ -108,10 +108,9 @@ class AdminCategoriasController extends AdminController
         if (is_int($id)) {
             $categoria = (new CategoriaModel())->getById($id);
 
-            $posts = (new PostModel())->getAll("categoriaId = {$categoria->id}")->result(true);
             if ($categoria) {
 
-                if ($posts) {
+                if ($categoria->posts()) {
                     $this->mensagem->alerta("A categoria {$categoria->titulo} tem posts cadastrados delete ou altere os posts antes de deletar!")->flash();
                     Helpers::redirecionar('admin/categorias/index');
                 }
@@ -124,7 +123,7 @@ class AdminCategoriasController extends AdminController
                         Helpers::redirecionar('/admin/categorias/index');
                     }
                 } catch (\PDOException $e) {
-                    echo "Erro ao deletar categoria: " .  $e->getMessage();
+                    echo "Erro ao deletar categoria: " . $e->getMessage();
                 }
             } else {
                 $this->mensagem->alerta('A categoria que você está tentando deletar não existe')->flash();

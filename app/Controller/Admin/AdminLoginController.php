@@ -1,5 +1,4 @@
 <?php
-
 namespace app\Controller\Admin;
 
 use app\Core\Controller;
@@ -17,7 +16,7 @@ class AdminLoginController extends Controller
     }
 
     /**
-     * Inicia uma nova sessão de um usuário 
+     * Inicia uma nova sessão de um usuário
      * @return void
      */
     public function login(): void
@@ -27,7 +26,7 @@ class AdminLoginController extends Controller
         if (isset($dados['email']) && isset($dados['senha'])) {
             $usuario = (new UsuarioModel())->getByEmail($dados['email']);
 
-            if (!$this->validarUsuario($usuario, $dados)) {
+            if (! $this->validarUsuario($usuario, $dados)) {
                 Helpers::redirecionar('/admin/login');
                 return;
             }
@@ -37,15 +36,15 @@ class AdminLoginController extends Controller
 
             (new Session())->create('usuarioId', $usuario->id);
             $this->mensagem->sucesso("" . trim($usuario->nome) . ", seja bem vindo!")->flash();
-            if ($usuario->level < 3)
+            if ($usuario->level < 3) {
                 Helpers::redirecionar('/../../../blog');
+            }
 
             Helpers::redirecionar('/admin/dashboard');
             return;
         }
         echo $this->template->renderizar('login', []);
     }
-
 
     /**
      * Registra novo usuário
@@ -57,13 +56,11 @@ class AdminLoginController extends Controller
         if (isset($dados) && (new AdminUsuariosController())->validarDados($dados)) {
             $usuario = new UsuarioModel();
 
-
-            $usuario->nome   = $dados['nome'] . ' ' .  $dados['sobrenome'];
+            $usuario->nome   = $dados['nome'] . ' ' . $dados['sobrenome'];
             $usuario->email  = $dados['email'];
             $usuario->senha  = Helpers::gerarSenha($dados['senha']);
             $usuario->level  = $dados['level'] ?? 1;
             $usuario->status = $dados['status'] ?? 1;
-
 
             if ($usuario->save()) {
                 $this->mensagem->sucesso('Usuário cadastrado com sucesso')->flash();
@@ -71,7 +68,6 @@ class AdminLoginController extends Controller
             }
         }
     }
-
 
     /**
      * Valida dados do usuário
@@ -81,11 +77,11 @@ class AdminLoginController extends Controller
      */
     public function validarUsuario(?UsuarioModel $usuario = null, mixed $dados): bool
     {
-        if (!$usuario) {
+        if (! $usuario) {
             $this->mensagem->alerta("E-mail e/ou senha incorreto(os)")->flash();
             return false;
         }
-        if (!Helpers::validarEmail($dados['email'])) {
+        if (! Helpers::validarEmail($dados['email'])) {
             $this->mensagem->alerta("Insira um e-mail válido!")->flash();
             return false;
         }
@@ -99,8 +95,6 @@ class AdminLoginController extends Controller
             $this->mensagem->alerta("Sua conta está desativada")->flash();
             return false;
         }
-
-
 
         return true;
     }
