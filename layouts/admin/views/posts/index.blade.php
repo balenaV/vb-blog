@@ -32,7 +32,7 @@
                         <th scope="col">Título</th>
                         <th scope="col">Texto</th>
                         <th scope="col" class="text-start">Status</th>
-                        <th scope="col" class="text-start">Ações</th>
+                        <th scope="col" class="text-center">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -43,11 +43,11 @@
                             <td class="">{{ $post->texto }}</td>
                             <td>
                                 <i
-                                    class="{{ $post->status == 1 ? 'fa-solid fa-check text-primary' : 'fa-solid fa-close text-danger ' }}"></i>
+                                    class="{{ $post->status == 1 ? 'fa-solid fa-check text-primary' : 'fa-solid fa-close text-danger ' }} "></i>
                             </td>
 
                             <td>
-                                <div class="d-flex">
+                                <div class="d-flex justify-content-between">
 
                                     <div class="me-3">
                                         <abbr title="Editar" class="ms-auto">
@@ -65,9 +65,44 @@
                                             </button>
                                         </abbr>
                                     </div>
+
+                                    <div class="me-3">
+
+                                        <abbr title="Status">
+                                            <a href="#info{{ $post->id }}" data-bs-toggle="offcanvas" tooltip="tooltip"
+                                                title="Status">
+                                                <i class="fa-solid fa-chart-simple text-primary"></i>
+                                            </a>
+                                        </abbr>
+                                    </div>
                                 </div>
                             </td>
                         </tr>
+
+                        {{-- --------- OFF CANVAS STATUS POST ------- --}}
+                        <div class="offcanvas offcanvas-start" tabindex="1" id="info{{ $post->id }}">
+                            <div class="offcanvas-header">
+                                <h5 class="offcanvas-title" id="offcanvasExampleLabel">{{ $post->titulo }}</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="offcanvas-body">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">
+                                        Cadastrado em: {{ $post->dataCadastro }}
+                                    </li>
+                                    <li class="list-group-item">
+                                        Atualizado em: {{ $post->alteracaoData }}
+                                    </li>
+                                    <li class="list-group-item">
+                                        Última visita : Em breve...
+                                    </li>
+                                    <li class="list-group-item">
+                                        Cadastrado por: {{ $post->usuario()->nome }}
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     @endforeach
                 </tbody>
             </table>
