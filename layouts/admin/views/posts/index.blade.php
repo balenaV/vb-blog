@@ -31,7 +31,7 @@
                         <th scope="col">#</th>
                         <th scope="col">Título</th>
                         <th scope="col">Texto</th>
-                        <th scope="col" class="text-start">Status</th>
+                        <th scope="col" class="text-center">Visitas</th>
                         <th scope="col" class="text-center">Ações</th>
                     </tr>
                 </thead>
@@ -41,21 +41,19 @@
                             <th scope="row">{{ $post->id }}</th>
                             <td>{{ $post->titulo }}</td>
                             <td class="">{{ $post->texto }}</td>
-                            <td>
-                                <i
-                                    class="{{ $post->status == 1 ? 'fa-solid fa-check text-primary' : 'fa-solid fa-close text-danger ' }} "></i>
-                            </td>
+                            <td class="text-center">{{ $post->visitas }}</td>
+
 
                             <td>
                                 <div class="d-flex justify-content-between">
 
-                                    <div class="me-3">
+                                    <div class="me-1">
                                         <abbr title="Editar" class="ms-auto">
                                             <a href="{{ app\Core\Helpers::url('admin/posts/edit/' . $post->id) }}"><i
                                                     class=" fa-solid fa-pencil text-warning"></i></a>
                                         </abbr>
                                     </div>
-                                    <div class="me-3">
+                                    <div class="me-1">
 
                                         <abbr title="Excluir">
                                             <button type="button" class="btn btn-link p-0 delete-btn"
@@ -66,7 +64,7 @@
                                         </abbr>
                                     </div>
 
-                                    <div class="me-3">
+                                    <div class="me-1">
 
                                         <abbr title="Status">
                                             <a href="#info{{ $post->id }}" data-bs-toggle="offcanvas" tooltip="tooltip"
@@ -82,20 +80,23 @@
                         {{-- --------- OFF CANVAS STATUS POST ------- --}}
                         <div class="offcanvas offcanvas-start" tabindex="1" id="info{{ $post->id }}">
                             <div class="offcanvas-header">
-                                <h5 class="offcanvas-title" id="offcanvasExampleLabel">{{ $post->titulo }}</h5>
+                                <h5 class="offcanvas-title" id="offcanvasExampleLabel">{{ $post->titulo }} - </h5>
+                                <div><span
+                                        class="text-white {{ $post->status == 1 ? 'bg-success' : 'bg-danger' }}  fw-bold p-1 rounded-2  me-1 ms-1">{{ $post->status == 1 ? 'Ativo' : 'Inativo' }}
+                                </div>
                                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
                                     aria-label="Close"></button>
                             </div>
                             <div class="offcanvas-body">
                                 <ul class="list-group list-group-flush">
                                     <li class="list-group-item">
-                                        Cadastrado em: {{ $post->dataCadastro }}
+                                        Cadastrado em: {{ date('d/m/Y h:i:s', strtotime($post->dataCadastro)) }}
                                     </li>
                                     <li class="list-group-item">
-                                        Atualizado em: {{ $post->alteracaoData }}
+                                        Atualizado em: {{ date('d/m/Y h:i:s', strtotime($post->alteracaoData)) }}
                                     </li>
                                     <li class="list-group-item">
-                                        Última visita : Em breve...
+                                        Última visita : {{ $post->ultimaVisita }}
                                     </li>
                                     <li class="list-group-item">
                                         Cadastrado por: {{ $post->usuario()->nome }}

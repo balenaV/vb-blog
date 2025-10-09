@@ -5,6 +5,7 @@ use app\Core\Controller;
 use app\Core\Helpers;
 use app\Model\CategoriaModel;
 use app\Model\PostModel;
+use DateTime;
 
 class SiteController extends Controller
 {
@@ -31,6 +32,9 @@ class SiteController extends Controller
         if (! $post) {
             Helpers::redirecionar('404');
         }
+        $post->visitas++;
+        $post->ultimaVisita = (new DateTime())->format('Y-m-d H:i:s');
+        $post->save();
 
         echo $this->template->renderizar('post', [
             'post'       => $post,
