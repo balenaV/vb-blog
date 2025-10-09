@@ -6,7 +6,10 @@
 @extends('dashboard-base')
 
 @section('content')
-    <h5 class="mb-3">Seja bem-vindo de volta, {{ $usuarioSessao->nome }}!</h5>
+    <h5 class="mb-3">Seja bem-vindo de volta, {{ $usuarioSessao->nome }}! <small class="fs-6 fw-light"> - Seu
+            último login foi
+            às {{ date('h:i', strtotime($usuarioSessao->ultimoLogin)) }} do dia
+            {{ date('d/m/Y', strtotime($usuarioSessao->ultimoLogin)) }}</small></h5>
 @endsection
 
 
