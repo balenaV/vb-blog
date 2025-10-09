@@ -117,22 +117,28 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th scope="col">#</th>
+                                        <th scope="col"></th>
                                         <th scope="col">Título</th>
-                                        <th scope="col">Texto</th>
-                                        <th scope="col" class="text-start">Status</th>
+                                        <th scope="col"class="text-center">Visitas</th>
                                         <th scope="col" class="text-start">Ações</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($ultimosPosts as $post)
                                         <tr>
-                                            <th scope="row">{{ $post->id }}</th>
-                                            <td>{{ $post->titulo }}</td>
-                                            <td class="">{{ $post->texto }}</td>
-                                            <td>
-                                                <i
-                                                    class="{{ $post->status == 1 ? 'fa-solid fa-check text-primary' : 'fa-solid fa-close text-danger ' }}"></i>
+                                            <th scope="row">
+                                            </th>
+                                            <td><i
+                                                    class="{{ $post->status == 1 ? 'fa-solid fa-circle-check text-success' : 'fa-solid fa-circle-xmark text-danger ' }} me-2"></i><span
+                                                    class="fw-bolder fs-5">{{ $post->titulo }}</span> <br>
+                                                <div class="small mt-2">Escrito por <span
+                                                        class="fw-bold">{{ $post->usuario()->nome }}</span>
+                                                    no dia
+                                                    {{ date('d/m/Y', strtotime($post->dataCadastro)) }} às
+                                                    {{ date('H:i', strtotime($post->dataCadastro)) }}</div>
+                                            </td>
+                                            <td class="text-center">
+                                                0
                                             </td>
 
                                             <td>
