@@ -1,17 +1,35 @@
 <?php
+
 namespace app\Controller;
 
 use app\Core\Controller;
 use app\Core\Helpers;
 use app\Model\CategoriaModel;
 use app\Model\PostModel;
+use app\Controller\UsuarioController;
+use app\Core\Session;
+
 use DateTime;
 
 class SiteController extends Controller
 {
+
+    protected $usuarioSessao;
+
     public function __construct()
     {
         parent::__construct(__DIR__ . '/../../layouts/site/views');
+
+        $this->usuarioSessao = UsuarioController::usuario();
+
+        if (!$this->usuarioSessao) {
+            $this->mensagem->erro('Faça login para acessar o painel de controle!')->flash();
+
+            $sessao = new Session();
+            $sessao->clear('usuarioId');
+
+            Helpers::redirecionar('admin/login');
+        }
     }
 
     public function index(): void
@@ -22,6 +40,7 @@ class SiteController extends Controller
         echo $this->template->renderizar('index', [
             'posts'      => $posts->result(true),
             'categorias' => $categorias->result(true),
+            'usuarioSessao' => $this->usuarioSessao
         ]);
     }
 

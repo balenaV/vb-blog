@@ -60,8 +60,57 @@
             <div class="d-flex justify-content-center mt-3"id="buscaResultado">
             </div>
 
-            <div class="text-end"> <button type="button" class="btn btn-outline-light me-2">Entrar</button> <button
-                    type="button" class="btn btn-danger">Registrar</button> </div>
+
+            @if ($usuarioSessao)
+                <div class="btn-group ">
+                    <button type="button" class="btn bg-dark text-white dropdown-toggle" data-bs-toggle="dropdown"
+                        data-bs-display="static" aria-expanded="false">
+                        <i class="fa-solid fa-user me-2"></i>
+                        {{ $usuarioSessao->nome }}
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-lg-end">
+                        <li>
+                            <a class="dropdown-item" href="{{ app\Core\Helpers::url('') }}" tooltip="tooltip"
+                                title="Perfil">
+                                Página inicial
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="{{ app\Core\Helpers::url('') }}" tooltip="tooltip"
+                                title="Perfil">
+                                Configurações
+                            </a>
+                        </li>
+                        @if ($usuarioSessao->level == 3)
+                            <li>
+                                <a class="dropdown-item" href="{{ app\Core\Helpers::url('/admin/dashboard') }}"
+                                    tooltip="tooltip" title="Perfil">
+                                    Painel de Controle
+                                </a>
+                            </li>
+                        @else
+                            <li>
+                                <a class="dropdown-item" href="" tooltip="tooltip" title="Perfil">
+                                    Perfil
+                                </a>
+                            </li>
+                        @endif
+
+                        <li>
+                            <a class="dropdown-item text-danger" href="{{ app\Core\Helpers::url('/admin/sair') }}"
+                                tooltip="tooltip" title="Sair do Sistema">
+                                Sair
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            @else
+                <div class="text-end"> <a href="{{ app\Core\Helpers::url('/admin/login') }}" type="button"
+                        class="btn btn-outline-light me-2">Entrar</a>
+                    <button type="button" class="btn btn-danger">Registrar</button>
+                </div>
+            @endif
+
         </div>
     </div>
 </header>
