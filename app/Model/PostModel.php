@@ -1,4 +1,5 @@
 <?php
+
 namespace app\Model;
 
 use app\Core\Model;
@@ -24,5 +25,12 @@ class PostModel extends Model
             return (new UsuarioModel())->getById($this->usuarioId);
         }
         return null;
+    }
+
+    public function save(): bool
+    {
+        $this->slug();
+
+        return parent::save();
     }
 }

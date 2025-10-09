@@ -78,7 +78,7 @@ class Model
     public function count(): int
     {
         $stmt = Conexao::getInstancia()->prepare($this->query);
-        $stmt->execute();
+        $stmt->execute($this->parametros);
         return $stmt->rowCount();
     }
     public function result(bool $todos = false)
@@ -202,5 +202,19 @@ class Model
         }
 
         return true;
+    }
+
+    private function lastId(): int
+    {
+        return Conexao::getInstancia()->query("SELECT MAX(id) as max FROM {$this->tabela}")->fetch()->maximo + 1;
+    }
+
+    public function slug()
+    {
+        $checarSlug = $this->getAll("slug = :s AND id != :id", "s={$this->slug}&id={$this->id}");
+
+        if ($checarSlug->count()) {
+            $this->slug = "{$this->slug}-{$this->lastId()}";
+        }
     }
 }
