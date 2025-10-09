@@ -44,9 +44,9 @@ class SiteController extends Controller
         ]);
     }
 
-    public function post(int $id): void
+    public function post(string $slug): void
     {
-        $post = (new PostModel())->getById($id);
+        $post = (new PostModel())->getBySlug($slug);
 
         if (! $post) {
             Helpers::redirecionar('404');
@@ -58,7 +58,7 @@ class SiteController extends Controller
         echo $this->template->renderizar('post', [
             'post'       => $post,
             'categorias' => (new CategoriaModel())->getAll()->result(true),
-
+            'usuarioSessao' => $this->usuarioSessao
         ]);
     }
 
@@ -74,6 +74,7 @@ class SiteController extends Controller
             'posts'      => (new PostModel())->getAll(" categoriaId = $id")->result(true),
             'categoria'  => $categoria,
             'categorias' => (new CategoriaModel())->getAll()->result(true),
+            'usuarioSessao' => $this->usuarioSessao
         ]);
     }
     public function sobre(): void
@@ -108,6 +109,7 @@ class SiteController extends Controller
     public function busca(): void
     {
         $busca = filter_input_array(INPUT_POST, FILTER_DEFAULT);
+
         if (isset($busca)) {
             $posts = (new PostModel())->getAll(" status = 1 AND titulo LIKE '%" . $busca['busca'] . "%'")->result(true);
 
@@ -115,6 +117,7 @@ class SiteController extends Controller
                 'posts'      => $posts,
                 'categorias' => (new CategoriaModel())->getAll()->result(true),
                 'pesquisa'   => $busca['busca'],
+                'usuarioSessao' => $this->usuarioSessao
             ]);
         }
     }
@@ -123,6 +126,7 @@ class SiteController extends Controller
     {
         echo $this->template->renderizar('404', [
             'titulo' => 'Página não encontrada',
+            'usuarioSessao' => $this->usuarioSessao
         ]);
     }
 }

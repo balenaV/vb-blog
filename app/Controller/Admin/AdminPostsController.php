@@ -51,7 +51,9 @@ class AdminPostsController extends AdminController
                 $post->titulo = $dados['titulo'];
                 $post->texto = $dados['texto'];
                 $post->status = $dados['status'];
+                $post->slug = Helpers::criarSlug($dados['titulo']);
                 $post->categoriaId = $dados['categoriaId'];
+                $post->usuarioId = $this->usuarioSessao->id;
 
                 if ($post->save())
                     $this->mensagem->sucesso('Post criado com sucesso!')->flash();
@@ -82,13 +84,14 @@ class AdminPostsController extends AdminController
 
         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 
-        if (isset($dados) && validarDados($dados)) {
+        if (isset($dados) && $this->validarDados($dados)) {
             $post = (new PostModel())->getById($id);
 
             $post->titulo = $dados['titulo'];
             $post->texto = $dados['texto'];
             $post->status = $dados['status'];
             $post->categoriaId = $dados['categoriaId'];
+            $post->slug = Helpers::criarSlug($dados['titulo']);
 
             if ($post->save())
                 $this->mensagem->sucesso('Post editado com sucesso!')->flash();

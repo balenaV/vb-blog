@@ -27,7 +27,7 @@
                                     </p>
                                     <div class="d-flex justify-content-end">
                                         <a class="badge link-danger link-hover-warning text-decoration-none"
-                                            href="{{ app\Core\Helpers::url('post/' . $post->id) }}">
+                                            href="{{ app\Core\Helpers::url('post/' . $post->slug) }}">
                                             Ver post ->
                                         </a>
                                     </div>

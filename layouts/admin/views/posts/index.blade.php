@@ -89,17 +89,20 @@
                             </div>
                             <div class="offcanvas-body">
                                 <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">
-                                        Cadastrado em: {{ date('d/m/Y h:i:s', strtotime($post->dataCadastro)) }}
+                                    <li class=" list-group-item">
+                                        <span class="fw-bold">Cadastrado em:</span>
+                                        {{ date('d/m/Y h:i:s', strtotime($post->dataCadastro)) }}
                                     </li>
-                                    <li class="list-group-item">
-                                        Atualizado em: {{ date('d/m/Y h:i:s', strtotime($post->alteracaoData)) }}
+                                    <li class=" list-group-item">
+                                        <span class="fw-bold">Atualizado em:</span>
+                                        {{ date('d/m/Y h:i:s', strtotime($post->alteracaoData)) }}
                                     </li>
-                                    <li class="list-group-item">
-                                        Última visita : {{ $post->ultimaVisita }}
+                                    <li class=" list-group-item">
+                                        <span class="fw-bold">Última visita :</span>
+                                        {{ $post->ultimaVisita > 0 ? $post->ultimaVisita : 'Este post não possui visitas.' }}
                                     </li>
-                                    <li class="list-group-item">
-                                        Cadastrado por: {{ $post->usuario()->nome }}
+                                    <li class=" list-group-item">
+                                        <span class="fw-bold">Cadastrado por: </span>{{ $post->usuario()->nome }}
                                     </li>
                                 </ul>
                             </div>

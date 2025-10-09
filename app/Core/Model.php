@@ -1,4 +1,5 @@
 <?php
+
 namespace app\Core;
 
 use stdClass;
@@ -172,6 +173,13 @@ class Model
         $get = $this->getAll(" id = {$id}");
         return $get->result();
     }
+
+    public function getBySlug(string $slug)
+    {
+        $get = $this->getAll(" slug = :s", "s={$slug}");
+        return $get->result();
+    }
+
     public function save()
     {
         // CADASTRAR
