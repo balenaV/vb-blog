@@ -17,4 +17,12 @@ class PostModel extends Model
         }
         return null;
     }
+
+    public function usuario(): ?UsuarioModel
+    {
+        if ($this->usuarioId) {
+            return (new UsuarioModel())->getById($this->usuarioId);
+        }
+        return null;
+    }
 }
