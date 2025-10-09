@@ -108,7 +108,8 @@
             <div class="col-lg-7 mb-4 ">
                 <div class="card shadow-sm border-0">
                     <div class="card-header bg-white d-flex justify-content-between align-items-center">
-                        Últimos Posts
+                        <div>Últimos <a href="{{ Helpers::url('admin\posts\index') }}"
+                                class="text-decoration-underline">Posts</a></div>
                         <a href="{{ Helpers::url('admin/posts/create') }}" class="btn btn-sm btn-outline-danger"><i
                                 class="fa-solid fa-plus"></i></a>
                     </div>
@@ -166,6 +167,7 @@
                                         </tr>
                                     @endforeach
                                 </tbody>
+
                             </table>
 
                         </div>
@@ -236,6 +238,7 @@
                         </div>
                     </div>
                 </div>
+
             </div>
             <div class="col-md-6 col-lg-6 col-xl-4">
                 <div class="card h-100 shadow-sm border-0">
