@@ -21,6 +21,7 @@
   "require": {
     "php": ">=8.0",
     "pecee/simple-router": "dev-master",
-    "jenssegers/blade": "^1.4"
+    "jenssegers/blade": "^1.4",
+    "digitalnature/php-ref": "dev-master"
   }
 }
