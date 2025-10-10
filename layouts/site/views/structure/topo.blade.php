@@ -107,7 +107,8 @@
             @else
                 <div class="text-end"> <a href="{{ app\Core\Helpers::url('/admin/login') }}" type="button"
                         class="btn btn-outline-light me-2">Entrar</a>
-                    <button type="button" class="btn btn-danger">Registrar</button>
+                    <a href="{{ app\Core\Helpers::url('/admin/login?modo=registrar') }}" type="button"
+                        class="btn btn-danger">Registrar</a>
                 </div>
             @endif
 

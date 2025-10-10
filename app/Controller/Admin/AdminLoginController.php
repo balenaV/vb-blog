@@ -1,4 +1,5 @@
 <?php
+
 namespace app\Controller\Admin;
 
 use app\Core\Controller;
@@ -35,7 +36,7 @@ class AdminLoginController extends Controller
             $usuario->save();
 
             (new Session())->create('usuarioId', $usuario->id);
-            $this->mensagem->sucesso("" . trim($usuario->nome) . ", seja bem vindo!")->flash();
+            $this->mensagem->sucesso("Seja bem vindo, " . trim($usuario->nome) . "!")->flash();
             if ($usuario->level < 3) {
                 Helpers::redirecionar('/../../../blog');
             }
@@ -53,19 +54,21 @@ class AdminLoginController extends Controller
     public function register(): void
     {
         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
-        if (isset($dados) && (new AdminUsuariosController())->validarDados($dados)) {
+        if (isset($dados) && $this->validarDados($dados)) {
             $usuario = new UsuarioModel();
 
-            $usuario->nome   = $dados['nome'] . ' ' . $dados['sobrenome'];
+            $usuario->nome   = $dados['nome'] . ' ' .  $dados['sobrenome'];
             $usuario->email  = $dados['email'];
             $usuario->senha  = Helpers::gerarSenha($dados['senha']);
-            $usuario->level  = $dados['level'] ?? 1;
-            $usuario->status = $dados['status'] ?? 1;
+            $usuario->level  = $dados['level'];
+            $usuario->status = empty($dados['status']) ? 1 : $dados['status'];
 
-            if ($usuario->save()) {
-                $this->mensagem->sucesso('Usuário cadastrado com sucesso')->flash();
-                Helpers::redirecionar('/admin/login');
-            }
+
+            if ($usuario->save())
+                $this->mensagem->sucesso('Usuário criado com sucesso! Faça login para poder acessar sua conta.')->flash();
+            else
+                $this->mensagem->erro('Erro ao cadastrar usuário')->flash();
+            Helpers::redirecionar('/admin/login');
         }
     }
 
@@ -94,6 +97,23 @@ class AdminLoginController extends Controller
         if ($usuario->status != 1) {
             $this->mensagem->alerta("Sua conta está desativada")->flash();
             return false;
+        }
+
+        return true;
+    }
+
+    public function validarDados(mixed $dados): bool
+    {
+        if (! Helpers::validarEmail($dados['email'])) {
+            $this->mensagem->alerta("Insira um e-mail válido!")->flash();
+            return false;
+        }
+
+        if (!empty($dados['senha'])) {
+            if (!Helpers::validarSenha($dados['senha'])) {
+                $this->mensagem->alerta("A senha deve ter entre 6 e 50 caracteres!")->flash();
+                return false;
+            }
         }
 
         return true;
