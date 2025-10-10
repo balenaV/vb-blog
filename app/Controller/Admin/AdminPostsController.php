@@ -6,6 +6,7 @@ use app\Core\Helpers;
 use app\Model\CategoriaModel;
 use app\Model\PostModel;
 use app\Controller\UsuarioController;
+use DateTime;
 
 class AdminPostsController extends AdminController
 {
@@ -54,6 +55,7 @@ class AdminPostsController extends AdminController
                 $post->slug = Helpers::criarSlug($dados['titulo']);
                 $post->categoriaId = $dados['categoriaId'];
                 $post->usuarioId = $this->usuarioSessao->id;
+                $post->alteracaoData = (new DateTime())->format('Y-m-d H:i:s');
 
                 if ($post->save())
                     $this->mensagem->sucesso('Post criado com sucesso!')->flash();

@@ -221,4 +221,11 @@ class Model
     {
         return $this->getAll("slug = :s AND id != :id", "s={$this->slug}&id={$this->id}")->count() != 0;
     }
+
+    public function saveVisitas()
+    {
+        $this->visitas++;
+        $this->ultimaVisita = (new DateTime())->format('Y-m-d H:i:s');
+        $this->save();
+    }
 }

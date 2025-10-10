@@ -101,7 +101,7 @@
                                     </li>
                                     <li class=" list-group-item">
                                         <span class="fw-bold">Última visita :</span>
-                                        {{ $post->ultimaVisita > 0 ? $post->ultimaVisita : 'Este post não possui visitas.' }}
+                                        {{ $post->visitas > 0 ? $post->ultimaVisita : 'Este post não possui visitas.' }}
                                     </li>
                                     <li class=" list-group-item">
                                         <span class="fw-bold">Cadastrado por: </span>{{ $post->usuario()->nome }}

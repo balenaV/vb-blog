@@ -31,10 +31,10 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th scope="col">#</th>
+                        <th scope="col">Id</th>
                         <th scope="col">Título</th>
                         <th scope="col">Texto</th>
-                        <th scope="col" class="text-center">Status</th>
+                        <th scope="col" class="text-center">Visitas</th>
                         <th scope="col" class="text-start">Ações</th>
                     </tr>
                 </thead>
@@ -45,8 +45,7 @@
                             <td>{{ $categoria->titulo }}</td>
                             <td class="">{{ $categoria->texto }}</td>
                             <td class="text-center">
-                                <i
-                                    class="{{ $categoria->status == 1 ? 'fa-solid fa-check text-primary' : 'fa-solid fa-close text-danger ' }}  "></i>
+                                {{ $categoria->visitas }}
                             </td>
 
                             <td>
@@ -67,10 +66,47 @@
                                             </button>
                                         </abbr>
                                     </div>
+                                    <div class="me-1">
+
+                                        <abbr title="Status">
+                                            <a href="#info{{ $categoria->id }}" data-bs-toggle="offcanvas"
+                                                tooltip="tooltip" title="Status">
+                                                <i class="fa-solid fa-chart-simple text-primary"></i>
+                                            </a>
+                                        </abbr>
+                                    </div>
                                 </div>
                             </td>
 
                         </tr>
+
+                        {{-- --------- OFF CANVAS STATUS POST ------- --}}
+                        <div class="offcanvas offcanvas-start" tabindex="1" id="info{{ $categoria->id }}">
+                            <div class="offcanvas-header">
+                                <h5 class="offcanvas-title" id="offcanvasExampleLabel">{{ $categoria->titulo }} - </h5>
+                                <div><span
+                                        class="text-white {{ $categoria->status == 1 ? 'bg-success' : 'bg-danger' }}  fw-bold p-1 rounded-2  me-1 ms-1">{{ $categoria->status == 1 ? 'Ativo' : 'Inativo' }}
+                                </div>
+                                <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="offcanvas-body">
+                                <ul class="list-group list-group-flush">
+                                    <li class=" list-group-item">
+                                        <span class="fw-bold">Cadastrado em:</span>
+                                        {{ date('d/m/Y h:i:s', strtotime($categoria->dataCadastro)) }}
+                                    </li>
+                                    <li class=" list-group-item">
+                                        <span class="fw-bold">Atualizado em:</span>
+                                        {{ date('d/m/Y h:i:s', strtotime($categoria->alteracaoData)) }}
+                                    </li>
+                                    <li class=" list-group-item">
+                                        <span class="fw-bold">Última visita :</span>
+                                        {{ $categoria->visitas > 0 ? $categoria->ultimaVisita : 'Esta categoria não possui visitas.' }}
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     @endforeach
                 </tbody>
             </table>

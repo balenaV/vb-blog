@@ -1,9 +1,11 @@
 <?php
+
 namespace app\Controller\Admin;
 
 use app\Core\Helpers;
 use app\Core\Mensagem;
 use app\Model\CategoriaModel;
+use DateTime;
 
 class AdminCategoriasController extends AdminController
 {
@@ -43,6 +45,8 @@ class AdminCategoriasController extends AdminController
             $categoria->titulo = $dados['titulo'];
             $categoria->texto  = $dados['texto'];
             $categoria->status = $dados['status'];
+            $categoria->slug = Helpers::criarSlug($dados['titulo']);
+
             if ($categoria->save()) {
                 $this->mensagem->sucesso('Categoria criada com sucesso!')->flash();
             } else {
@@ -78,6 +82,10 @@ class AdminCategoriasController extends AdminController
             $categoria->titulo = $dados['titulo'];
             $categoria->texto  = $dados['texto'];
             $categoria->status = $dados['status'];
+            $categoria->slug = Helpers::criarSlug($dados['titulo']);
+            $categoria->alteracaoData = (new DateTime())->format('Y-m-d H:i:s');
+
+
             if ($categoria->save()) {
                 $this->mensagem->sucesso('Categoria editada com sucesso!')->flash();
             } else {

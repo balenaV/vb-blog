@@ -62,9 +62,8 @@ class SiteController extends Controller
             if (! $post) {
                 Helpers::redirecionar('404');
             }
-            $post->visitas++;
-            $post->ultimaVisita = (new DateTime())->format('Y-m-d H:i:s');
-            $post->save();
+
+            $post->saveVisitas();
 
             echo $this->template->renderizar('post', [
                 'post'       => $post,
@@ -82,6 +81,9 @@ class SiteController extends Controller
             if (! $categoria) {
                 Helpers::redirecionar('404');
             }
+
+            $categoria->saveVisitas();
+
 
             echo $this->template->renderizar('categoria', [
                 'posts'      => (new PostModel())->getAll(" categoriaId = $id")->result(true),
