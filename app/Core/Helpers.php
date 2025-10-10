@@ -27,6 +27,12 @@ class Helpers
         return password_hash($senha, PASSWORD_ARGON2ID);
     }
 
+    /**
+     * Cria um slug com base no texto recebido
+     *
+     * @param  string $string texto à ser convertido em slug
+     * @return string
+     */
     public static function criarSlug(string $string): string
     {
         $string = strtolower($string);

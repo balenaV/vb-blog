@@ -204,17 +204,21 @@ class Model
         return true;
     }
 
-    private function lastId(): int
-    {
-        return Conexao::getInstancia()->query("SELECT MAX(id) as max FROM {$this->tabela}")->fetch()->maximo + 1;
-    }
+
 
     public function slug()
     {
-        $checarSlug = $this->getAll("slug = :s AND id != :id", "s={$this->slug}&id={$this->id}");
+        $baseSlug = $this->slug;
 
-        if ($checarSlug->count()) {
-            $this->slug = "{$this->slug}-{$this->lastId()}";
+        $suffix = 1;
+        while ($this->checkSlug($this->slug)) {
+            $this->slug = "{$baseSlug}-{$suffix}";
+            $suffix++;
         }
+    }
+
+    private function checkSlug($slug): bool
+    {
+        return $this->getAll("slug = :s AND id != :id", "s={$this->slug}&id={$this->id}")->count() != 0;
     }
 }

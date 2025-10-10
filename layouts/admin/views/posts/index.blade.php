@@ -28,9 +28,10 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th scope="col">#</th>
+                        <th scope="col">Id</th>
+                        <th scope="col">Capa</th>
                         <th scope="col">Título</th>
-                        <th scope="col">Texto</th>
+                        <th scope="col">Categoria</th>
                         <th scope="col" class="text-center">Visitas</th>
                         <th scope="col" class="text-center">Ações</th>
                     </tr>
@@ -39,8 +40,9 @@
                     @foreach ($posts as $post)
                         <tr>
                             <th scope="row">{{ $post->id }}</th>
+                            <td><i class="fa-solid fa-image"></i> {{ $post->capa }}</td>
                             <td>{{ $post->titulo }}</td>
-                            <td class="">{{ $post->texto }}</td>
+                            <td class="">{{ $post->categoria()->titulo }}</td>
                             <td class="text-center">{{ $post->visitas }}</td>
 
 
