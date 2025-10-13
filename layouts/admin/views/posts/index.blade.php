@@ -80,7 +80,7 @@
                         </tr>
 
                         {{-- --------- OFF CANVAS STATUS POST ------- --}}
-                        <div class="offcanvas offcanvas-start" tabindex="1" id="info{{ $post->id }}">
+                        <div class="offcanvas offcanvas-end" tabindex="1" id="info{{ $post->id }}">
                             <div class="offcanvas-header">
                                 <h5 class="offcanvas-title" id="offcanvasExampleLabel">{{ $post->titulo }} - </h5>
                                 <div><span
