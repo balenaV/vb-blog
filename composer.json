@@ -22,6 +22,9 @@
     "php": ">=8.0",
     "pecee/simple-router": "dev-master",
     "jenssegers/blade": "^1.4",
-    "digitalnature/php-ref": "dev-master"
+    "digitalnature/php-ref": "dev-master",
+    "league/flysystem": "3.x-dev",
+    "league/flysystem-local": "3.x-dev",
+    "intervention/image": "^3.0@alpha"
   }
 }
