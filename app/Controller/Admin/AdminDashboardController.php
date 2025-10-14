@@ -12,12 +12,15 @@ use app\Model\UsuarioModel;
 class AdminDashboardController extends AdminController
 {
 
+    /**
+     * Carrega todas as informações do dashboard
+     * @return void
+     */
     public function dashboard(): void
     {
         $posts = new PostModel();
         $categorias = new CategoriaModel();
         $usuarios = new UsuarioModel();
-        $usuario = UsuarioController::usuario();
 
         echo $this->template->renderizar(
             'dashboard',
@@ -47,11 +50,15 @@ class AdminDashboardController extends AdminController
                 'ultimasCategorias' => $categorias->getAll()->ordem("id DESC")->limite("5")->result(true),
                 'ultimosPosts' => $posts->getAll()->ordem("id DESC")->limite("5")->result(true),
                 'ultimosLogins' => $usuarios->getAll()->ordem("ultimoLogin DESC")->limite("5")->result(true),
-                'usuario' => $usuario
+                'usuarioSessao' => $this->usuarioSessao
             ]
         );
     }
 
+    /**
+     * Finaliza sessão do usuário
+     * @return void
+     */
     public function sair(): void
     {
         $sessao = new Session();

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace app\Core;
 
 use stdClass;
@@ -79,7 +78,7 @@ class Model
     public function count(): int
     {
         $stmt = Conexao::getInstancia()->prepare($this->query);
-        $stmt->execute();
+        $stmt->execute($this->parametros);
         return $stmt->rowCount();
     }
     public function result(bool $todos = false)
@@ -88,11 +87,11 @@ class Model
             $stmt = Conexao::getInstancia()->prepare($this->query . $this->ordem . $this->limite);
             $stmt->execute($this->parametros);
 
-            if (!$stmt->rowCount())
+            if (! $stmt->rowCount()) {
                 return null;
+            }
 
-
-            return ($todos) ? $stmt->fetchAll() : $stmt->fetchObject(static::class);
+            return ($todos) ? $stmt->fetchAll(\PDO::FETCH_CLASS, static::class) : $stmt->fetchObject(static::class);
         } catch (\PDOException $ex) {
             echo $this->erro = $ex;
         }
@@ -105,7 +104,7 @@ class Model
             $valores = ':' . implode(',:', array_keys($dados));
 
             $query = "INSERT INTO {$this->tabela} ({$colunas}) VALUES ({$valores})";
-            $stmt = Conexao::getInstancia()->prepare($query);
+            $stmt  = Conexao::getInstancia()->prepare($query);
             $stmt->execute($this->filtro($dados));
 
             return Conexao::getInstancia()->lastInsertId();
@@ -115,7 +114,6 @@ class Model
         }
     }
 
-
     protected function update(array $dados, string $termos)
     {
         try {
@@ -124,7 +122,7 @@ class Model
             foreach ($dados as $chave => $valor) {
                 $set[] = "{$chave} = :{$chave}";
             }
-            $set = implode(', ', $set);
+            $set   = implode(', ', $set);
             $query = "UPDATE {$this->tabela} SET {$set} WHERE {$termos}";
 
             $stmt = Conexao::getInstancia()->prepare($query);
@@ -136,7 +134,6 @@ class Model
             return null;
         }
     }
-
 
     public function delete(string $termos)
     {
@@ -171,12 +168,18 @@ class Model
         return $dados;
     }
 
-
     public function getById(int $id)
     {
-        $get = $this->getAll("id = {$id}");
+        $get = $this->getAll(" id = {$id}");
         return $get->result();
     }
+
+    public function getBySlug(string $slug)
+    {
+        $get = $this->getAll(" slug = :s", "s={$slug}");
+        return $get->result();
+    }
+
     public function save()
     {
         // CADASTRAR
@@ -189,7 +192,7 @@ class Model
         }
 
         // ATUALIZAR
-        if (!empty($this->id)) {
+        if (! empty($this->id)) {
             $id = $this->id;
             $this->update($this->store(), " id = $id");
             if ($this->erro) {
@@ -198,7 +201,31 @@ class Model
             }
         }
 
-
         return true;
+    }
+
+
+
+    public function slug()
+    {
+        $baseSlug = $this->slug;
+
+        $suffix = 1;
+        while ($this->checkSlug($this->slug)) {
+            $this->slug = "{$baseSlug}-{$suffix}";
+            $suffix++;
+        }
+    }
+
+    private function checkSlug($slug): bool
+    {
+        return $this->getAll("slug = :s AND id != :id", "s={$this->slug}&id={$this->id}")->count() != 0;
+    }
+
+    public function saveVisitas()
+    {
+        $this->visitas++;
+        $this->ultimaVisita = (new DateTime())->format('Y-m-d H:i:s');
+        $this->save();
     }
 }

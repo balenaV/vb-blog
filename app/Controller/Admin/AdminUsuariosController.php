@@ -5,11 +5,10 @@ namespace app\Controller\Admin;
 use app\Controller\Admin\AdminController;
 use app\Core\Helpers;
 use app\Model\UsuarioModel;
+use app\Controller\UsuarioController;
 
 class AdminUsuariosController extends AdminController
 {
-
-
 
     public function create(): void
     {
@@ -24,13 +23,16 @@ class AdminUsuariosController extends AdminController
             $usuario->status = $dados['status'];
 
 
-            if ($usuario->save()) {
-                $this->mensagem->sucesso('Usuário cadastrado com sucesso')->flash();
-                Helpers::redirecionar('/admin/usuarios/index');
-            }
+            if ($usuario->save())
+                $this->mensagem->sucesso('Usuário criado com sucesso!')->flash();
+            else
+                $this->mensagem->erro('Erro ao cadastrar usuário')->flash();
+            Helpers::redirecionar('/admin/usuarios/index');
         }
 
-        echo $this->template->renderizar('usuarios/formulario', []);
+        echo $this->template->renderizar('usuarios/formulario', [
+            'usuarioSessao' => $this->usuarioSessao
+        ]);
     }
 
     public function edit(int $id): void
@@ -51,10 +53,11 @@ class AdminUsuariosController extends AdminController
                 $usuario->level  = $dados['level'];
                 $usuario->status = $dados['status'];
 
-                if ($usuario->save()) {
-                    $this->mensagem->sucesso('Usuário editado com sucesso')->flash();
-                    Helpers::redirecionar('/admin/usuarios/index');
-                }
+                if ($usuario->save())
+                    $this->mensagem->sucesso('Usuário editado com sucesso!')->flash();
+                else
+                    $this->mensagem->erro('Erro ao editar usuário')->flash();
+                Helpers::redirecionar('/admin/usuarios/index');
             }
         }
 
@@ -62,6 +65,8 @@ class AdminUsuariosController extends AdminController
             'usuario'   => $usuario,
             'nome'      => $nome,
             'sobrenome' => $sobrenome,
+            'usuarioSessao' => $this->usuarioSessao
+
         ]);
     }
 
@@ -93,7 +98,7 @@ class AdminUsuariosController extends AdminController
                 'usuarios' => $usuarios->getAll()->ordem("id ASC")->result(true),
                 'total'    => [
                     'todos'         => $usuarios->count(),
-                    'usuario'       => [
+                    'usuarioComum'       => [
                         'ativo'   => $usuarios->getAll('status = 1 and level = 1')->count(),
                         'inativo' => $usuarios->getAll('status = 0 and level = 1')->count(),
                     ],
@@ -105,7 +110,9 @@ class AdminUsuariosController extends AdminController
                         'ativo'   => $usuarios->getAll('status = 1 and level = 3')->count(),
                         'inativo' => $usuarios->getAll('status = 0 and level = 3')->count(),
                     ],
+
                 ],
+                'usuarioSessao' => $this->usuarioSessao
             ]
         );
     }

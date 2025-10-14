@@ -9,12 +9,24 @@
         <button type="button" class="btn bg-white dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static"
             aria-expanded="false">
             <i class="fa-solid fa-user me-2"></i>
-            {{ $usuario->nome }}
+            {{ $usuarioSessao->nome }}
         </button>
         <ul class="dropdown-menu dropdown-menu-lg-end">
             <li>
-                <a class="dropdown-item" href="{{ app\Core\Helpers::url('/admin/dashboard') }}" tooltip="tooltip"
-                    title="Perfil">
+                <a class="dropdown-item" href="{{ app\Core\Helpers::url('') }}" tooltip="tooltip" title="Perfil">
+                    Página inicial
+                </a>
+            </li>
+            @if ($usuarioSessao->level == 3)
+                <li>
+                    <a class="dropdown-item" href="{{ app\Core\Helpers::url('/admin/dashboard') }}" tooltip="tooltip"
+                        title="Perfil">
+                        Painel de Controle
+                    </a>
+                </li>
+            @endif
+            <li>
+                <a class="dropdown-item" href="" tooltip="tooltip" title="Perfil">
                     Perfil
                 </a>
             </li>

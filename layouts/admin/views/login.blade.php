@@ -161,6 +161,21 @@
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
     </script>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const modo = urlParams.get('modo');
+
+            if (modo === 'registrar') {
+                const loginContainer = document.getElementById('loginAccessRegister');
+
+                if (loginContainer) {
+                    loginContainer.classList.add('active');
+                }
+            }
+        });
+    </script>
+
 </body>
 
 </html>

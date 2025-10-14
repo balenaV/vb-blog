@@ -16,14 +16,18 @@ class AdminLoginController extends Controller
         parent::__construct(__DIR__ . '/../../../layouts/admin/views');
     }
 
-    public function login()
+    /**
+     * Inicia uma nova sessão de um usuário
+     * @return void
+     */
+    public function login(): void
     {
         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 
         if (isset($dados['email']) && isset($dados['senha'])) {
             $usuario = (new UsuarioModel())->getByEmail($dados['email']);
 
-            if (!$this->validarUsuario($usuario, $dados)) {
+            if (! $this->validarUsuario($usuario, $dados)) {
                 Helpers::redirecionar('/admin/login');
                 return;
             }
@@ -32,9 +36,10 @@ class AdminLoginController extends Controller
             $usuario->save();
 
             (new Session())->create('usuarioId', $usuario->id);
-            $this->mensagem->sucesso("{$usuario->nome}, seja bem vindo!")->flash();
-            if ($usuario->level < 3)
+            $this->mensagem->sucesso("Seja bem vindo, " . trim($usuario->nome) . "!")->flash();
+            if ($usuario->level < 3) {
                 Helpers::redirecionar('/../../../blog');
+            }
 
             Helpers::redirecionar('/admin/dashboard');
             return;
@@ -42,35 +47,44 @@ class AdminLoginController extends Controller
         echo $this->template->renderizar('login', []);
     }
 
+    /**
+     * Registra novo usuário
+     * @return void
+     */
     public function register(): void
     {
         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
-        if (isset($dados) && (new AdminUsuariosController())->validarDados($dados)) {
+        if (isset($dados) && $this->validarDados($dados)) {
             $usuario = new UsuarioModel();
-
 
             $usuario->nome   = $dados['nome'] . ' ' .  $dados['sobrenome'];
             $usuario->email  = $dados['email'];
             $usuario->senha  = Helpers::gerarSenha($dados['senha']);
-            $usuario->level  = $dados['level'] ?? 1;
-            $usuario->status = $dados['status'] ?? 1;
+            $usuario->level  = $dados['level'];
+            $usuario->status = empty($dados['status']) ? 1 : $dados['status'];
 
 
-            if ($usuario->save()) {
-                $this->mensagem->sucesso('Usuário cadastrado com sucesso')->flash();
-                Helpers::redirecionar('/admin/login');
-            }
+            if ($usuario->save())
+                $this->mensagem->sucesso('Usuário criado com sucesso! Faça login para poder acessar sua conta.')->flash();
+            else
+                $this->mensagem->erro('Erro ao cadastrar usuário')->flash();
+            Helpers::redirecionar('/admin/login');
         }
     }
 
-
+    /**
+     * Valida dados do usuário
+     * @param ?UsuarioModel $usuario usuário a ser validado
+     * @param mixed $dados dados a serem validados
+     * @return bool
+     */
     public function validarUsuario(?UsuarioModel $usuario = null, mixed $dados): bool
     {
-        if (!$usuario) {
+        if (! $usuario) {
             $this->mensagem->alerta("E-mail e/ou senha incorreto(os)")->flash();
             return false;
         }
-        if (!Helpers::validarEmail($dados['email'])) {
+        if (! Helpers::validarEmail($dados['email'])) {
             $this->mensagem->alerta("Insira um e-mail válido!")->flash();
             return false;
         }
@@ -85,7 +99,22 @@ class AdminLoginController extends Controller
             return false;
         }
 
+        return true;
+    }
 
+    public function validarDados(mixed $dados): bool
+    {
+        if (! Helpers::validarEmail($dados['email'])) {
+            $this->mensagem->alerta("Insira um e-mail válido!")->flash();
+            return false;
+        }
+
+        if (!empty($dados['senha'])) {
+            if (!Helpers::validarSenha($dados['senha'])) {
+                $this->mensagem->alerta("A senha deve ter entre 6 e 50 caracteres!")->flash();
+                return false;
+            }
+        }
 
         return true;
     }

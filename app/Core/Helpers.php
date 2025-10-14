@@ -28,6 +28,29 @@ class Helpers
     }
 
     /**
+     * Cria um slug com base no texto recebido
+     *
+     * @param  string $string texto à ser convertido em slug
+     * @return string
+     */
+    public static function criarSlug(string $string): string
+    {
+        $string = strtolower($string);
+
+        $comAcentos = ['à', 'á', 'â', 'ã', 'ä', 'å', 'ç', 'è', 'é', 'ê', 'ë', 'ì', 'í', 'î', 'ï', 'ñ', 'ò', 'ó', 'ô', 'õ', 'ö', 'ù', 'ú', 'û', 'ü', 'ý', 'ÿ'];
+        $semAcentos = ['a', 'a', 'a', 'a', 'a', 'a', 'c', 'e', 'e', 'e', 'e', 'i', 'i', 'i', 'i', 'n', 'o', 'o', 'o', 'o', 'o', 'u', 'u', 'u', 'u', 'y', 'y'];
+        $string = str_replace($comAcentos, $semAcentos, $string);
+        $string = preg_replace('/[^a-z0-9-]+/', '-', $string);
+
+        $string = preg_replace('/-+/', '-', $string);
+
+        $string = trim($string, '-');
+
+        return $string;
+    }
+
+
+    /**
      * Valida um número de CPF
      * @param string $cpf
      * @return bool

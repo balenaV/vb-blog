@@ -6,7 +6,10 @@
 @extends('dashboard-base')
 
 @section('content')
-    <h5 class="mb-3">Seja bem-vindo de volta, {{ $usuario->nome }}!</h5>
+    <h5 class="mb-3">Seja bem-vindo de volta, {{ $usuarioSessao->nome }}! <small class="fs-6 fw-light"> - Seu
+            último login foi
+            às {{ date('h:i', strtotime($usuarioSessao->ultimoLogin)) }} do dia
+            {{ date('d/m/Y', strtotime($usuarioSessao->ultimoLogin)) }}</small></h5>
 @endsection
 
 
@@ -108,7 +111,8 @@
             <div class="col-lg-7 mb-4 ">
                 <div class="card shadow-sm border-0">
                     <div class="card-header bg-white d-flex justify-content-between align-items-center">
-                        Últimos Posts
+                        <div>Últimos <a href="{{ Helpers::url('admin\posts\index') }}"
+                                class="text-decoration-underline">Posts</a></div>
                         <a href="{{ Helpers::url('admin/posts/create') }}" class="btn btn-sm btn-outline-danger"><i
                                 class="fa-solid fa-plus"></i></a>
                     </div>
@@ -117,22 +121,28 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th scope="col">#</th>
+                                        <th scope="col"></th>
                                         <th scope="col">Título</th>
-                                        <th scope="col">Texto</th>
-                                        <th scope="col" class="text-start">Status</th>
+                                        <th scope="col"class="text-center">Visitas</th>
                                         <th scope="col" class="text-start">Ações</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($ultimosPosts as $post)
                                         <tr>
-                                            <th scope="row">{{ $post->id }}</th>
-                                            <td>{{ $post->titulo }}</td>
-                                            <td class="">{{ $post->texto }}</td>
-                                            <td>
-                                                <i
-                                                    class="{{ $post->status == 1 ? 'fa-solid fa-check text-primary' : 'fa-solid fa-close text-danger ' }}"></i>
+                                            <th scope="row">
+                                            </th>
+                                            <td><i
+                                                    class="{{ $post->status == 1 ? 'fa-solid fa-circle-check text-success' : 'fa-solid fa-circle-xmark text-danger ' }} me-2"></i><span
+                                                    class="fw-bolder fs-5">{{ $post->titulo }}</span> <br>
+                                                <div class="small mt-2">Escrito por <span
+                                                        class="fw-bold">{{ $post->usuario()->nome }}</span>
+                                                    no dia
+                                                    {{ date('d/m/Y', strtotime($post->dataCadastro)) }} às
+                                                    {{ date('H:i', strtotime($post->dataCadastro)) }}</div>
+                                            </td>
+                                            <td class="text-center">
+                                                0
                                             </td>
 
                                             <td>
@@ -160,6 +170,7 @@
                                         </tr>
                                     @endforeach
                                 </tbody>
+
                             </table>
 
                         </div>
@@ -230,6 +241,7 @@
                         </div>
                     </div>
                 </div>
+
             </div>
             <div class="col-md-6 col-lg-6 col-xl-4">
                 <div class="card h-100 shadow-sm border-0">
@@ -244,7 +256,6 @@
                                     <tr>
                                         <th scope="col">#</th>
                                         <th scope="col">Úsuario</th>
-                                        <th scope="col">Data</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -270,9 +281,13 @@
                                             <th scope="row">
                                                 <i class=" {{ $icon }} justify-content-center"></i>
                                             </th>
-                                            <td>{{ $login->nome }}</td>
-                                            <td> {{ date('d/m/Y', $timestamp) }} às
-                                                {{ date('H:i', $timestamp) }}</td>
+                                            <td><span class="fw-bold ">{{ $login->nome }}</span> <br><span
+                                                    class="fs-6 fw-light">
+                                                    {{ date('d/m/Y', $timestamp) }} às
+                                                    {{ date('H:i', $timestamp) }}
+                                                </span>
+
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>

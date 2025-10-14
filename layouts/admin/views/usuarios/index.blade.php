@@ -15,13 +15,13 @@
             <div class="d-flex justify-content-around gap-2">
                 <div class="bg-light p-1 rounded-1 fs-6">
                     <span class="text-dark fw-bolder ms-1 ">usuarios:
-                        {{ $total['usuario']['ativo'] + $total['usuario']['inativo'] }} -
+                        {{ $total['usuarioComum']['ativo'] + $total['usuarioComum']['inativo'] }} -
                     </span>
 
                     <span
-                        class="text-white bg-primary  fw-bold  rounded-3   ms-1 p-1 fs-6">{{ $total['usuario']['ativo'] }}</span>
+                        class="text-white bg-primary  fw-bold  rounded-3   ms-1 p-1 fs-6">{{ $total['usuarioComum']['ativo'] }}</span>
                     <span class=" text-white bg-danger  fw-bold p-1 rounded-3  me-1  ">
-                        {{ $total['usuario']['inativo'] }}
+                        {{ $total['usuarioComum']['inativo'] }}
                     </span>
                 </div>
                 <div class="bg-light p-1 rounded-1 fs-6">
